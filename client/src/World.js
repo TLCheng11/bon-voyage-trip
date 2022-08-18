@@ -56,7 +56,7 @@ function World({setCountryName}) {
     polygonsData={countries.features.filter(d => d.properties.ISO_A2 !== 'AQ')}
     polygonAltitude={altitude}
     polygonCapColor={color}
-    polygonSideColor={() => 'rgba(0, 100, 0, 0.15)'}
+    polygonSideColor={() => 'rgba(0, 100, 0, 0.35)'}
     polygonLabel={({ properties: d }) => `
       <b>${d.ADMIN} (${d.ISO_A2})</b> <br />
     `}
