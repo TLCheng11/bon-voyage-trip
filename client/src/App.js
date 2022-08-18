@@ -21,7 +21,7 @@ function App() {
           <Route path="/testing" element={
             <div>
               <div>
-                <h1>Pick a country you want to visit: {countryName}</h1>  
+                <h1 className="text-3xl font-bold underline">Pick a country you want to visit: {countryName}</h1>  
               </div>
               <World setCountryName={setCountryName}/>
             </div>
