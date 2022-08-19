@@ -24,11 +24,16 @@ function LoginForm({loginScreenProps, setSignUp}) {
       },
       body: JSON.stringify(formInput),
     })
-      .then((res) => res.json())
-      .then(data => {
-        console.log(data)
-        setCurrentUser(data)
-      });
+      .then((res) => {
+        if (res.ok) {
+          res.json().then(data => {
+            setCurrentUser(data)
+          })
+        } else {
+          res.json().then(e => alert(e.error))
+        }
+      })
+      .catch(console.error)
   }
 
   return (

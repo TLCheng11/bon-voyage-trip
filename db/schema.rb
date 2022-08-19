@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_19_162409) do
     t.string "home_country"
     t.string "home_city"
     t.string "introduction"
-    t.boolean "is_login"
+    t.boolean "is_login", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

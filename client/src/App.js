@@ -40,6 +40,7 @@ function App() {
           <Route path="/" element={
             <div>
               <div>Dashboard</div>
+              <div>hi {currentUser.username}</div>
               <button onClick={() => {
                 fetch("/logout", {
                   method: "POST"
