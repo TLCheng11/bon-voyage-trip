@@ -1,14 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function SignUpForm({setSignUp}) {
+function SignUpForm({loginScreenProps, setSignUp}) {
+  const {setCurrentUser} = loginScreenProps
   const [formInput, setFormInput] = useState({
     username: "",
     password: "",
     password_confirmation: ""
   })
-
-  console.log(formInput)
-
+  
   function onFormChange(e) {
     const newInput = {
       ...formInput,
@@ -27,7 +27,10 @@ function SignUpForm({setSignUp}) {
       body: JSON.stringify(formInput),
     })
       .then((res) => res.json())
-      .then(console.log);
+      .then(data => {
+        console.log(data)
+        setCurrentUser(data)
+      });
   }
 
   return (  

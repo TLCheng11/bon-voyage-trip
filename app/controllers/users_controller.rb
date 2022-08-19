@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :authorized, only: :create
   before_action :set_user, only: %i[ show update destroy ]
 
   # GET /users
@@ -14,6 +15,7 @@ class UsersController < ApplicationController
   # POST /users
   def create
     @user = User.create!(user_signup_params)
+    session[:user_id] = @user[:id]
     render json: @user, status: :created
   end
 
@@ -31,7 +33,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find(session[:user_id])
     end
 
     # ---------- Strong params ----------

@@ -3,7 +3,7 @@ import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
 import WorldArcs from "../Worlds/WorldArcs";
 
-function LoginPage() {
+function LoginPage({loginScreenProps}) {
   const [signUp, setSignUp] = useState(false)
 
   return ( 
@@ -11,9 +11,9 @@ function LoginPage() {
       <WorldArcs />
       {
         !signUp ? (
-          <LoginForm setSignUp={setSignUp}/>
+          <LoginForm loginScreenProps={loginScreenProps} setSignUp={setSignUp}/>
         ) : (
-          <SignUpForm setSignUp={setSignUp}/>
+          <SignUpForm loginScreenProps={loginScreenProps} setSignUp={setSignUp}/>
         )
       }
     </div>  
