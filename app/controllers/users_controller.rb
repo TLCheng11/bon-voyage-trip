@@ -3,9 +3,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
-
-    render json: @users
+    render json: User.all
   end
 
   # GET /users/1
@@ -15,22 +13,14 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
-
-    if @user.save
-      render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
+    @user = User.create!(user_signup_params)
+    render json: @user, status: :created
   end
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(user_params)
-      render json: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
+    @user.update(user_params)
+    render json: @user, status: :accepted
   end
 
   # DELETE /users/1
@@ -44,8 +34,14 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
+    # ---------- Strong params ----------
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :password, :profile_img, :first_name, :last_name, :home_country, :home_city, :introduction, :is_login)
+      params.permit(:username, :password, :profile_img, :first_name, :last_name, :home_country, :home_city, :introduction, :is_login)
+    end
+
+    # Only for user signup
+    def user_signup_params
+      params.permit(:username, :password)
     end
 end

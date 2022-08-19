@@ -13,5 +13,5 @@ Rails.application.routes.draw do
       constraints: ->(req) { !req.xhr? && req.format.html? }
 
   # ------------- testing -------------
-  get '/hello', to: 'application#hello_world'
+  # get '/hello', to: 'application#hello_world'
 end

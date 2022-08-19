@@ -7,13 +7,6 @@ import LoginPage from './component/loginScreen/LoginPage';
 
 function App() {
   const [countryName, setCountryName] = useState("")
-  const [count, setCount] = useState(0);
-  
-  useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
-  }, []);
 
   return (
     <BrowserRouter>
