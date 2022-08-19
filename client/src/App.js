@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import World from './World';
+import LoginPage from './component/loginScreen/LoginPage';
 
 function App() {
   const [countryName, setCountryName] = useState("")
@@ -26,7 +27,7 @@ function App() {
               <World setCountryName={setCountryName}/>
             </div>
           }></Route>
-          <Route path="/" element={<h1>Page Count: {count}</h1>}></Route>
+          <Route path="/" element={<LoginPage />}></Route>
         </Routes>
       </div>
     </BrowserRouter>
