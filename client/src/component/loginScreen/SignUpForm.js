@@ -5,7 +5,7 @@ function SignUpForm({setSignUp}) {
         <div>
           <h1 className="text-blue-300">Our Website Icon will be here</h1>
           <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-blue-500">
-            Sign Up
+            Start Your Journey
           </h2>
         </div>
         <form className="mt-8 space-y-6" action="#" method="POST">

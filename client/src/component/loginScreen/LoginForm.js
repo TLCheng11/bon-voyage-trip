@@ -1,11 +1,11 @@
 function LoginForm({setSignUp}) {
   return (
-    <div className="bg-transparent rounded-lg flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
+    <div className="relative bg-transparent rounded-lg flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h1 className="text-blue-300">Our Website Icon will be here</h1>
           <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-blue-500">
-            Sign in
+            Continue Your Adventure
           </h2>
         </div>
         <form className="mt-8 space-y-6" action="#" method="POST">

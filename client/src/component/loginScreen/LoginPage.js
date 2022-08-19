@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
-import WorldArcs from "./WorldArcs";
+import WorldArcs from "../Worlds/WorldArcs";
 
 function LoginPage() {
   const [signUp, setSignUp] = useState(false)

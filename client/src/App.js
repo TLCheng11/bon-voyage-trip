@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import World from './World';
+import World from './component/Worlds/World';
 import LoginPage from './component/loginScreen/LoginPage';
 
 function App() {
