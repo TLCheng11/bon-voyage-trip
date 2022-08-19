@@ -30,6 +30,3 @@
 
 # Ignore byebug history
 /.byebug_history
-
-# Ignore heroku public build
-/public
