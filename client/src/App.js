@@ -37,7 +37,7 @@ function App() {
               <World setCountryName={setCountryName}/>
             </div>
           }></Route>
-          <Route path="/" element={
+          <Route path="/" exact element={
             <div>
               <div>Dashboard</div>
               <div>hi {currentUser.username}</div>
@@ -51,6 +51,7 @@ function App() {
               }}>Logout</button>
             </div>
           }></Route>
+          <Route path="*" element={<div className="text-6xl">Page Not Found</div>} />
         </Routes>
       </div>
     </BrowserRouter>
