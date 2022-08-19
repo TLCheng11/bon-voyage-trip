@@ -1,16 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Globe from 'react-globe.gl';
 
 function WorldArcs() {
   const globeEl = useRef();
-  const N = 30;
-  const arcsData = [...Array(N).keys()].map(() => ({
-    startLat: (Math.random() - 0.5) * 180,
-    startLng: (Math.random() - 0.5) * 360,
-    endLat: (Math.random() - 0.5) * 180,
-    endLng: (Math.random() - 0.5) * 360,
-    color: [['red', 'yellow', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'yellow', 'blue', 'green'][Math.round(Math.random() * 3)]]
-  }));
+  const [arcsData, setArcsData] = useState([])
 
   useEffect(() => {
     // Auto-rotate
@@ -18,6 +11,14 @@ function WorldArcs() {
     globeEl.current.controls().autoRotateSpeed = 2;
 
     globeEl.current.pointOfView({ altitude: 2 }, 2000);
+
+    setArcsData([...Array(30).keys()].map(() => ({
+      startLat: (Math.random() - 0.5) * 180,
+      startLng: (Math.random() - 0.5) * 360,
+      endLat: (Math.random() - 0.5) * 180,
+      endLng: (Math.random() - 0.5) * 360,
+      color: [['red', 'yellow', 'blue', 'green'][Math.round(Math.random() * 3)], ['red', 'yellow', 'blue', 'green'][Math.round(Math.random() * 3)]]
+    })))
   }, []);
 
   return (  
