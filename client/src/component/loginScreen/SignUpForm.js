@@ -41,7 +41,7 @@ function SignUpForm({setSignUp}) {
             </div>
             <div>
               <label htmlFor="comfirm-password" className="sr-only">
-                comfirm-password
+                Confirm Password
               </label>
               <input
                 id="comfirm-password"
@@ -61,14 +61,14 @@ function SignUpForm({setSignUp}) {
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <svg className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                <svg className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" fill="none" stroke="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
               </span>
               Join
             </button>
           </div>
         </form>
         <p className="mt-2 text-center text-sm text-gray-600">
-            Alreadly a member yet?{' '}
+            Alreadly a member?{' '}
             <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500" onClick={() => setSignUp(false)}>
               Login
             </a>
