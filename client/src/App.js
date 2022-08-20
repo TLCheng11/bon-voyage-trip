@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 
 import LoginScreen from './component/loginScreen/LoginScreen';
 import SelectLocation from './component/SelectLocation/SelectLocation';
@@ -48,8 +48,9 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/testing" element={<SelectLocation selectLocationProps={selectLocationProps} />}></Route>
+          <Route path="/select-location" element={<SelectLocation selectLocationProps={selectLocationProps} />}></Route>
           <Route path="/" exact element={
+            // this is only for testing, please add a component for dashboard
             <div>
               <div>Dashboard</div>
               <div>hi {currentUser.username}</div>
@@ -61,6 +62,11 @@ function App() {
                   .then(console.log)
                 setCurrentUser({})
               }}>Logout</button>
+              <div>
+                <NavLink to="select-location">
+                  <button>To select location page</button>
+                </NavLink>
+              </div>
             </div>
           }></Route>
           <Route path="*" element={<div className="text-6xl">Page Not Found</div>} />
