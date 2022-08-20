@@ -10,7 +10,7 @@ function SelectLocation({selectLocationProps}) {
     <div>
       <div>
         <h1 className="text-3xl font-bold underline">Pick a country you want to visit: {countryName}</h1>
-        <CountriesSelectionBox country={country} setCountry={setCountry}/>
+        <CountriesSelectionBox selectLocationProps={selectLocationProps} country={country} setCountry={setCountry}/>
       </div>
       <World selectLocationProps={selectLocationProps} country={country} setCountry={setCountry}/>
     </div>

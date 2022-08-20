@@ -7,7 +7,10 @@ import SelectLocation from './component/SelectLocation/SelectLocation';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({})
-  const [lastLocation, setLastLocation] = useState("")
+  const [lastCounty, setLastCounty] = useState("")
+  const [lastCity, setLastCity] = useState ("")
+  const [nextCounty, setNextCountry] = useState("")
+  const [nextCity, setNextCity] = useState("");
   const [countryName, setCountryName] = useState("")
 
   // all props package
@@ -17,9 +20,13 @@ function App() {
   }
   const selectLocationProps = {
     countryName,
-    setCountryName
+    setCountryName,
+    setNextCountry,
+    setNextCity
   }
 
+  // console.log(nextCounty)
+  // console.log(nextCity)
 
   useEffect(() => {
     fetch("/auth")
@@ -28,7 +35,8 @@ function App() {
         res.json().then(user => {
           console.log(user)
           setCurrentUser(user)
-          setLastLocation(user.home_city)
+          setLastCounty(user.home_country)
+          setLastCity(user.home_city)
         })
       }
     })

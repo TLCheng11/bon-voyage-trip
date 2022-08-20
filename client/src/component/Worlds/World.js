@@ -3,7 +3,7 @@ import Globe from 'react-globe.gl';
 
 function World({selectLocationProps, country, setCountry}) {
   const globeEl = useRef();
-  const {setCountryName} = selectLocationProps
+  const {setCountryName, setNextCountry} = selectLocationProps
   const [rotate, setRotate] = useState(true)
   const [countries, setCountries] = useState({ features: []});
   const [countryList, setCountryList] = useState({})
@@ -58,6 +58,7 @@ function World({selectLocationProps, country, setCountry}) {
     if(countryList[country]) {
       setRotate(false)
       setCountryName(country)
+      setNextCountry(country)
       setAltitude(() => feat => country === feat.properties.ADMIN ? 0.1 : 0.02)
       setColor(() => feat => country === feat.properties.ADMIN ? 'rgba(5, 152, 5, 0.8)' :'rgba(88, 88, 192, 0.6)')
       const coo = globeEl.current.getCoords(countryList[country][1], countryList[country][0], 1)

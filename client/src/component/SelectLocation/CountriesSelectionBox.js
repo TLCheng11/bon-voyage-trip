@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-function CountriesSelectionBox({country, setCountry}) {
+function CountriesSelectionBox({selectLocationProps, country, setCountry}) {
+  const {setNextCountry, setNextCity} = selectLocationProps
   const [city, setCity] = useState("")
   const [cityList, setCityList] = useState([])
 
@@ -19,6 +20,7 @@ function CountriesSelectionBox({country, setCountry}) {
 
   useEffect(() => {
     if (country) {
+      setNextCountry(country)
       const searchCountry = country === "United States of America" ? "United States" : country
       fetch("https://countriesnow.space/api/v0.1/countries/cities", {
         method: "POST",
@@ -42,6 +44,10 @@ function CountriesSelectionBox({country, setCountry}) {
       setCityList([])
     }
   }, [country]);
+
+  useEffect(() => {
+    setNextCity(city)
+  }, [city]);
 
   return (
     <div className="flex justify-center">
