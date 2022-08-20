@@ -50,3 +50,7 @@ end
 
 
 gem "active_model_serializers", "~> 0.10.13"
+
+gem "uri", "~> 0.11.0"
+
+gem "net-http", "~> 0.2.2"

@@ -16,6 +16,8 @@ function App() {
   const [coordinates, setCoordinates] = useState({lat: 40.7127753, lng: -74.0059728})
   const [countryName, setCountryName] = useState("")
 
+  console.log(coordinates)
+
   // all props package
   const loginScreenProps = {
     currentUser,

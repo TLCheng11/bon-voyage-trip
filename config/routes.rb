@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#login"
   post "/logout", to: "sessions#logout"
 
+  # route for google map nearby search
+  get "/hotel", to: "google_maps#hotel"
+
   resources :users
 
 
