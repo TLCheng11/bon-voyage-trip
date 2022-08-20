@@ -63,10 +63,22 @@ function World({selectLocationProps, country, setCountry}) {
       const coo = globeEl.current.getCoords(countryList[country][1], countryList[country][0], 1)
       globeEl.current.controls().position0 = {x: coo.x, y: coo.y, z: coo.z}
       globeEl.current.controls().reset()
+      
       // console.log(globeEl.current.controls())
       // console.log(globeEl.current.controls().position0)
       // console.log(coo)
       // console.log(countryList[country])
+      
+      //try to pause animation for improve preformance
+        // const intervalIds = []
+        // intervalIds.push(setTimeout(() => {
+        //   globeEl.current.pauseAnimation()
+        // }, 1000))
+        // intervalIds.push(setTimeout(() => {
+        //   globeEl.current.resumeAnimation()
+        // }, 3000))
+      // return (() => intervalIds.forEach(id => clearInterval(id)))
+
     }
   }, [country]);
 
@@ -83,7 +95,7 @@ function World({selectLocationProps, country, setCountry}) {
 
   return <Globe
     ref={globeEl}
-    globeImageUrl="//unpkg.com/three-globe/example/img/earth-dark.jpg"
+    globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
 
     polygonsData={countries.features.filter(d => d.properties.ISO_A2 !== 'AQ')}
     polygonAltitude={altitude}

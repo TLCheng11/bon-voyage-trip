@@ -7,6 +7,7 @@ import SelectLocation from './component/SelectLocation/SelectLocation';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({})
+  const [lastLocation, setLastLocation] = useState("")
   const [countryName, setCountryName] = useState("")
 
   // all props package
@@ -24,7 +25,11 @@ function App() {
     fetch("/auth")
     .then(res => {
       if (res.ok) {
-        res.json().then(user => setCurrentUser(user))
+        res.json().then(user => {
+          console.log(user)
+          setCurrentUser(user)
+          setLastLocation(user.home_city)
+        })
       }
     })
   }, []);
