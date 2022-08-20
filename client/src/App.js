@@ -2,17 +2,23 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import World from './component/Worlds/World';
 import LoginScreen from './component/loginScreen/LoginScreen';
+import SelectLocation from './component/SelectLocation/SelectLocation';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({})
   const [countryName, setCountryName] = useState("")
 
+  // all props package
   const loginScreenProps = {
     currentUser,
     setCurrentUser
   }
+  const selectLocationProps = {
+    countryName,
+    setCountryName
+  }
+
 
   useEffect(() => {
     fetch("/auth")
@@ -29,14 +35,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/testing" element={
-            <div>
-              <div>
-                <h1 className="text-3xl font-bold underline">Pick a country you want to visit: {countryName}</h1>  
-              </div>
-              <World setCountryName={setCountryName}/>
-            </div>
-          }></Route>
+          <Route path="/testing" element={<SelectLocation selectLocationProps={selectLocationProps} />}></Route>
           <Route path="/" exact element={
             <div>
               <div>Dashboard</div>
