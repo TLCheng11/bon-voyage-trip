@@ -16,11 +16,11 @@ function Map({coordinates}) {
   //   .catch(console.error)
   // }, [coordinates]);
 
-  useEffect(() => {
-    fetch(`/hotel?lat=${coordinates.lat}&lng=${coordinates.lng}&radius=1500&type=restaurant&keyword=cruise&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
-    .then(res => res.json())
-    .then(console.log)
-  }, [coordinates]);
+  // useEffect(() => {
+  //   fetch(`/hotel?lat=${coordinates.lat}&lng=${coordinates.lng}&radius=1500&type=restaurant&keyword=cruise&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+  //   .then(res => res.json())
+  //   .then(console.log)
+  // }, [coordinates]);
   
   if (!isLoaded) return <div>Loading...</div>
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Map from './component/Maps/Map';
+import MapHolder from './component/Maps/MapHolder';
 
 function Testing({currentUser, setCurrentUser, coordinates}) {
   
@@ -22,7 +22,7 @@ function Testing({currentUser, setCurrentUser, coordinates}) {
         </NavLink>
       </div>
         
-      <Map coordinates={coordinates}/>
+      <MapHolder coordinates={coordinates} />
       
     </div>
   );
