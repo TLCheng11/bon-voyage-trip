@@ -1,3 +1,3 @@
 class TripSerializer < ActiveModel::Serializer
-  attributes :id, :created_by, :start_date, :end_date
+  attributes :id, :created_by, :title, :start_date, :end_date
 end
