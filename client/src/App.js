@@ -12,19 +12,14 @@ function App() {
   const [lastCounty, setLastCounty] = useState("")
   const [lastCity, setLastCity] = useState ("")
   const [nextCountry, setNextCountry] = useState("")
-  const [nextCity, setNextCity] = useState("New York");
-  const [coordinates, setCoordinates] = useState({lat: 40.7127753, lng: -74.0059728})
+  const [nextCity, setNextCity] = useState("");
+  const [coordinates, setCoordinates] = useState({})
 
-  // console.log(coordinates)
-  // console.log(nextCountry)
-  // console.log(nextCity)
+  console.log(coordinates)
+  console.log(nextCountry)
+  console.log(nextCity)
 
   // all props package
-  const loginScreenProps = {
-    currentUser,
-    setCurrentUser,
-    nextCity
-  }
   const selectLocationProps = {
     nextCountry,
     setNextCountry,
@@ -32,15 +27,24 @@ function App() {
     setNextCity
   }
 
+  const loginScreenProps = {
+    currentUser,
+    setCurrentUser,
+    selectLocationProps
+  }
+
   useEffect(() => {
     fetch("/auth")
     .then(res => {
       if (res.ok) {
         res.json().then(user => {
-          // console.log(user)
+          console.log(user)
           setCurrentUser(user)
           setLastCounty(user.home_country)
           setLastCity(user.home_city)
+          setNextCountry(user.home_country)
+          setNextCity(user.home_city)
+          setCoordinates({lat: user.home_city_lat, lng: user.home_city_lng})
         })
       }
     })
@@ -48,7 +52,7 @@ function App() {
 
   // please only uncomment when testing the selection or on production
   // useEffect(() => {
-  //   if (currentUser.id) {
+  //   if (currentUser.id && nextCity) {
   //     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
   //     .then(res => res.json())
   //     .then(data => {

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import CountriesSelectionBox from "../SelectLocation/CountriesSelectionBox";
 
 function SignUpForm({loginScreenProps, setSignUp}) {
-  const {nextCity, setCurrentUser} = loginScreenProps
+  const {setCurrentUser, selectLocationProps} = loginScreenProps
+  const {nextCountry, setNextCountry, nextCity, setNextCity} = selectLocationProps
   const [formInput, setFormInput] = useState({
     username: "",
     password: "",
@@ -24,6 +25,13 @@ function SignUpForm({loginScreenProps, setSignUp}) {
     sixth: formInput.password === formInput.password_confirmation && formInput.password.length > 0,
     seventh: formInput.home_country && formInput.home_city
   }
+
+  useEffect(() => {
+    return (() => {
+      setNextCountry("")
+      setNextCity("")
+    })
+  }, []);
   
   useEffect(() => {
     if (conditions.first && conditions.second && conditions.third && conditions.fourth && conditions.fifth && conditions.sixth && conditions.seventh) {
@@ -38,6 +46,14 @@ function SignUpForm({loginScreenProps, setSignUp}) {
     }
   }, [formInput]);
 
+  useEffect(() => {
+    setFormInput({...formInput, home_country: nextCountry})
+  }, [nextCountry]);
+
+  useEffect(() => {
+    setFormInput({...formInput, home_city: nextCity})
+  }, [nextCity]);
+
   function onFormChange(e) {
     const newInput = {
       ...formInput,
@@ -48,33 +64,36 @@ function SignUpForm({loginScreenProps, setSignUp}) {
 
   function handleSignUp(e) {
     e.preventDefault();
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data.results[0].geometry.location)
-        fetch("/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...formInput,
-            home_city_lat: data.results[0].geometry.location.lat,
-            home_city_lng: data.results[0].geometry.location.lng
-          }),
-        })
-          .then((res) => {
-            if (res.ok) {
-              res.json().then(data => {
-                console.log(data)
-                setCurrentUser(data)
-              })
-            } else {
-              res.json().then(e => alert(e.errors))
-            }
+    if (nextCity) {
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data.results[0].geometry.location)
+          fetch("/users", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...formInput,
+              home_city_lat: data.results[0].geometry.location.lat,
+              home_city_lng: data.results[0].geometry.location.lng
+            }),
           })
-          .catch(console.error)
-      })
+            .then((res) => {
+              if (res.ok) {
+                res.json().then(data => {
+                  console.log(data)
+                  setCurrentUser(data)
+                })
+              } else {
+                res.json().then(e => alert(e.errors))
+              }
+            })
+            .catch(console.error)
+        })
+        .catch(console.error)
+    }
   }
 
   return (  
@@ -139,7 +158,7 @@ function SignUpForm({loginScreenProps, setSignUp}) {
             </div>
           </div>
 
-          {/* <CountriesSelectionBox /> */}
+          <CountriesSelectionBox selectLocationProps={selectLocationProps} />
 
           <div className="font-bold">
             <p className={conditions.first ? "text-green-600" : "text-red-600"}>* username must be between 3 - 20 charaters</p>
@@ -148,6 +167,7 @@ function SignUpForm({loginScreenProps, setSignUp}) {
             <p className={conditions.fourth ? "text-green-600" : "text-red-600"}>* password must contain at least one Uppercase and lowercase letter</p>
             <p className={conditions.fifth ? "text-green-600" : "text-red-600"}>* password can only include alphabet letters, numbers, one of this special charater ~!@#$%^&*-=+?_ and cannot have space</p>
             <p className={conditions.sixth ? "text-green-600" : "text-red-600"}>* please confirm your password</p>
+            <p className={conditions.seventh ? "text-green-600" : "text-red-600"}>* please select your home city</p>
           </div>
 
           <div>
