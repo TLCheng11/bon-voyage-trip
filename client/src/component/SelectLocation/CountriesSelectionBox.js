@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 function CountriesSelectionBox({selectLocationProps}) {
-  const {nextCountry, setNextCountry, setNextCity} = selectLocationProps
+  const {nextCountry, setNextCountry, setNextCity, usCityOptions} = selectLocationProps
   const [country, setCountry] = useState("")
   const [city, setCity] = useState("")
   const [cityList, setCityList] = useState([])
@@ -15,35 +15,45 @@ function CountriesSelectionBox({selectLocationProps}) {
   const countryOptions = countryList.map(country => <option key={country} value={country}>{country}</option>)
 
   useEffect(() => {
+    return(() => {
+      setNextCountry("")
+      setNextCity("")
+    })
+  }, [])
+
+  useEffect(() => {
     const options = cityList.sort().map(city => <option key={city} value={city}>{city}</option>)
     setCityOptions(options)
   }, [cityList]);
 
   useEffect(() => {
-    setNextCountry(country)
     if (country) {
-      const searchCountry = country === "United States of America" ? "United States" : country
-      fetch("https://countriesnow.space/api/v0.1/countries/cities", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          "country": searchCountry
+      if (country === "United States of America") {
+        setCityOptions(usCityOptions)
+      } else {
+        const searchCountry = country === "United States of America" ? "United States" : country
+        fetch("https://countriesnow.space/api/v0.1/countries/cities", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            "country": searchCountry
+          })
         })
-      })
-        .then(res => res.json())
-        .then(data => {
-          if(data.data) {
-            setCityList(data.data)
-          } else {
+          .then(res => res.json())
+          .then(data => {
+            if(data.data) {
+              setCityList(data.data)
+            } else {
+              setCityList([country])
+            }
+          })
+          .catch(error => {
+            console.error(error)
             setCityList([country])
-          }
-        })
-        .catch(error => {
-          console.error(error)
-          setCityList([country])
-        })
+          })
+      }
     } else {
       setCityList([])
       setCity("")
@@ -79,7 +89,10 @@ function CountriesSelectionBox({selectLocationProps}) {
             ease-in-out
             m-0
             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label=".form-select-lg example"
-          value={country} onChange={e => setCountry(e.target.value)}
+          value={country} onChange={e => {
+            setCountry(e.target.value)
+            setNextCountry(e.target.value)
+          }}
         >
           <option value="">Select a country</option>
           {countryOptions}

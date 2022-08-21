@@ -25,13 +25,6 @@ function SignUpForm({loginScreenProps, setSignUp}) {
     sixth: formInput.password === formInput.password_confirmation && formInput.password.length > 0,
     seventh: formInput.home_country && formInput.home_city
   }
-
-  useEffect(() => {
-    return (() => {
-      setNextCountry("")
-      setNextCity("")
-    })
-  }, []);
   
   useEffect(() => {
     if (conditions.first && conditions.second && conditions.third && conditions.fourth && conditions.fifth && conditions.sixth && conditions.seventh) {

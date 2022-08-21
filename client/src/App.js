@@ -9,22 +9,26 @@ import Testing from './Testing';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({})
-  const [lastCounty, setLastCounty] = useState("")
+  const [lastCounty, setLastCountry] = useState("")
   const [lastCity, setLastCity] = useState ("")
   const [nextCountry, setNextCountry] = useState("")
   const [nextCity, setNextCity] = useState("");
   const [coordinates, setCoordinates] = useState({})
 
+  const [usCityOptions, setUsCityOptions] = useState(null)
+
   console.log(coordinates)
   console.log(nextCountry)
   console.log(nextCity)
+  // console.log(usCityOptions)
 
   // all props package
   const selectLocationProps = {
     nextCountry,
     setNextCountry,
     nextCity,
-    setNextCity
+    setNextCity,
+    usCityOptions
   }
 
   const loginScreenProps = {
@@ -33,22 +37,48 @@ function App() {
     selectLocationProps
   }
 
+  // try to improve preformance when user select us on dropbox
+  useEffect(() => {
+    fetch("https://countriesnow.space/api/v0.1/countries/cities", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "country": "United States"
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          const options = data.data.sort().map(city => <option key={city} value={city}>{city}</option>)
+          setUsCityOptions(options)
+        })
+  }, []);
+
+  // only authorize logged in users
   useEffect(() => {
     fetch("/auth")
     .then(res => {
       if (res.ok) {
         res.json().then(user => {
-          console.log(user)
+          // console.log(user)
           setCurrentUser(user)
-          setLastCounty(user.home_country)
-          setLastCity(user.home_city)
-          setNextCountry(user.home_country)
-          setNextCity(user.home_city)
-          setCoordinates({lat: user.home_city_lat, lng: user.home_city_lng})
         })
       }
     })
   }, [])
+
+  useEffect(() => {
+    if (currentUser.id) {
+      setLastCountry(currentUser.home_country)
+      setLastCity(currentUser.home_city)
+      setCoordinates({lat: currentUser.home_city_lat, lng: currentUser.home_city_lng})
+    } else {
+      setLastCountry("")
+      setLastCity("")
+      setCoordinates({})
+    }
+  }, [currentUser]);
 
   // please only uncomment when testing the selection or on production
   // useEffect(() => {
@@ -62,6 +92,7 @@ function App() {
   //   }
   // }, [nextCity])
 
+  if (!usCityOptions) return <div>Loading....</div>
   if (!currentUser.id) return <LoginScreen loginScreenProps={loginScreenProps} />
 
   return (
