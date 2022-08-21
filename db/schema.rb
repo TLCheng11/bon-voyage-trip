@@ -102,6 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_21_204024) do
 
   create_table "trips", force: :cascade do |t|
     t.integer "created_by"
+    t.string "title", default: "My next trip"
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at", null: false
