@@ -2,8 +2,8 @@ require "uri"
 require "net/http"
 
 class GoogleMapsController < ApplicationController
-  def hotel
-    url = URI("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{params[:lat]}%2C#{params[:lng]}&radius=#{params[:radius]}&type=#{params[:type]}&keyword=#{params[:keyword]}&key=#{params[:key]}")
+  def search
+    url = URI("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{params[:lat]}%2C#{params[:lng]}&radius=#{params[:radius]}&type=#{params[:type]}&key=#{params[:key]}")
 
     https = Net::HTTP.new(url.host, url.port)
     https.use_ssl = true
