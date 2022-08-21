@@ -4,7 +4,7 @@ import Map from "./Map";
 function MapHolder({coordinates}) {
   const mapRef = useRef()
   const [loadMap, setLoadMap] = useState(false)
-  const [nearBy, setNearBy] = useState({});
+  const [nearby, setNearby] = useState({});
 
   function searchNearby(type) {
     if(mapRef.current) {
@@ -12,16 +12,35 @@ function MapHolder({coordinates}) {
       .then(res => res.json())
       .then(data => {
         if (data.status === "OK") {
-          setNearBy({
+          // console.log(data.results)
+          setNearby({
             type: type,
             data: data.results
           })
+        } else {
+          setNearby({})
+          switch (type) {
+            case "lodging":
+              alert(`No Hotel nearby.`)
+              break;
+            case "restaurant":
+              alert("No Restaurant nearby.")
+              break;
+            case "tourist_attraction":
+              alert("No Sight Spot nearby.")
+              break;
+            case "museum":
+              alert("No Museum nearby")
+              break;
+            default:
+              break;
+          }
         }
       })
     }
   }
 
-  console.log(nearBy)
+  console.log(nearby)
 
   return (
     <div>
@@ -47,7 +66,7 @@ function MapHolder({coordinates}) {
       </div>
       {
         loadMap ? (
-          <Map mapRef={mapRef} coordinates={coordinates} nearBy={nearBy}/>
+          <Map mapRef={mapRef} coordinates={coordinates} nearby={nearby}/>
         ) : (
           null
         )

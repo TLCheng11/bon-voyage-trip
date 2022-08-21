@@ -3,7 +3,7 @@ import { GoogleMap, useJsApiLoader, Marker, MarkerClusterer, InfoWindow } from '
 import { formatRelative } from 'date-fns';
 import { useCallback, useState } from 'react';
 
-function Map({mapRef, coordinates, nearBy}) {
+function Map({mapRef, coordinates, nearby}) {
   // saving the map with a ref so we can have access without re-rendering
   const onMapLoad = useCallback(map => {
     mapRef.current = map
@@ -30,12 +30,12 @@ function Map({mapRef, coordinates, nearBy}) {
     museum: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/museum-71.png",
   }
 
-  const showMarkers = nearBy.data ? nearBy.data.map(marker => (
+  const showMarkers = nearby.data ? nearby.data.map(marker => (
     <Marker 
       key={marker.place_id} 
       position={{lat: marker.geometry.location.lat, lng: marker.geometry.location.lng}}
       icon={{
-        url: iconUrl[nearBy.type],
+        url: iconUrl[nearby.type],
         scaledSize: new window.google.maps.Size(40, 40),
         origin: new window.google.maps.Point(0, 0),
         anchor: new window.google.maps.Point(20, 20),

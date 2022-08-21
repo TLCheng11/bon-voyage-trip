@@ -12,6 +12,10 @@ class GoogleMapsController < ApplicationController
 
     response = https.request(request)
     
-    render json: response.read_body
+    if response[:status] == "ZERO_RESULTS"
+      render json: {results: "ZERO_RESULTS"}, status: :not_found
+    else
+      render json: response.read_body
+    end
   end
 end
