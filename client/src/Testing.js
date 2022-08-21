@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import TripsCalender from './component/dashboard/TripsCalendar';
 import MapHolder from './component/Maps/MapHolder';
 
 function Testing({currentUser, setCurrentUser, coordinates}) {
@@ -23,6 +24,7 @@ function Testing({currentUser, setCurrentUser, coordinates}) {
       </div>
         
       <MapHolder coordinates={coordinates} />
+      <TripsCalender />
       
     </div>
   );
