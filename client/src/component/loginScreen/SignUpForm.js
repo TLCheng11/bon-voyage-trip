@@ -3,7 +3,8 @@ import CountriesSelectionBox from "../SelectLocation/CountriesSelectionBox";
 
 function SignUpForm({loginScreenProps, setSignUp}) {
   const {setCurrentUser, selectLocationProps} = loginScreenProps
-  const {nextCountry, setNextCountry, nextCity, setNextCity} = selectLocationProps
+  const [country, setCountry] = useState("")
+  const [city, setCity] = useState("")
   const [formInput, setFormInput] = useState({
     username: "",
     password: "",
@@ -40,12 +41,12 @@ function SignUpForm({loginScreenProps, setSignUp}) {
   }, [formInput]);
 
   useEffect(() => {
-    setFormInput({...formInput, home_country: nextCountry})
-  }, [nextCountry]);
+    setFormInput({...formInput, home_country: country})
+  }, [country]);
 
   useEffect(() => {
-    setFormInput({...formInput, home_city: nextCity})
-  }, [nextCity]);
+    setFormInput({...formInput, home_city: city})
+  }, [city]);
 
   function onFormChange(e) {
     const newInput = {
@@ -57,8 +58,8 @@ function SignUpForm({loginScreenProps, setSignUp}) {
 
   function handleSignUp(e) {
     e.preventDefault();
-    if (nextCity) {
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+    if (city) {
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${city.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
         .then(res => res.json())
         .then(data => {
           console.log(data.results[0].geometry.location)
@@ -151,7 +152,7 @@ function SignUpForm({loginScreenProps, setSignUp}) {
             </div>
           </div>
 
-          <CountriesSelectionBox selectLocationProps={selectLocationProps} />
+          <CountriesSelectionBox selectLocationProps={selectLocationProps} country={country} setCountry={setCountry} city={city} setCity={setCity} />
 
           <div className="font-bold">
             <p className={conditions.first ? "text-green-600" : "text-red-600"}>* username must be between 3 - 20 charaters</p>

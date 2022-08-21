@@ -6,6 +6,8 @@ function MapHolder({coordinates}) {
   const [loadMap, setLoadMap] = useState(false)
   const [nearby, setNearby] = useState({});
 
+  // console.log(nearby)
+
   function searchNearby(type) {
     if(mapRef.current) {
       fetch(`/search?lat=${mapRef.current.center.lat()}&lng=${mapRef.current.center.lng()}&radius=1500&type=${type}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
@@ -39,8 +41,6 @@ function MapHolder({coordinates}) {
       })
     }
   }
-
-  console.log(nearby)
 
   return (
     <div>

@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import Globe from 'react-globe.gl';
 
-function World({selectLocationProps}) {
+function World({country, setCountry, city, setCity}) {
   const globeEl = useRef();
-  const {nextCountry, setCountryName, setNextCountry} = selectLocationProps
   const [rotate, setRotate] = useState(true)
   const [countries, setCountries] = useState({ features: []});
   const [countryList, setCountryList] = useState({})
@@ -54,11 +53,11 @@ function World({selectLocationProps}) {
   }, [rotate])
 
   useEffect(() => {
-    if(countryList[nextCountry]) {
+    if(countryList[country]) {
       setRotate(false)
-      setAltitude(() => feat => nextCountry === feat.properties.ADMIN ? 0.1 : 0.02)
-      setColor(() => feat => nextCountry === feat.properties.ADMIN ? 'rgba(5, 152, 5, 0.8)' :'rgba(88, 88, 192, 0.6)')
-      const coo = globeEl.current.getCoords(countryList[nextCountry][1], countryList[nextCountry][0], 0.8)
+      setAltitude(() => feat => country === feat.properties.ADMIN ? 0.1 : 0.02)
+      setColor(() => feat => country === feat.properties.ADMIN ? 'rgba(5, 152, 5, 0.8)' :'rgba(88, 88, 192, 0.6)')
+      const coo = globeEl.current.getCoords(countryList[country][1], countryList[country][0], 0.8)
       globeEl.current.controls().position0 = {x: coo.x, y: coo.y, z: coo.z}
       globeEl.current.controls().reset()
       
@@ -78,7 +77,7 @@ function World({selectLocationProps}) {
       // return (() => intervalIds.forEach(id => clearInterval(id)))
 
     }
-  }, [nextCountry]);
+  }, [country]);
 
   // const [places, setPlaces] = useState([]);
 
@@ -104,11 +103,11 @@ function World({selectLocationProps}) {
     `}
     polygonsTransitionDuration={transitionDuration}
     onPolygonClick={({ properties: d }) => {
-      setNextCountry(d.ADMIN)
+      setCountry(d.ADMIN)
     }}
     onPolygonHover={(e) => {
       setColor(() => feat => {
-        if (nextCountry === feat.properties.ADMIN) {
+        if (country === feat.properties.ADMIN) {
           return 'rgba(199, 35, 62, 0.8)'
         } else {
           return e.properties.ADMIN === feat.properties.ADMIN ? 'rgba(5, 152, 5, 0.8)' :'rgba(88, 88, 192, 0.6)'

@@ -15,8 +15,6 @@ function App() {
   const [nextCity, setNextCity] = useState("");
   const [coordinates, setCoordinates] = useState({})
 
-  const [usCityOptions, setUsCityOptions] = useState(null)
-
   console.log(coordinates)
   console.log(nextCountry)
   console.log(nextCity)
@@ -27,8 +25,7 @@ function App() {
     nextCountry,
     setNextCountry,
     nextCity,
-    setNextCity,
-    usCityOptions
+    setNextCity
   }
 
   const loginScreenProps = {
@@ -36,24 +33,6 @@ function App() {
     setCurrentUser,
     selectLocationProps
   }
-
-  // try to improve preformance when user select us on dropbox
-  useEffect(() => {
-    fetch("https://countriesnow.space/api/v0.1/countries/cities", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          "country": "United States"
-        })
-      })
-        .then(res => res.json())
-        .then(data => {
-          const options = data.data.sort().map(city => <option key={city} value={city}>{city}</option>)
-          setUsCityOptions(options)
-        })
-  }, []);
 
   // only authorize logged in users
   useEffect(() => {
@@ -80,19 +59,6 @@ function App() {
     }
   }, [currentUser]);
 
-  // please only uncomment when testing the selection or on production
-  // useEffect(() => {
-  //   if (currentUser.id && nextCity) {
-  //     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(data.results[0].geometry.location)
-  //       setCoordinates(data.results[0].geometry.location)
-  //     })
-  //   }
-  // }, [nextCity])
-
-  if (!usCityOptions) return <div>Loading....</div>
   if (!currentUser.id) return <LoginScreen loginScreenProps={loginScreenProps} />
 
   return (
