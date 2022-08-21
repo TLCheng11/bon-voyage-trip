@@ -1,48 +1,66 @@
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
-import format from 'date-fns/format'
-import parse from 'date-fns/parse'
-import startOfWeek from 'date-fns/startOfWeek'
-import getDay from 'date-fns/getDay'
-import enUS from 'date-fns/locale/en-US'
 import { useEffect, useState } from 'react'
-
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
+import moment from 'moment'
+import { useNavigate } from 'react-router-dom'
 
 function TripsCalender() {
+  let navigate = useNavigate()
   const [trips, setTrips] = useState([])
+  const [newTrip, setNewTrip] = useState({
+    title: "My Next Trip",
+    start: new Date(),
+    end: new Date()
+  })
 
+  // for test data
   useEffect(() => {
     setTrips([{
-      title: "asgasdfjhaskhgjaln;bnoaihesljr;ioalsnvna;heohjfojainiv e;oah;oesihrfop;jaovnmo;iar hpoiasujf;oijase;ogf h;oasehfo;i ",
-      start: new Date(2022,7,2),
+      title: "Test",
+      start: new Date(2022,7,3),
       end: new Date(2022,7,7)
     }])
   }, []);
-
-  const locales = {
-    'en-US': enUS,
-  }
   
-  const localizer = dateFnsLocalizer({
-    format,
-    parse,
-    startOfWeek,
-    getDay,
-    locales,
-  })
+  const localizer = momentLocalizer(moment)
 
   function addTrip() {
+    setTrips([...trips, newTrip])
+  }
 
+  function onSelectEvent(){
+    navigate("/select-location")
   }
 
   return (
     <div>
+      <div className='flex z-50'>
+        <input type="text"
+          placeholder="My next Trip"
+          value={newTrip.title}
+          onChange={e => setNewTrip({...newTrip, title: e.target.value})}
+        />
+        <DatePicker
+          placeholderText="Start Date"
+          selected={newTrip.start}
+          onChange={start => setNewTrip({...newTrip, start})}
+        />
+        <DatePicker
+          placeholderText="End Date"
+          selected={newTrip.end}
+          onChange={end => setNewTrip({...newTrip, end})}
+        />
+        <button onClick={addTrip}>Add Trip</button>
+      </div>
       <Calendar
+        style={{ height: 500, margin: 50}}
         localizer={localizer}
         events={trips}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500, margin: 50}}
+        onSelectEvent={onSelectEvent}
       />
     </div>
   );
