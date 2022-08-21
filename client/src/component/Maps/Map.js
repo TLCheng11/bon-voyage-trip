@@ -40,6 +40,7 @@ function Map({mapRef, coordinates, nearby}) {
         origin: new window.google.maps.Point(0, 0),
         anchor: new window.google.maps.Point(20, 20),
       }}
+      animation={window.google.maps.Animation.DROP}
       onClick={() => setselectedMarker(marker)}
     />
     )) : null
