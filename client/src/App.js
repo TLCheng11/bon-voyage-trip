@@ -14,11 +14,10 @@ function App() {
   const [nextCountry, setNextCountry] = useState("")
   const [nextCity, setNextCity] = useState("New York");
   const [coordinates, setCoordinates] = useState({lat: 40.7127753, lng: -74.0059728})
-  // const [countryName, setCountryName] = useState("")
 
-  console.log(coordinates)
-  console.log(nextCountry)
-  console.log(nextCity)
+  // console.log(coordinates)
+  // console.log(nextCountry)
+  // console.log(nextCity)
 
   // all props package
   const loginScreenProps = {
@@ -27,8 +26,6 @@ function App() {
     nextCity
   }
   const selectLocationProps = {
-    // countryName,
-    // setCountryName,
     nextCountry,
     setNextCountry,
     nextCity,
