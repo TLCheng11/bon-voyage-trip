@@ -62,7 +62,7 @@ function SignUpForm({loginScreenProps, setSignUp}) {
       fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${city.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
         .then(res => res.json())
         .then(data => {
-          console.log(data.results[0].geometry.location)
+          console.log(data)
           fetch("/users", {
             method: "POST",
             headers: {
