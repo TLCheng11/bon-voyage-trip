@@ -1,0 +1,2 @@
+class HotelBookingsController < ApplicationController
+end

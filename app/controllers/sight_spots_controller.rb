@@ -1,0 +1,2 @@
+class SightSpotsController < ApplicationController
+end

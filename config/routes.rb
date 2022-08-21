@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   get "/search", to: "google_maps#search"
 
   resources :users
+  # resources :activities
+  # resources :sight_spots
+  # resources :restaurants
+  # resources :transportation_plans
+  # resources :hotel_bookings
+  # resources :daily_plans
+  # resources :trips
 
 
 

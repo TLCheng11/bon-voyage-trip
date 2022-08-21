@@ -1,0 +1,2 @@
+class TransportationPlansController < ApplicationController
+end

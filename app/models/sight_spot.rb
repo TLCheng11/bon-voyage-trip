@@ -1,0 +1,2 @@
+class SightSpot < ApplicationRecord
+end

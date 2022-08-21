@@ -1,0 +1,2 @@
+class TransportationPlan < ApplicationRecord
+end

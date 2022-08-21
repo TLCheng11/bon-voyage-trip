@@ -3,4 +3,6 @@ class User < ApplicationRecord
 
   validates :username, uniqueness: true
   validates :username, :password_digest, :home_country, :home_city, :home_city_lat, :home_city_lng, presence: true
+
+  has_many :trips
 end

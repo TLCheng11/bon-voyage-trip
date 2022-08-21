@@ -1,0 +1,2 @@
+class DailyPlansController < ApplicationController
+end
