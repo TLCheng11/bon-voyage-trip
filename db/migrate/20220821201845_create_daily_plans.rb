@@ -3,6 +3,10 @@ class CreateDailyPlans < ActiveRecord::Migration[7.0]
     create_table :daily_plans do |t|
       t.belongs_to :trip, null: false, foreign_key: true
       t.datetime :day
+      t.string :country
+      t.string :city
+      t.float :city_lat
+      t.float :city_lng
 
       t.timestamps
     end
