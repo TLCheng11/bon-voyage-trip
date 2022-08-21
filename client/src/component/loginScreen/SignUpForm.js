@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import CountriesSelectionBox from "../SelectLocation/CountriesSelectionBox";
 
 function SignUpForm({loginScreenProps, setSignUp}) {
-  const {setCurrentUser} = loginScreenProps
+  const {nextCity, setCurrentUser} = loginScreenProps
   const [formInput, setFormInput] = useState({
     username: "",
     password: "",
+    home_country: "",
+    home_city: "",
     password_confirmation: ""
   })
   const [disable, setDisable] = useState({
@@ -18,11 +21,12 @@ function SignUpForm({loginScreenProps, setSignUp}) {
     third: formInput.password.match(/^.{8,18}$/g),
     fourth: formInput.password.match(/(?=.*[a-z])(?=.*[A-Z])/g),
     fifth: formInput.password.match(/^[\w\d~!@#$%^&*-=+?]+$/g),
-    sixth: formInput.password === formInput.password_confirmation && formInput.password.length > 0
+    sixth: formInput.password === formInput.password_confirmation && formInput.password.length > 0,
+    seventh: formInput.home_country && formInput.home_city
   }
   
   useEffect(() => {
-    if (conditions.first && conditions.second && conditions.third && conditions.fourth && conditions.fifth && conditions.sixth) {
+    if (conditions.first && conditions.second && conditions.third && conditions.fourth && conditions.fifth && conditions.sixth && conditions.seventh) {
       setDisable({class: "", disable: false})
     } else {
       if (!disable.disable) {
@@ -44,24 +48,33 @@ function SignUpForm({loginScreenProps, setSignUp}) {
 
   function handleSignUp(e) {
     e.preventDefault();
-    fetch("/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formInput),
-    })
-      .then((res) => {
-        if (res.ok) {
-          res.json().then(data => {
-            console.log(data)
-            setCurrentUser(data)
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data.results[0].geometry.location)
+        fetch("/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formInput,
+            home_city_lat: data.results[0].geometry.location.lat,
+            home_city_lng: data.results[0].geometry.location.lng
+          }),
+        })
+          .then((res) => {
+            if (res.ok) {
+              res.json().then(data => {
+                console.log(data)
+                setCurrentUser(data)
+              })
+            } else {
+              res.json().then(e => alert(e.errors))
+            }
           })
-        } else {
-          res.json().then(e => alert(e.errors))
-        }
+          .catch(console.error)
       })
-      .catch(console.error)
   }
 
   return (  
@@ -125,6 +138,8 @@ function SignUpForm({loginScreenProps, setSignUp}) {
               />
             </div>
           </div>
+
+          {/* <CountriesSelectionBox /> */}
 
           <div className="font-bold">
             <p className={conditions.first ? "text-green-600" : "text-red-600"}>* username must be between 3 - 20 charaters</p>

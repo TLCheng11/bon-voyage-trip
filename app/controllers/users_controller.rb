@@ -39,11 +39,11 @@ class UsersController < ApplicationController
     # ---------- Strong params ----------
     # Only allow a list of trusted parameters through.
     def user_params
-      params.permit(:username, :password, :profile_img, :first_name, :last_name, :home_country, :home_city, :introduction, :is_login)
+      params.permit(:username, :password, :profile_img, :first_name, :last_name, :introduction, :home_country, :home_city, :home_city_lat, home_city_lng, :is_login)
     end
 
     # Only for user signup
     def user_signup_params
-      params.permit(:username, :password)
+      params.permit(:username, :password, :home_country, :home_city, :home_city_lat, :home_city_lng)
     end
 end

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import Globe from 'react-globe.gl';
 
-function World({selectLocationProps, country, setCountry}) {
+function World({selectLocationProps}) {
   const globeEl = useRef();
-  const {setCountryName, setNextCountry} = selectLocationProps
+  const {nextCountry, setCountryName, setNextCountry} = selectLocationProps
   const [rotate, setRotate] = useState(true)
   const [countries, setCountries] = useState({ features: []});
   const [countryList, setCountryList] = useState({})
@@ -13,7 +13,6 @@ function World({selectLocationProps, country, setCountry}) {
 
   // const countryList = countries.features.map(feat => feat.properties.ADMIN)
   // console.log(countryList.slice(99))
-
   // console.log(countries)
 
   useEffect(() => {
@@ -55,13 +54,11 @@ function World({selectLocationProps, country, setCountry}) {
   }, [rotate])
 
   useEffect(() => {
-    if(countryList[country]) {
+    if(countryList[nextCountry]) {
       setRotate(false)
-      setCountryName(country)
-      setNextCountry(country)
-      setAltitude(() => feat => country === feat.properties.ADMIN ? 0.1 : 0.02)
-      setColor(() => feat => country === feat.properties.ADMIN ? 'rgba(5, 152, 5, 0.8)' :'rgba(88, 88, 192, 0.6)')
-      const coo = globeEl.current.getCoords(countryList[country][1], countryList[country][0], 1)
+      setAltitude(() => feat => nextCountry === feat.properties.ADMIN ? 0.1 : 0.02)
+      setColor(() => feat => nextCountry === feat.properties.ADMIN ? 'rgba(5, 152, 5, 0.8)' :'rgba(88, 88, 192, 0.6)')
+      const coo = globeEl.current.getCoords(countryList[nextCountry][1], countryList[nextCountry][0], 0.8)
       globeEl.current.controls().position0 = {x: coo.x, y: coo.y, z: coo.z}
       globeEl.current.controls().reset()
       
@@ -81,7 +78,7 @@ function World({selectLocationProps, country, setCountry}) {
       // return (() => intervalIds.forEach(id => clearInterval(id)))
 
     }
-  }, [country]);
+  }, [nextCountry]);
 
   // const [places, setPlaces] = useState([]);
 
@@ -107,12 +104,12 @@ function World({selectLocationProps, country, setCountry}) {
     `}
     polygonsTransitionDuration={transitionDuration}
     onPolygonClick={({ properties: d }) => {
-      setCountry(d.ADMIN)
+      setNextCountry(d.ADMIN)
     }}
     onPolygonHover={(e) => {
       setColor(() => feat => {
-        if (country === feat.properties.ADMIN) {
-          return 'rgba(5, 152, 5, 0.8)'
+        if (nextCountry === feat.properties.ADMIN) {
+          return 'rgba(199, 35, 62, 0.8)'
         } else {
           return e.properties.ADMIN === feat.properties.ADMIN ? 'rgba(5, 152, 5, 0.8)' :'rgba(88, 88, 192, 0.6)'
         }

@@ -6,9 +6,11 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :profile_img
       t.string :first_name
       t.string :last_name
+      t.string :introduction
       t.string :home_country
       t.string :home_city
-      t.string :introduction
+      t.float :home_city_lat
+      t.float :home_city_lng
       t.boolean :is_login, default: true
 
       t.timestamps
