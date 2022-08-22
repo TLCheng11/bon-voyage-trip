@@ -6,6 +6,7 @@ import LoginScreen from './component/LoginScreen/LoginScreen';
 import SelectLocation from './component/SelectLocation/SelectLocation';
 import Dashboard from './component/Dashboard/Dashboard';
 import MenuBar from './component/Dashboard/MenuBar';
+import TripDetails from './component/TripDetails/TripDetails';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
   const [nextCity, setNextCity] = useState("");
   const [coordinates, setCoordinates] = useState({})
   const [newTrip, setNewTrip] = useState({
+    id: 0,
     title: "My Next Trip",
     start: "",
     end: ""
@@ -85,6 +87,7 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Dashboard dashboardProps={dashboardProps} />}></Route>
           <Route path="/select-location" element={<SelectLocation selectLocationProps={selectLocationProps} />}></Route>
+          <Route path="/trip-details/:id" element={<TripDetails />} ></Route>
           <Route path="*" element={<div className="text-6xl">Page Not Found</div>} />
         </Routes>
       </div>

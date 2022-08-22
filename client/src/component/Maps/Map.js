@@ -1,5 +1,5 @@
 
-import { GoogleMap, useJsApiLoader, Marker, MarkerClusterer, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, MarkerClusterer, InfoWindow, StreetViewPanorama } from '@react-google-maps/api';
 import { formatRelative } from 'date-fns';
 import { useCallback, useState } from 'react';
 
@@ -92,11 +92,11 @@ function Map({mapRef, coordinates, nearby}) {
                     <p>Rating: {selectedMarker.rating}</p>
                     ) : (null)
                 }
-                {
+                {/* {
                   selectedMarker.photos ? (
-                    <a href={selectedMarker.photos[0].html_attributions[0].match(/".*"/)}>view on google map</a>
+                    <a href={selectedMarker.photos[0].html_attributions[0].match(/"(.*)"/g)[0].replaceAll('"', "")} target="_blank">view on google map</a>
                   ) : (null)
-                }
+                } */}
               </div>
             </InfoWindow>
           ) : (null)

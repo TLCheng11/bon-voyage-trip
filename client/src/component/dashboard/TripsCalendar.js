@@ -19,6 +19,7 @@ function TripsCalender({dashboardProps}) {
         const loadTrips = []
         data.forEach(trip => {
           const loadTrip ={
+            id: trip.id,
             title: trip.title,
             start: moment(trip.start_date).toDate(),
             end: moment(trip.end_date).add(1, "days").toDate()
@@ -63,14 +64,16 @@ function TripsCalender({dashboardProps}) {
             .then(data => {
               console.log(data)
               const returnTrip = {
+                id: data.id,
                 title: data.title,
                 start: moment(data.start_date).toDate(),
-                end: moment(data.end_date).add(1, "days").calendar()
+                end: moment(data.end_date).add(1, "days").toDate()
               }
               setTrips([...trips, returnTrip])
               setNextCountry("")
               setNextCity("")
               setNewTrip({
+                id: 0,
                 title: "My Next Trip",
                 start: "",
                 end: ""
@@ -85,8 +88,9 @@ function TripsCalender({dashboardProps}) {
     }
   }
 
-  function onSelectEvent(){
-    navigate("/select-location")
+  function onSelectEvent(e){
+    navigate(`/trip-details/${e.id}`)
+    console.log(e)
   }
 
   return (
