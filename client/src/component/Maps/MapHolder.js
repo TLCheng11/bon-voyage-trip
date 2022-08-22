@@ -63,6 +63,9 @@ function MapHolder({coordinates}) {
         <div>
           <button onClick={() => searchNearby("museum")}>Nearby Museum</button>
         </div>
+        <div>
+          <button onClick={() => setNearby({})}>Clear</button>
+        </div>
       </div>
       {
         loadMap ? (
