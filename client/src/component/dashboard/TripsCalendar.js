@@ -18,11 +18,21 @@ function TripsCalender({dashboardProps}) {
 
   // for test data
   useEffect(() => {
-    setTrips([{
-      title: "Test",
-      start: new Date(2022,7,3),
-      end: new Date(2022,7,7)
-    }])
+    fetch("/trips")
+      .then(res => res.json())
+      .then(data => {
+        const loadTrips = []
+        data.forEach(trip => {
+          const loadTrip ={
+            title: trip.title,
+            start: trip.start_date,
+            end: trip.end_date
+          }
+          loadTrips.push(loadTrip)
+        })
+        setTrips(loadTrips)
+      })
+      .catch(console.error)
   }, []);
   
   const localizer = momentLocalizer(moment)
@@ -32,7 +42,7 @@ function TripsCalender({dashboardProps}) {
       alert("End day must be equal or later then Start day!")
     } else {
       if (newTrip.title && newTrip.start && newTrip.end && nextCountry && nextCity) {
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCountry.split(" ").join("+")}+${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
           .then(res => res.json())
           .then(data => {
             console.log(data)
