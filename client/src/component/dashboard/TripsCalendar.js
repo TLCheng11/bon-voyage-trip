@@ -8,13 +8,8 @@ import moment from 'moment'
 
 function TripsCalender({dashboardProps}) {
   let navigate = useNavigate()
-  const {currentUser, nextCountry, setNextCountry, nextCity, setNextCity} = dashboardProps
+  const {currentUser, nextCountry, setNextCountry, nextCity, setNextCity, newTrip, setNewTrip} = dashboardProps
   const [trips, setTrips] = useState([])
-  const [newTrip, setNewTrip] = useState({
-    title: "My Next Trip",
-    start: "",
-    end: ""
-  })
 
   // for test data
   useEffect(() => {
@@ -26,7 +21,7 @@ function TripsCalender({dashboardProps}) {
           const loadTrip ={
             title: trip.title,
             start: trip.start_date,
-            end: moment(trip.end_date).add(1, "days")
+            end: moment(trip.end_date).add(1, "days").toDate()
           }
           loadTrips.push(loadTrip)
           // console.log(moment(trip.end_date).calendar())
@@ -70,11 +65,16 @@ function TripsCalender({dashboardProps}) {
               const returnTrip = {
                 title: data.title,
                 start: data.start_date,
-                end: moment(data.end_date).add(1, "days")
+                end: moment(data.end_date).add(1, "days").toDate()
               }
               setTrips([...trips, returnTrip])
               setNextCountry("")
               setNextCity("")
+              setNewTrip({
+                title: "My Next Trip",
+                start: "",
+                end: ""
+              })
             })
             .catch(console.error)
           })

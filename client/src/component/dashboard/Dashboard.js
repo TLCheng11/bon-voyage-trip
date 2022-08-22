@@ -1,9 +1,10 @@
 import TripsCalender from "./TripsCalendar";
 import MapHolder from "../Maps/MapHolder"
+import { useState } from "react";
 
 function Dashboard({dashboardProps}) {
   const {currentUser, coordinates} = dashboardProps
-
+  
   return (
     <div>
       <div>Dashboard</div>
