@@ -1,11 +1,13 @@
 class Trip < ApplicationRecord
+  validates :title, :created_by, :start_date, :end_date, presence: true
+
   has_many :daily_plans
   has_many :trip_plans
   has_many :users, through: :trip_plans
 
   def self.new_trip(params)
     # create trip
-    trip = self.create!(title: params[:title], start_date: params[:start_date], end_date: params[:end_date])
+    trip = self.create!(title: params[:title], created_by: params[:user_id], start_date: params[:start_date], end_date: params[:end_date])
 
     # create trip_plan to link user with trip
     TripPlan.create!(user_id: params[:user_id], trip_id: trip.id)
