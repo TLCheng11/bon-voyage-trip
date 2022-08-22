@@ -13,7 +13,7 @@ function WorldArcs() {
 
     globeEl.current.pointOfView({ altitude: 2 }, 2000);
 
-    setArcsData([...Array(30).keys()].map(() => ({
+    setArcsData([...Array(15).keys()].map(() => ({
       startLat: (Math.random() - 0.5) * 180,
       startLng: (Math.random() - 0.5) * 360,
       endLat: (Math.random() - 0.5) * 180,
