@@ -8,6 +8,11 @@ class TripsController < ApplicationController
     render json: trip
   end
 
+  def show
+    trip = Trip.find(params[:id])
+    render json: trip, serializer: TripShowSerializer
+  end
+
   private
 
   def trip_create_params
