@@ -26,9 +26,11 @@ function TripsCalender({dashboardProps}) {
           const loadTrip ={
             title: trip.title,
             start: trip.start_date,
-            end: trip.end_date
+            end: moment(trip.end_date).add(1, "days")
           }
           loadTrips.push(loadTrip)
+          // console.log(moment(trip.end_date).calendar())
+          // console.log(moment(trip.end_date).add(1, "days").calendar())
         })
         setTrips(loadTrips)
       })
@@ -68,7 +70,7 @@ function TripsCalender({dashboardProps}) {
               const returnTrip = {
                 title: data.title,
                 start: data.start_date,
-                end: data.end_date
+                end: moment(data.end_date).add(1, "days")
               }
               setTrips([...trips, returnTrip])
               setNextCountry("")
