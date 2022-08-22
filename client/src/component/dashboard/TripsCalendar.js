@@ -78,11 +78,11 @@ function TripsCalender({dashboardProps}) {
   }
 
   return (
-    <div>
+    <div className=''>
       <div>Add a new trip:</div>
       <div className='flex p-2 justify-center'>
         <input type="text"
-          placeholder="My next Trip"
+          placeholder=""
           required
           value={newTrip.title}
           onChange={e => setNewTrip({...newTrip, title: e.target.value})}

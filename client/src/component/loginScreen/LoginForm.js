@@ -1,4 +1,5 @@
 import { useState } from "react"
+import logo from "../../images/logo.png"
 
 function LoginForm({loginScreenProps, setSignUp}) {
   const {setCurrentUser} = loginScreenProps
@@ -37,10 +38,12 @@ function LoginForm({loginScreenProps, setSignUp}) {
   }
 
   return (
-    <div className="bg-gradient-to-r from-white/90 to-gray-500/80 rounded-lg flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
+    <div className="text-bg-sky-500 bg-gradient-to-r from-white/90 to-gray-500/80 rounded-lg flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h1 className="text-blue-300">Our Website Icon will be here</h1>
+          <h1 className="text-blue-300">
+            <img className="opacity-90 rounded-xl" src={logo}/>
+          </h1>
           <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-blue-700">
             Continue Your Adventure
           </h2>
@@ -97,7 +100,7 @@ function LoginForm({loginScreenProps, setSignUp}) {
             </button>
           </div>
         </form>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-base text-gray-600 ">
           Not a member yet?{' '}
           <a href="#" className="font-medium text-indigo-700 hover:text-indigo-500" onClick={() => setSignUp(true)}>
             Sign up

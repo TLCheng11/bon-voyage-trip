@@ -5,13 +5,15 @@ function Dashboard({dashboardProps}) {
   const {currentUser, coordinates} = dashboardProps
 
   return (
-    <div>
-      <div>Dashboard</div>
-      <div>hi {currentUser.username}</div>
+  <div className="Dashboardbg">
+    <div className= "text-lgmax-w-[1240px] mx-auto py-16 px-4 text-left">
+      <div className= "dboardtext">DASHBOARD</div>
+      <div>Welcome, {currentUser.username}</div>
       <div>
         <TripsCalender dashboardProps={dashboardProps} />
       </div>
       <MapHolder coordinates={coordinates} />
+    </div>
     </div>
   );
 }
