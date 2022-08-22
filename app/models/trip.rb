@@ -1,8 +1,8 @@
 class Trip < ApplicationRecord
   validates :title, :created_by, :start_date, :end_date, presence: true
 
-  has_many :daily_plans
-  has_many :trip_plans
+  has_many :daily_plans, dependent: :destroy
+  has_many :trip_plans, dependent: :destroy
   has_many :users, through: :trip_plans
 
   def self.new_trip(params)
