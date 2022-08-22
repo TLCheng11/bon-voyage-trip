@@ -1,9 +1,10 @@
 import TripsCalender from "./TripsCalendar";
 import MapHolder from "../Maps/MapHolder"
+import { useState } from "react";
 
 function Dashboard({dashboardProps}) {
   const {currentUser, coordinates} = dashboardProps
-
+  
   return (
   <div className="Dashboardbg">
     <div className= "text-lgmax-w-[1240px] mx-auto py-16 px-4 text-left">

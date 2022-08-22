@@ -2,11 +2,10 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import LoginScreen from './component/loginScreen/LoginScreen';
+import LoginScreen from './component/LoginScreen/LoginScreen';
 import SelectLocation from './component/SelectLocation/SelectLocation';
-import Testing from './Testing';
-import Dashboard from './component/dashboard/Dashboard';
-import MenuBar from './component/dashboard/MenuBar';
+import Dashboard from './component/Dashboard/Dashboard';
+import MenuBar from './component/Dashboard/MenuBar';
 
 
 function App() {
@@ -16,6 +15,11 @@ function App() {
   const [nextCountry, setNextCountry] = useState("")
   const [nextCity, setNextCity] = useState("");
   const [coordinates, setCoordinates] = useState({})
+  const [newTrip, setNewTrip] = useState({
+    title: "My Next Trip",
+    start: "",
+    end: ""
+  })
 
   console.log(coordinates)
   console.log(nextCountry)
@@ -29,7 +33,9 @@ function App() {
     setNextCountry,
     nextCity,
     setNextCity,
-    coordinates
+    coordinates,
+    newTrip,
+    setNewTrip
   }
 
   const selectLocationProps = {

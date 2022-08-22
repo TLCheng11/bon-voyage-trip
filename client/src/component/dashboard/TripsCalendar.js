@@ -8,21 +8,28 @@ import moment from 'moment'
 
 function TripsCalender({dashboardProps}) {
   let navigate = useNavigate()
-  const {currentUser, nextCountry, setNextCountry, nextCity, setNextCity} = dashboardProps
+  const {currentUser, nextCountry, setNextCountry, nextCity, setNextCity, newTrip, setNewTrip} = dashboardProps
   const [trips, setTrips] = useState([])
-  const [newTrip, setNewTrip] = useState({
-    title: "My Next Trip",
-    start: "",
-    end: ""
-  })
 
   // for test data
   useEffect(() => {
-    setTrips([{
-      title: "Test",
-      start: new Date(2022,7,3),
-      end: new Date(2022,7,7)
-    }])
+    fetch("/trips")
+      .then(res => res.json())
+      .then(data => {
+        const loadTrips = []
+        data.forEach(trip => {
+          const loadTrip ={
+            title: trip.title,
+            start: moment(trip.start_date).toDate(),
+            end: moment(trip.end_date).add(1, "days").toDate()
+          }
+          loadTrips.push(loadTrip)
+          // console.log(moment(trip.end_date).calendar())
+          // console.log(moment(trip.end_date).add(1, "days").calendar())
+        })
+        setTrips(loadTrips)
+      })
+      .catch(console.error)
   }, []);
   
   const localizer = momentLocalizer(moment)
@@ -31,8 +38,8 @@ function TripsCalender({dashboardProps}) {
     if (newTrip.start > newTrip.end) {
       alert("End day must be equal or later then Start day!")
     } else {
-      if (newTrip.title && nextCountry && nextCity) {
-        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+      if (newTrip.title && newTrip.start && newTrip.end && nextCountry && nextCity) {
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCountry.split(" ").join("+")}+${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
           .then(res => res.json())
           .then(data => {
             console.log(data)
@@ -57,12 +64,17 @@ function TripsCalender({dashboardProps}) {
               console.log(data)
               const returnTrip = {
                 title: data.title,
-                start: data.start_date,
-                end: data.end_date
+                start: moment(data.start_date).toDate(),
+                end: moment(data.end_date).add(1, "days").calendar()
               }
               setTrips([...trips, returnTrip])
               setNextCountry("")
               setNextCity("")
+              setNewTrip({
+                title: "My Next Trip",
+                start: "",
+                end: ""
+              })
             })
             .catch(console.error)
           })
