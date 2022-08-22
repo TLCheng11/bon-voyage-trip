@@ -67,7 +67,7 @@ function TripsCalender({dashboardProps}) {
                 id: data.id,
                 title: data.title,
                 start: moment(data.start_date).toDate(),
-                end: moment(data.end_date).add(1, "days").calendar()
+                end: moment(data.end_date).add(1, "days").toDate()
               }
               setTrips([...trips, returnTrip])
               setNextCountry("")
