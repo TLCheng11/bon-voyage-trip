@@ -7,14 +7,14 @@ Rails.application.routes.draw do
   # route for google map nearby search
   get "/search", to: "google_maps#search"
 
-  resources :users
+  resources :users, only: [:create]
+  resources :trips, only: [:create]
   # resources :activities
   # resources :sight_spots
   # resources :restaurants
   # resources :transportation_plans
   # resources :hotel_bookings
   # resources :daily_plans
-  # resources :trips
 
 
 

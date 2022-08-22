@@ -7,24 +7,24 @@ function Testing({currentUser, setCurrentUser, coordinates}) {
   
   return (
     <div>
-      <div>Dashboard</div>
-      <div>hi {currentUser.username}</div>
-      <button onClick={() => {
+      {/* <div>Dashboard</div>
+      <div>hi {currentUser.username}</div> */}
+      {/* <button onClick={() => {
         fetch("/logout", {
           method: "POST"
         })
           .then(res => res.json())
           .then(console.log)
         setCurrentUser({})
-      }}>Logout</button>
-      <div>
+      }}>Logout</button> */}
+      {/* <div>
         <NavLink to="select-location">
           <button>To select location page</button>
         </NavLink>
-      </div>
+      </div> */}
         
       <MapHolder coordinates={coordinates} />
-      <TripsCalender />
+      {/* <TripsCalender /> */}
       
     </div>
   );

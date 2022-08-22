@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginScreen from './component/loginScreen/LoginScreen';
 import SelectLocation from './component/SelectLocation/SelectLocation';
 import Testing from './Testing';
+import Dashboard from './component/dashboard/Dashboard';
+import MenuBar from './component/dashboard/MenuBar';
 
 
 function App() {
@@ -21,6 +23,14 @@ function App() {
   // console.log(usCityOptions)
 
   // all props package
+  const dashboardProps = {
+    currentUser,
+    nextCountry,
+    setNextCountry,
+    nextCity,
+    setNextCity
+  }
+
   const selectLocationProps = {
     nextCountry,
     setNextCountry,
@@ -63,13 +73,11 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="App">
+      <div>
+        <MenuBar setCurrentUser={setCurrentUser} />
         <Routes>
+          <Route path="/" exact element={<Dashboard dashboardProps={dashboardProps} />}></Route>
           <Route path="/select-location" element={<SelectLocation selectLocationProps={selectLocationProps} />}></Route>
-          <Route path="/" exact element={
-            // this is only for testing, please add a component for dashboard
-            <Testing currentUser={currentUser} setCurrentUser={setCurrentUser} coordinates={coordinates}/>
-          }></Route>
           <Route path="*" element={<div className="text-6xl">Page Not Found</div>} />
         </Routes>
       </div>
