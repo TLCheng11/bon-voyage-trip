@@ -1,3 +1,4 @@
+import { set } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import World from '../Worlds/World'
@@ -5,9 +6,10 @@ import CountriesSelectionBox from './CountriesSelectionBox';
 
 function SelectLocation({selectLocationProps}) {
   let navigate = useNavigate()
+  const {nextCountry, setNextCity} = selectLocationProps
+  const [screenProtect, setScreenProtect] = useState(true)
   const [country, setCountry] = useState("")
   const [city, setCity] = useState("")
-  const {nextCountry, setNextCity} = selectLocationProps
 
   // please only uncomment when testing the selection or on production
   // useEffect(() => {
@@ -21,8 +23,25 @@ function SelectLocation({selectLocationProps}) {
   //   }
   // }, [nextCity])
 
+  useEffect(() => {
+    if (screenProtect) {
+      const id = setTimeout(() => {
+        setScreenProtect(false)
+      }, 2500)
+
+      return (() => clearInterval(id))
+    }
+  }, [screenProtect]);
+
+  useEffect(() => {
+    setScreenProtect(true)
+  }, [country]);
+
   return (
     <div>
+      {
+        screenProtect ? <div className='fixed h-screen w-screen z-50 opacity-5 bg-color-white'></div> : null
+      }
       <div>
         <button onClick={() => navigate("/")}>Back to Dashboard</button>
       </div>

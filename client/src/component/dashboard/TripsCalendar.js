@@ -39,23 +39,26 @@ function TripsCalender() {
       <div className='flex z-50'>
         <input type="text"
           placeholder="My next Trip"
+          required
           value={newTrip.title}
           onChange={e => setNewTrip({...newTrip, title: e.target.value})}
         />
-        <DatePicker
-          placeholderText="Start Date"
-          selected={newTrip.start}
-          onChange={start => setNewTrip({...newTrip, start})}
-        />
-        <DatePicker
-          placeholderText="End Date"
-          selected={newTrip.end}
-          onChange={end => setNewTrip({...newTrip, end})}
-        />
+        <div className='flex'>
+          <DatePicker
+            placeholderText="Start Date"
+            selected={newTrip.start}
+            onChange={start => setNewTrip({...newTrip, start})}
+          />
+          <DatePicker
+            placeholderText="End Date"
+            selected={newTrip.end}
+            onChange={end => setNewTrip({...newTrip, end})}
+          />
+        </div>
         <button onClick={addTrip}>Add Trip</button>
       </div>
       <Calendar
-        style={{ height: 500, margin: 50}}
+        style={{ height: 500, margin: 25, padding: 10, opacity: 0.7}}
         localizer={localizer}
         events={trips}
         startAccessor="start"

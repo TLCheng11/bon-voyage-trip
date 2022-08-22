@@ -71,6 +71,7 @@ function CountriesSelectionBox({selectLocationProps, country, setCountry, city, 
           value={country} onChange={e => {
             setCountry(e.target.value)
           }}
+          required
         >
           <option value="">Select a country</option>
           {countryOptions}
@@ -94,6 +95,7 @@ function CountriesSelectionBox({selectLocationProps, country, setCountry, city, 
             m-0
             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label=".form-select-sm example"
           value={city} onChange={e => setCity(e.target.value)}
+          required
         >
           <option value="">Select a city</option>
           {cityOptions}
