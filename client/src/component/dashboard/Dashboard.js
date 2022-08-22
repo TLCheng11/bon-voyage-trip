@@ -1,7 +1,8 @@
 import TripsCalender from "./TripsCalendar";
+import MapHolder from "../Maps/MapHolder"
 
 function Dashboard({dashboardProps}) {
-  const {currentUser} = dashboardProps
+  const {currentUser, coordinates} = dashboardProps
 
   return (
     <div>
@@ -10,6 +11,7 @@ function Dashboard({dashboardProps}) {
       <div>
         <TripsCalender dashboardProps={dashboardProps} />
       </div>
+      <MapHolder coordinates={coordinates} />
     </div>
   );
 }

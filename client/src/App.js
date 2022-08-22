@@ -28,7 +28,8 @@ function App() {
     nextCountry,
     setNextCountry,
     nextCity,
-    setNextCity
+    setNextCity,
+    coordinates
   }
 
   const selectLocationProps = {
