@@ -60,7 +60,7 @@ function SignUpForm({loginScreenProps, setSignUp}) {
   function handleSignUp(e) {
     e.preventDefault();
     if (city) {
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${city.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${country.split(" ").join("+")}+${city.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
         .then(res => res.json())
         .then(data => {
           console.log(data)
