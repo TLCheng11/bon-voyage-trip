@@ -31,7 +31,7 @@ function TripsCalender({dashboardProps}) {
     if (newTrip.start > newTrip.end) {
       alert("End day must be equal or later then Start day!")
     } else {
-      if (newTrip.title && nextCountry && nextCity) {
+      if (newTrip.title && newTrip.start && newTrip.end && nextCountry && nextCity) {
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
           .then(res => res.json())
           .then(data => {
