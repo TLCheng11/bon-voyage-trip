@@ -57,66 +57,66 @@ function SignUpForm({loginScreenProps, setSignUp}) {
   }
 
   // comment out this for heroku depolyment testing
-  // function handleSignUp(e) {
-  //   e.preventDefault();
-  //   if (city) {
-  //     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${city.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
-  //       .then(res => res.json())
-  //       .then(data => {
-  //         console.log(data)
-  //         fetch("/users", {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify({
-  //             ...formInput,
-  //             home_city_lat: data.results[0].geometry.location.lat,
-  //             home_city_lng: data.results[0].geometry.location.lng
-  //           }),
-  //         })
-  //           .then((res) => {
-  //             if (res.ok) {
-  //               res.json().then(data => {
-  //                 console.log(data)
-  //                 setCurrentUser(data)
-  //               })
-  //             } else {
-  //               res.json().then(e => alert(e.errors))
-  //             }
-  //           })
-  //           .catch(console.error)
-  //       })
-  //       .catch(console.error)
-  //   }
-  // }
-
-  // uncomment this for heroku depolyment testing
   function handleSignUp(e) {
     e.preventDefault();
-    fetch("/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...formInput,
-        home_city_lat: 40.7127753,
-        home_city_lng: -74.0059728
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          res.json().then(data => {
-            console.log(data)
-            setCurrentUser(data)
+    if (city) {
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${city.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          fetch("/users", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...formInput,
+              home_city_lat: data.results[0].geometry.location.lat,
+              home_city_lng: data.results[0].geometry.location.lng
+            }),
           })
-        } else {
-          res.json().then(e => alert(e.errors))
-        }
-      })
-      .catch(console.error)
+            .then((res) => {
+              if (res.ok) {
+                res.json().then(data => {
+                  console.log(data)
+                  setCurrentUser(data)
+                })
+              } else {
+                res.json().then(e => alert(e.errors))
+              }
+            })
+            .catch(console.error)
+        })
+        .catch(console.error)
+    }
   }
+
+  // uncomment this for heroku depolyment testing
+  // function handleSignUp(e) {
+  //   e.preventDefault();
+  //   fetch("/users", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       ...formInput,
+  //       home_city_lat: 40.7127753,
+  //       home_city_lng: -74.0059728
+  //     }),
+  //   })
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         res.json().then(data => {
+  //           console.log(data)
+  //           setCurrentUser(data)
+  //         })
+  //       } else {
+  //         res.json().then(e => alert(e.errors))
+  //       }
+  //     })
+  //     .catch(console.error)
+  // }
   
 
   return (  
