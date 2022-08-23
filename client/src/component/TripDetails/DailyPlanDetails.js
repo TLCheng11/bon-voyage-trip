@@ -8,7 +8,7 @@ function DailyPlanDetails() {
   let navigate = useNavigate()
   const params = useParams()
   const [dailyPlan, setDailyPlan] = useState({})
-  const [addingActivity, setAddingActiving] = useState(false)
+  const [addingActivity, setAddingActivity] = useState(false)
   
   useEffect(() => {
     fetch(`/daily_plans/${params.daily_plan_id}`)
@@ -21,7 +21,7 @@ function DailyPlanDetails() {
     <div className="flex">
       {/* to show the add activity form */}
       {
-        addingActivity ? <AddActivityForm setAddingActiving={setAddingActiving} /> : null
+        addingActivity ? <AddActivityForm setAddingActivity={setAddingActivity} /> : null
       }
       {/* for data */}
       <div className="h-full w-1/3">
@@ -35,7 +35,7 @@ function DailyPlanDetails() {
         <div className="h-96 w-full p-5 overflow-x-hidden overflow-y-auto">
           <div className="h-full w-full p-2 border rounded-xl">
             <div>
-              <button onClick={() => setAddingActiving(true)}>Add Activity</button>
+              <button onClick={() => setAddingActivity(true)}>Add Activity</button>
             </div>
           </div>
         </div>

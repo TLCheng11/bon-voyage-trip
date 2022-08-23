@@ -5,7 +5,7 @@ import RestaurantForm from './RestaurantForm';
 import SightSeeingForm from './SightSeeingForm';
 import TranspotationForm from './TranspotationForm';
 
-function AddActivityForm({setAddingActiving}) {
+function AddActivityForm({setAddingActivity}) {
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("10:00")
   const [type, setType] = useState("sight_spot")
@@ -98,7 +98,7 @@ function AddActivityForm({setAddingActiving}) {
         {/* for close button */}
         <div className="flex items-baseline justify-between">
           <p className="ml-2">Add activity:</p>
-          <button className="px-2 py-1 text-red-700 hover:text-red-400" onClick={() => setAddingActiving(false)}>X</button>
+          <button className="px-2 py-1 text-red-700 hover:text-red-400" onClick={() => setAddingActivity(false)}>X</button>
         </div>
         {/* for edit form */}
         <div className="p-2">

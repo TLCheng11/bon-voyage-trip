@@ -24,7 +24,7 @@ class TripsController < ApplicationController
     @trip = Trip.find(params[:id])
   end
 
-  def trip_create_params
-    params.permit(:user_id, :title, :start_date, :end_date, :country, :city, :city_lat, :city_lng)
-  end
+  # def trip_create_params
+  #   params.permit(:user_id, :title, :start_date, :end_date, :country, :city, :city_lat, :city_lng)
+  # end
 end
