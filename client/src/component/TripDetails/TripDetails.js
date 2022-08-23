@@ -38,7 +38,7 @@ function TripDetails() {
   return (
     <div>
       <h1>{trip.title}</h1>
-      <div>{moment(trip.start_date).calendar()} - {moment(trip.end_date).calendar()}</div>
+      <div>{moment(trip.start_date).format("MM-DD-YYYY")} - {moment(trip.end_date).format("MM-DD-YYYY")}</div>
       <button onClick={deleteTrip}>Delete Trip</button>
       <div className="grid grid-cols-4 gap-4 overflow-auto">
         {showDailyPlans}

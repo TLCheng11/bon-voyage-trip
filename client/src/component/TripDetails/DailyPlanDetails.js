@@ -21,7 +21,7 @@ function DailyPlanDetails() {
         <div>
           <button onClick={() => navigate(`/trip-details/${params.trip_id}`)}>Back</button>
           <h1>Day {params.day}</h1>
-          <h2>{moment(dailyPlan.day).format("YYYY-MM-DD")}</h2>
+          <h2>{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
         </div>
       </div>
       <div className="w-2/3">
