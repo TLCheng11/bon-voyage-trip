@@ -34,6 +34,8 @@ function AddActivityForm({setAddingActiving}) {
                   setName={setName}
                   location={location}
                   setLocation={setLocation}
+                  description={description}
+                  setDescription={setDescription}
                 />
       break;
     case "restaurant":
@@ -46,6 +48,8 @@ function AddActivityForm({setAddingActiving}) {
                   setName={setName}
                   location={location}
                   setLocation={setLocation}
+                  description={description}
+                  setDescription={setDescription}
                 />
       break;
     case "transpotation_plan":
@@ -64,6 +68,8 @@ function AddActivityForm({setAddingActiving}) {
                   setDepartureStation={setDepartureStation}
                   destinationStation={destinationStation}
                   setDestinationStation={setDestinationStation}
+                  description={description}
+                  setDescription={setDescription}
                 />
       break;
     case "hotel_booking":
@@ -78,6 +84,8 @@ function AddActivityForm({setAddingActiving}) {
                   setLocation={setLocation}
                   price={price}
                   setPrice={setPrice}
+                  description={description}
+                  setDescription={setDescription}
                 />
       break;
     default:
@@ -101,7 +109,6 @@ function AddActivityForm({setAddingActiving}) {
               <option value="restaurant">Restaurant</option>
               <option value="transpotation_plan">Travel</option>
               <option value="hotel_booking">Lodging</option>
-              <option value="other">Other</option>
             </select>
           </div>
           {showForm}

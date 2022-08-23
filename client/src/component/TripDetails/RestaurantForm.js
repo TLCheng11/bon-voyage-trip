@@ -8,7 +8,9 @@ function RestaurantForm({
   name,
   setName,
   location,
-  setLocation
+  setLocation,
+  description,
+  setDescription
 }) {
 
   return (
@@ -33,6 +35,10 @@ function RestaurantForm({
             <p>Est. Finish at:</p>
             <TimePicker value={endTime} onChange={setEndTime}/>
           </div>
+        </div>
+        <div>
+          <p>Additional Info:</p>
+          <textarea className="w-full" value={description} onChange={e => setDescription(e.target.value)}/>
         </div>
       </div>
     </div>

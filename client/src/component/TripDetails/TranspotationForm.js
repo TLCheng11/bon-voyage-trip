@@ -15,7 +15,9 @@ function TranspotationForm({
   departureStation,
   setDepartureStation,
   destinationStation,
-  setDestinationStation
+  setDestinationStation,
+  description,
+  setDescription
 }) {
   return (
     <div>
@@ -92,6 +94,10 @@ function TranspotationForm({
             </div>
           ) : (null)
         }
+        <div>
+          <p>Additional Info:</p>
+          <textarea className="w-full" value={description} onChange={e => setDescription(e.target.value)}/>
+        </div>
     </div>
   );
 }

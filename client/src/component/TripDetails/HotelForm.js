@@ -10,7 +10,9 @@ function HotelForm({
   location,
   setLocation,
   price,
-  setPrice
+  setPrice,
+  description,
+  setDescription
 }) {
 
   function validate(e) {
@@ -46,6 +48,10 @@ function HotelForm({
             <p>Check out at:</p>
             <TimePicker value={endTime} onChange={setEndTime}/>
           </div>
+        </div>
+        <div>
+          <p>Additional Info:</p>
+          <textarea className="w-full" value={description} onChange={e => setDescription(e.target.value)}/>
         </div>
       </div>
     </div>
