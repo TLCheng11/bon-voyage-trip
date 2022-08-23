@@ -3,7 +3,7 @@ import MapHolder from "../Maps/MapHolder"
 import { useState } from "react";
 
 function Dashboard({dashboardProps}) {
-  const {currentUser, coordinates} = dashboardProps
+  const {currentUser} = dashboardProps
   
   return (
   <div className="Dashboardbg">
@@ -13,7 +13,6 @@ function Dashboard({dashboardProps}) {
       <div>
         <TripsCalender dashboardProps={dashboardProps} />
       </div>
-      <MapHolder coordinates={coordinates} />
     </div>
     </div>
   );

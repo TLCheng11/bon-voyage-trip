@@ -9,7 +9,7 @@ function TripDetails() {
   const [trip, setTrip] = useState({daily_plans: []})
 
   useEffect(() => {
-    fetch(`/trips/${params.id}`)
+    fetch(`/trips/${params.trip_id}`)
       .then(res => res.json())
       .then(data => setTrip(data))
       .catch(console.error)
@@ -17,7 +17,7 @@ function TripDetails() {
 
   function deleteTrip() {
     if (window.confirm("Are you sure?")) {
-      fetch(`/trips/${params.id}`, {
+      fetch(`/trips/${params.trip_id}`, {
         method: "DELETE"
       })
       .then(res => res.json())

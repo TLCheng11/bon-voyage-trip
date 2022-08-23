@@ -9,12 +9,12 @@ Rails.application.routes.draw do
 
   resources :users, only: [:create]
   resources :trips, only: [:index, :create, :show, :destroy]
+  resources :daily_plans, only: [:show]
   # resources :activities
   # resources :sight_spots
   # resources :restaurants
   # resources :transportation_plans
   # resources :hotel_bookings
-  # resources :daily_plans
 
 
 

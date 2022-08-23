@@ -7,6 +7,7 @@ import SelectLocation from './component/SelectLocation/SelectLocation';
 import Dashboard from './component/Dashboard/Dashboard';
 import MenuBar from './component/Dashboard/MenuBar';
 import TripDetails from './component/TripDetails/TripDetails';
+import DailyPlanDetails from './component/TripDetails/DailyPlanDetails';
 
 
 function App() {
@@ -87,7 +88,8 @@ function App() {
         <Routes>
           <Route path="/" exact element={<Dashboard dashboardProps={dashboardProps} />}></Route>
           <Route path="/select-location" element={<SelectLocation selectLocationProps={selectLocationProps} />}></Route>
-          <Route path="/trip-details/:id" element={<TripDetails />} ></Route>
+          <Route path="/trip-details/:trip_id" element={<TripDetails />} ></Route>
+          <Route path="/trip-details/:trip_id/:day/:daily_plan_id" element={<DailyPlanDetails />} ></Route>
           <Route path="*" element={<div className="text-6xl">Page Not Found</div>} />
         </Routes>
       </div>

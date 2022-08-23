@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
-function CountriesSelectionBox({selectLocationProps, country, setCountry, city, setCity}) {
-  // const {usCityOptions} = selectLocationProps
+function CountriesSelectionBox({country, setCountry, city, setCity}) {
   const [cityList, setCityList] = useState([])
   const [cityOptions, setCityOptions] = useState([])
 
@@ -16,32 +15,28 @@ function CountriesSelectionBox({selectLocationProps, country, setCountry, city, 
 
   useEffect(() => {
     if (country) {
-    //   if (country === "United States of America") {
-    //     setCityOptions(usCityOptions)
-    //   } else {
-        const searchCountry = country === "United States of America" ? "United States" : country
-        fetch("https://countriesnow.space/api/v0.1/countries/cities", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            "country": searchCountry
-          })
+      const searchCountry = country === "United States of America" ? "United States" : country
+      fetch("https://countriesnow.space/api/v0.1/countries/cities", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          "country": searchCountry
         })
-          .then(res => res.json())
-          .then(data => {
-            if(data.data) {
-              setCityList(data.data)
-            } else {
-              setCityList([country])
-            }
-          })
-          .catch(error => {
-            console.error(error)
+      })
+        .then(res => res.json())
+        .then(data => {
+          if(data.data) {
+            setCityList(data.data)
+          } else {
             setCityList([country])
-          })
-      // }
+          }
+        })
+        .catch(error => {
+          console.error(error)
+          setCityList([country])
+        })
     } else {
       setCityList([])
       setCity("")

@@ -1,4 +1,3 @@
 class DailyPlanSerializer < ActiveModel::Serializer
-  attributes :id, :day, :country, :city, :city_lat, :city_lng
-  has_one :trip
+  attributes :id, :day, :country, :city, :city_lat, :city_lng, :trip_id
 end
