@@ -24,7 +24,7 @@ function DailyPlanDetails() {
           <h2>{moment(dailyPlan.day).format("YYYY-MM-DD")}</h2>
         </div>
       </div>
-      <div className="w-1/2">
+      <div className="w-2/3">
         {
           dailyPlan.id ? (
             <MapHolder coordinates={{lat: dailyPlan.city_lat, lng: dailyPlan.city_lng}} />
