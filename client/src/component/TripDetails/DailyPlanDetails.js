@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import MapHolder from "../Maps/MapHolder";
+import AddActivityForm from "./AddActivityForm";
 
 function DailyPlanDetails() {
   let navigate = useNavigate()
-  const [dailyPlan, setDailyPlan] = useState({})
   const params = useParams()
+  const [dailyPlan, setDailyPlan] = useState({})
+  const [addingActivity, setAddingActiving] = useState(true)
   
   useEffect(() => {
     fetch(`/daily_plans/${params.daily_plan_id}`)
@@ -17,6 +19,10 @@ function DailyPlanDetails() {
 
   return (
     <div className="flex">
+      {/* to show the add activity form */}
+      {
+        addingActivity ? <AddActivityForm /> : null
+      }
       {/* for data */}
       <div className="h-full w-1/3">
         <div className="h-1/3 w-full p-5">
