@@ -13,20 +13,20 @@ function SelectLocation({selectLocationProps}) {
   // please only uncomment when testing the selection or on production
   // useEffect(() => {
   //   if (currentUser.id && nextCity) {
-  //     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+  //     fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${country.split(" ").join("+")}+${city.split(" ").join("+")}&key=${process.env. REACT_APP_GOOGLE_MAP_API_KEY}`)
   //     .then(res => res.json())
   //     .then(data => {
   //       console.log(data.results[0].geometry.location)
   //       setCoordinates(data.results[0].geometry.location)
   //     })
   //   }
-  // }, [nextCity])
+  // }, [city])
 
   useEffect(() => {
     if (screenProtect) {
       const id = setTimeout(() => {
         setScreenProtect(false)
-      }, 2500)
+      }, 2000)
 
       return (() => clearInterval(id))
     }
