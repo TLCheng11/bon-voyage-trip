@@ -1,6 +1,6 @@
 import TimePicker from 'react-time-picker';
 
-function RestaurantForm({
+function SightSeeingForm({
   startTime,
   setStartTime,
   endTime,
@@ -16,7 +16,7 @@ function RestaurantForm({
       <div>
         <div>
           <p>
-            Restaurant Name:
+            Place Name:
             <input value={name} onChange={e => setName(e.target.value)} />
           </p>
           <p>
@@ -26,11 +26,11 @@ function RestaurantForm({
         </div>
         <div className="flex justify-evenly">
           <div>
-            <p>Reserved at:</p>
+            <p>Start at:</p>
             <TimePicker value={startTime} onChange={setStartTime}/>
           </div>
           <div>
-            <p>Est. Finish at:</p>
+            <p>End at:</p>
             <TimePicker value={endTime} onChange={setEndTime}/>
           </div>
         </div>
@@ -39,4 +39,4 @@ function RestaurantForm({
   );
 }
 
-export default RestaurantForm;
+export default SightSeeingForm;

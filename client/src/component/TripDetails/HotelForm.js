@@ -32,7 +32,7 @@ function HotelForm({
             <input value={location} onChange={e => setLocation(e.target.value)} />
           </p>
           <p>
-            Cost per night: $
+            Cost per day: $
             <input type="number" min="0.00" step="any" value={price} onChange={e => validate(e)} />
             USD
           </p>

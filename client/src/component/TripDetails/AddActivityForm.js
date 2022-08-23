@@ -1,12 +1,15 @@
 
 import { useState } from 'react';
 import HotelForm from './HotelForm';
+import RestaurantForm from './RestaurantForm';
+import SightSeeingForm from './SightSeeingForm';
 import TranspotationForm from './TranspotationForm';
 
 function AddActivityForm({setAddingActiving}) {
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("10:00")
   const [type, setType] = useState("")
+  const [description, setDescription] = useState("")
   // states for transpotation
   const [transpotationType, setTranspotationType] = useState("air")
   const [country, setCountry] = useState("")
@@ -21,6 +24,30 @@ function AddActivityForm({setAddingActiving}) {
 
   let showForm
   switch (type) {
+    case "sight_spot":
+      showForm = <SightSeeingForm 
+                  startTime={startTime}
+                  setStartTime={setStartTime}
+                  endTime={endTime}
+                  setEndTime={setEndTime}
+                  name={name}
+                  setName={setName}
+                  location={location}
+                  setLocation={setLocation}
+                />
+      break;
+    case "restaurant":
+      showForm = <RestaurantForm 
+                  startTime={startTime}
+                  setStartTime={setStartTime}
+                  endTime={endTime}
+                  setEndTime={setEndTime}
+                  name={name}
+                  setName={setName}
+                  location={location}
+                  setLocation={setLocation}
+                />
+      break;
     case "transpotation_plan":
       showForm = <TranspotationForm
                   startTime={startTime}
@@ -67,13 +94,13 @@ function AddActivityForm({setAddingActiving}) {
         </div>
         {/* for edit form */}
         <div className="p-2">
-          <div className="mx-3 my-2">
+          <div className="flex mx-3 my-2">
+            <p>Type:</p>
             <select value={type} onChange={e => setType(e.target.value)}>
-              <option value="">Type:</option>
+              <option value="sight_spot">Sight Seeing</option>
+              <option value="restaurant">Restaurant</option>
               <option value="transpotation_plan">Travel</option>
               <option value="hotel_booking">Lodging</option>
-              <option value="restaurant">Restaurant</option>
-              <option value="sight_spot">Sight Seeing</option>
               <option value="other">Other</option>
             </select>
           </div>
