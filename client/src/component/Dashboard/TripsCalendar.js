@@ -90,7 +90,6 @@ function TripsCalender({dashboardProps}) {
 
   function onSelectEvent(e){
     navigate(`/trip-details/${e.id}`)
-    console.log(e)
   }
 
   return (

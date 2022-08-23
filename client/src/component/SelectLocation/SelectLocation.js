@@ -49,7 +49,7 @@ function SelectLocation({selectLocationProps}) {
       }
       <div>
         <h1 className="text-white text-center text-3xl font-bold underline mb-2">Pick a country you want to visit: {country} {city ? ` => City: ${city}` : null}</h1>
-        <CountriesSelectionBox selectLocationProps={selectLocationProps} country={country} setCountry={setCountry} city={city} setCity={setCity} />
+        <CountriesSelectionBox country={country} setCountry={setCountry} city={city} setCity={setCity} />
         <div className='flex justify-center w-full'>
           <button className='text-white' onClick={handleConfirmDestination}>Confirm</button>
         </div>

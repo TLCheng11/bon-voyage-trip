@@ -48,9 +48,9 @@ function MapHolder({coordinates}) {
         <div>
           <button onClick={() => setLoadMap(true)}>LoadMap</button>
         </div>
-        <div>
+        {/* <div>
           <button onClick={() => console.log(mapRef.current.center.lat(), mapRef.current.center.lng())}>Map center</button>
-        </div>
+        </div> */}
         <div>
           <button onClick={() => searchNearby("lodging")}>Nearby Hotel</button>
         </div>
