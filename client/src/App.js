@@ -24,9 +24,9 @@ function App() {
     end: ""
   })
 
-  console.log(coordinates)
-  console.log(nextCountry)
-  console.log(nextCity)
+  // console.log(coordinates)
+  // console.log(nextCountry)
+  // console.log(nextCity)
   // console.log(usCityOptions)
 
   // all props package
