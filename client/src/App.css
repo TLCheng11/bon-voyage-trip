@@ -2,5 +2,11 @@
     background-image: url("https://wallpaperaccess.com/full/686998.jpg");
 }
 .dboardtext {
+    text-align: center;
     font-weight: bold;
+    background-color: aliceblue;
+    border-radius: 25px;
+    padding: 5px;
+    width: 200px;
+    border-color: black;
 }

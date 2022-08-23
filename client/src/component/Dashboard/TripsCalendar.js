@@ -95,7 +95,7 @@ function TripsCalender({dashboardProps}) {
 
   return (
     <div className=''>
-      <div>Add a new trip:</div>
+      <div className= "dboardtext">Add a new trip:</div>
       <div className='flex p-2 justify-center'>
         <input type="text"
           placeholder=""
