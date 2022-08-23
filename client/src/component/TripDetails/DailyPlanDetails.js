@@ -21,7 +21,7 @@ function DailyPlanDetails() {
     <div className="flex">
       {/* to show the add activity form */}
       {
-        addingActivity ? <AddActivityForm setAddingActivity={setAddingActivity} /> : null
+        addingActivity ? <AddActivityForm dailyPlan={dailyPlan} setAddingActivity={setAddingActivity} /> : null
       }
       {/* for data */}
       <div className="h-full w-1/3">

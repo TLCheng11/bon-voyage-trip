@@ -1,19 +1,22 @@
 
+import moment from 'moment';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import HotelForm from './HotelForm';
 import RestaurantForm from './RestaurantForm';
 import SightSeeingForm from './SightSeeingForm';
 import TranspotationForm from './TranspotationForm';
 
-function AddActivityForm({setAddingActivity}) {
+function AddActivityForm({dailyPlan, setAddingActivity}) {
+  const params = useParams()
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("10:00")
   const [type, setType] = useState("sight_spot")
   const [description, setDescription] = useState("")
   // states for transpotation
   const [transpotationType, setTranspotationType] = useState("air")
-  const [country, setCountry] = useState("")
-  const [city, setCity] = useState("")
+  const [country, setCountry] = useState(dailyPlan.country)
+  const [city, setCity] = useState(dailyPlan.city)
   const [departureStation, setDepartureStation] = useState("")
   const [destinationStation, setDestinationStation] = useState("")
   // states for hotels and restaurants
@@ -91,6 +94,49 @@ function AddActivityForm({setAddingActivity}) {
     default:
       break;
   }
+
+  function handleConfirmation() {
+    if (!moment(startTime, "h:mma").isBefore(moment(endTime, "h:mma"))) {
+      alert("Start time cannot be later then the end time!")
+    } else {
+      let child
+      switch (type) {
+        case "sight_spot":
+          child = {
+            name,
+            location,
+            lat: 0,
+            lng: 0,
+            image_url: "",
+            rating: 0
+          }
+          break;
+      
+        default:
+          break;
+      }
+  
+      fetch(`/activities`, {
+        method: "POST",
+        headers: {
+          "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+          type: type,
+          daily_plan_id: params.daily_plan_id,
+          start_time: moment(moment(dailyPlan.start_date).format("MM-DD-YYYY") + " " + startTime),
+          end_time: moment(moment(dailyPlan.end_date).format("MM-DD-YYYY") + " " + endTime),
+          city: city,
+          city_lat: dailyPlan.city_lat,
+          city_lng: dailyPlan.city_lng,
+          description: description,
+          ...child
+        })
+      })
+        .then(res => res.json())
+        .then(console.log)
+    }
+  }
   
   return (
     <div className="fixed h-full w-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
@@ -114,7 +160,7 @@ function AddActivityForm({setAddingActivity}) {
           {showForm}
         </div>
         <div className="flex justify-center">
-          <button>COMFIRM PLAN</button>
+          <button onClick={handleConfirmation}>COMFIRM PLAN</button>
         </div>
       </div>
     </div>
