@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :profile_img
       t.string :first_name
       t.string :last_name
+      t.string :email
       t.string :introduction
       t.string :home_country
       t.string :home_city

@@ -8,10 +8,6 @@ class CreateActivities < ActiveRecord::Migration[7.0]
       t.float :city_lat
       t.float :city_lng
       t.string :description
-      t.integer :transportation_plan_id
-      t.integer :hotel_booking_id
-      t.integer :restaurant_id
-      t.integer :sight_spot_id
 
       t.timestamps
     end

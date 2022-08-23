@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_21_204024) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_23_030629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,10 +22,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_21_204024) do
     t.float "city_lat"
     t.float "city_lng"
     t.string "description"
-    t.integer "transportation_plan_id"
-    t.integer "hotel_booking_id"
-    t.integer "restaurant_id"
-    t.integer "sight_spot_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["daily_plan_id"], name: "index_activities_on_daily_plan_id"
@@ -45,14 +41,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_21_204024) do
 
   create_table "hotel_bookings", force: :cascade do |t|
     t.string "name"
-    t.string "locatoin"
+    t.string "location"
     t.float "lat"
     t.float "lng"
     t.string "image_url"
     t.float "rating"
     t.float "price"
+    t.bigint "activity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_hotel_bookings_on_activity_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -62,8 +60,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_21_204024) do
     t.float "lng"
     t.string "image_url"
     t.float "rating"
+    t.bigint "activity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_restaurants_on_activity_id"
   end
 
   create_table "sight_spots", force: :cascade do |t|
@@ -72,9 +72,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_21_204024) do
     t.float "lat"
     t.float "lng"
     t.string "image_url"
-    t.string "description"
+    t.float "rating"
+    t.bigint "activity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_sight_spots_on_activity_id"
   end
 
   create_table "transportation_plans", force: :cascade do |t|
@@ -91,8 +93,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_21_204024) do
     t.datetime "departure_time"
     t.datetime "arrival_time"
     t.float "ticket_price"
+    t.bigint "activity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["activity_id"], name: "index_transportation_plans_on_activity_id"
   end
 
   create_table "trip_plans", force: :cascade do |t|
@@ -119,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_21_204024) do
     t.string "profile_img"
     t.string "first_name"
     t.string "last_name"
+    t.string "email"
     t.string "introduction"
     t.string "home_country"
     t.string "home_city"
@@ -131,6 +136,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_21_204024) do
 
   add_foreign_key "activities", "daily_plans"
   add_foreign_key "daily_plans", "trips"
+  add_foreign_key "hotel_bookings", "activities"
+  add_foreign_key "restaurants", "activities"
+  add_foreign_key "sight_spots", "activities"
+  add_foreign_key "transportation_plans", "activities"
   add_foreign_key "trip_plans", "trips"
   add_foreign_key "trip_plans", "users"
 end

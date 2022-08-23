@@ -14,6 +14,7 @@ class CreateTransportationPlans < ActiveRecord::Migration[7.0]
       t.datetime :departure_time
       t.datetime :arrival_time
       t.float :ticket_price
+      t.belongs_to :activity, null: false, foreign_key: true
 
       t.timestamps
     end

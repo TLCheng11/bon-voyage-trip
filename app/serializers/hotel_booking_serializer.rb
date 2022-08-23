@@ -1,3 +1,4 @@
 class HotelBookingSerializer < ActiveModel::Serializer
-  attributes :id, :name, :locatoin, :lat, :lng, :image_url, :rating, :price
+  attributes :id, :name, :location, :lat, :lng, :image_url, :rating, :price
+  has_one :activity
 end

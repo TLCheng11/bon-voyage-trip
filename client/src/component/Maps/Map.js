@@ -1,6 +1,5 @@
 
-import { GoogleMap, useJsApiLoader, Marker, MarkerClusterer, InfoWindow, StreetViewPanorama } from '@react-google-maps/api';
-import { formatRelative } from 'date-fns';
+import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import { useCallback, useState } from 'react';
 
 function Map({mapRef, coordinates, nearby}) {

@@ -56,7 +56,6 @@ function SignUpForm({loginScreenProps, setSignUp}) {
     setFormInput(newInput)
   }
 
-  // comment out this for heroku depolyment testing
   function handleSignUp(e) {
     e.preventDefault();
     if (city) {
@@ -90,40 +89,11 @@ function SignUpForm({loginScreenProps, setSignUp}) {
         .catch(console.error)
     }
   }
-
-  // uncomment this for heroku depolyment testing
-  // function handleSignUp(e) {
-  //   e.preventDefault();
-  //   fetch("/users", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       ...formInput,
-  //       home_city_lat: 40.7127753,
-  //       home_city_lng: -74.0059728
-  //     }),
-  //   })
-  //     .then((res) => {
-  //       if (res.ok) {
-  //         res.json().then(data => {
-  //           console.log(data)
-  //           setCurrentUser(data)
-  //         })
-  //       } else {
-  //         res.json().then(e => alert(e.errors))
-  //       }
-  //     })
-  //     .catch(console.error)
-  // }
   
-
   return (  
     <div className="bg-gradient-to-r from-white/90 to-gray-500/80 rounded-lg flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h1 className="text-blue-300">Our Website Icon will be here</h1>
           <h2 className="mt-6 mx-10 text-center text-3xl tracking-tight font-bold text-blue-700">
             Start Your Journey
           </h2>

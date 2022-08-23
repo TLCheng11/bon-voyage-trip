@@ -3,17 +3,17 @@ Rails.application.routes.draw do
   get "/auth", to: "users#show"
   post "/login", to: "sessions#login"
   post "/logout", to: "sessions#logout"
-
+  
   # route for google map nearby search
   get "/search", to: "google_maps#search"
-
+  
   resources :users, only: [:create]
   resources :trips, only: [:index, :create, :show, :destroy]
   resources :daily_plans, only: [:show]
   # resources :activities
+  # resources :transportation_plans
   # resources :sight_spots
   # resources :restaurants
-  # resources :transportation_plans
   # resources :hotel_bookings
 
 
