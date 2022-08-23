@@ -21,7 +21,7 @@ function DailyPlanDetails() {
     <div className="flex">
       {/* to show the add activity form */}
       {
-        addingActivity ? <AddActivityForm /> : null
+        addingActivity ? <AddActivityForm setAddingActiving={setAddingActiving} /> : null
       }
       {/* for data */}
       <div className="h-full w-1/3">
@@ -35,7 +35,7 @@ function DailyPlanDetails() {
         <div className="h-96 w-full p-5 overflow-x-hidden overflow-y-auto">
           <div className="h-full w-full p-2 border rounded-xl">
             <div>
-              <button>Add Activity</button>
+              <button onClick={() => setAddingActiving(true)}>Add Activity</button>
             </div>
           </div>
         </div>

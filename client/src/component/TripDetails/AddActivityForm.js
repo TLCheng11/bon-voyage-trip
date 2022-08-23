@@ -1,8 +1,9 @@
 
 import { useState } from 'react';
+import HotelForm from './HotelForm';
 import TranspotationForm from './TranspotationForm';
 
-function AddActivityForm() {
+function AddActivityForm({setAddingActiving}) {
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("10:00")
   const [type, setType] = useState("")
@@ -12,6 +13,11 @@ function AddActivityForm() {
   const [city, setCity] = useState("")
   const [departureStation, setDepartureStation] = useState("")
   const [destinationStation, setDestinationStation] = useState("")
+  // states for hotels and restaurants
+  const [name, setName] = useState("")
+  const [location, setLocation] = useState("")
+  // states for hotels only
+  const [price, setPrice] = useState("")
 
   let showForm
   switch (type) {
@@ -33,7 +39,20 @@ function AddActivityForm() {
                   setDestinationStation={setDestinationStation}
                 />
       break;
-  
+    case "hotel_booking":
+      showForm = <HotelForm 
+                  startTime={startTime}
+                  setStartTime={setStartTime}
+                  endTime={endTime}
+                  setEndTime={setEndTime}
+                  name={name}
+                  setName={setName}
+                  location={location}
+                  setLocation={setLocation}
+                  price={price}
+                  setPrice={setPrice}
+                />
+      break;
     default:
       break;
   }
@@ -44,7 +63,7 @@ function AddActivityForm() {
         {/* for close button */}
         <div className="flex items-baseline justify-between">
           <p className="ml-2">Add activity:</p>
-          <button className="px-2 py-1 text-red-700 hover:text-red-400">X</button>
+          <button className="px-2 py-1 text-red-700 hover:text-red-400" onClick={() => setAddingActiving(false)}>X</button>
         </div>
         {/* for edit form */}
         <div className="p-2">
@@ -58,9 +77,7 @@ function AddActivityForm() {
               <option value="other">Other</option>
             </select>
           </div>
-
           {showForm}
-
         </div>
         <div className="flex justify-center">
           <button>COMFIRM PLAN</button>
