@@ -8,7 +8,7 @@ import TranspotationForm from './TranspotationForm';
 function AddActivityForm({setAddingActiving}) {
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("10:00")
-  const [type, setType] = useState("")
+  const [type, setType] = useState("sight_spot")
   const [description, setDescription] = useState("")
   // states for transpotation
   const [transpotationType, setTranspotationType] = useState("air")

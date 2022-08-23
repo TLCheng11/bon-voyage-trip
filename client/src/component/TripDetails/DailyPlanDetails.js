@@ -8,7 +8,7 @@ function DailyPlanDetails() {
   let navigate = useNavigate()
   const params = useParams()
   const [dailyPlan, setDailyPlan] = useState({})
-  const [addingActivity, setAddingActiving] = useState(true)
+  const [addingActivity, setAddingActiving] = useState(false)
   
   useEffect(() => {
     fetch(`/daily_plans/${params.daily_plan_id}`)
@@ -26,8 +26,8 @@ function DailyPlanDetails() {
       {/* for data */}
       <div className="h-full w-1/3">
         <div className="h-1/3 w-full p-5">
+          <button onClick={() => navigate(`/trip-details/${params.trip_id}`)}>Back</button>
           <div className="h-full w-full p-2 border rounded-xl">
-            <button onClick={() => navigate(`/trip-details/${params.trip_id}`)}>Back</button>
             <h1>Day {params.day}</h1>
             <h2>{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
           </div>
