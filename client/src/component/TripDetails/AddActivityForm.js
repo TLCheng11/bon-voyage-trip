@@ -165,7 +165,7 @@ function AddActivityForm({dailyPlan, setAddingActivity}) {
           break;
         case "transportation_plan":
           child = {
-            method: transpotationType,
+            transpotation_type: transpotationType,
             company,
             departure_city: dailyPlan.city,
             destination_city: city,
