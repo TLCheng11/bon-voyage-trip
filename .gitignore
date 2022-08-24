@@ -30,4 +30,6 @@
 
 # Ignore byebug history
 /.byebug_history
+
+# Ignore heroku postbuild public folder
 /public
