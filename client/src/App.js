@@ -83,7 +83,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="h-screen">
+      <div className="h-full">
         <MenuBar setCurrentUser={setCurrentUser} />
         <Routes>
           <Route path="/" exact element={<Dashboard dashboardProps={dashboardProps} />}></Route>
