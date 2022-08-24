@@ -168,6 +168,8 @@ function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
           child = {
             transportation_type: transportationType,
             company,
+            departure_country: dailyPlan.country,
+            destination_country: country,
             departure_city: dailyPlan.city,
             destination_city: city,
             departure_location: departureStation,

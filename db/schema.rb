@@ -82,6 +82,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_030629) do
   create_table "transportation_plans", force: :cascade do |t|
     t.string "transportation_type"
     t.string "company"
+    t.string "departure_country"
+    t.string "destination_country"
     t.string "departure_city"
     t.string "destination_city"
     t.string "departure_location"
