@@ -29,10 +29,8 @@ function TripDetails() {
     }
   }
 
-  let i = 0
-  const showDailyPlans = trip.daily_plans.map(plan => {
-    i += 1
-    return <DailyPlans key={plan.id} dailyPlan={plan} index={i}/>
+  const showDailyPlans = trip.daily_plans.sort((a,b) => a.day_index - b.day_index).map(plan => {
+    return <DailyPlans key={plan.id} dailyPlan={plan} index={plan.day_index}/>
   })
 
   return (

@@ -16,7 +16,7 @@ function DailyPlanDetails() {
   const [action, setAction] = useState("new")
   
   // console.log(dailyPlan)
-  console.log(info)
+  // console.log(info)
 
   useEffect(() => {
     fetch(`/daily_plans/${params.daily_plan_id}`)
@@ -29,7 +29,6 @@ function DailyPlanDetails() {
   }, [addingActivity]);
 
   const showActivities = activities.sort((a, b) => {
-    console.log(a.start_time)
     if (a.start_time > b.start_time) {
       return 1
     } else if (b.start_time > a.start_time) {
@@ -37,7 +36,7 @@ function DailyPlanDetails() {
     } else {
       return 0
     }
-  }).map(activity => <Activity key={activity.id} activity={activity} setActivities={setActivities} />)
+  }).map(activity => <Activity key={activity.id} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} />)
 
   return (
     <div className="flex">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 
-function Activity({activity, setActivities}) {
+function Activity({activity, setActivities, setAction, setInfo, setAddingActivity}) {
   const [type, setType] = useState("")
 
   const iconUrl = {
@@ -10,6 +10,8 @@ function Activity({activity, setActivities}) {
     transportation_plan: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-transportation-vacation-planning-resort-flaticons-flat-flat-icons-2.png",
     hotel_booking: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
   }
+
+  // console.log(activity)
 
   useEffect(() => {
     if (activity.sight_spot) {
@@ -84,8 +86,17 @@ function Activity({activity, setActivities}) {
           }
         </div>
         <div>
-          <img className="h-7 w-7 cursor-pointer" src="https://img.icons8.com/ios-filled/100/000000/edit-calendar.png" alt="edit"/>
-          <img className="h-7 w-7 cursor-pointer" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-garbage-cleaning-flaticons-lineal-color-flat-icons.png" alt="delete" onClick={deleteActivity}/>
+          <img className="h-7 w-7 cursor-pointer" src="https://img.icons8.com/ios-filled/100/000000/edit-calendar.png" alt="edit"
+            onClick={() => {
+              setAction("edit")
+              setInfo({...activity, type: type})
+              setAddingActivity(true)
+            }}
+          />
+          <img className="h-7 w-7 cursor-pointer" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-garbage-cleaning-flaticons-lineal-color-flat-icons.png" 
+            alt="delete" 
+            onClick={deleteActivity}
+          />
         </div>
       </div>
     </div>

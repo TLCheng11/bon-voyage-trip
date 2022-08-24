@@ -6,11 +6,16 @@ class ActivitiesController < ApplicationController
 
   def create
     activity = Activity.new_activity(params)
-    render json: activity
+    render json: activity, status: :created
   end
 
   def show
     render json: @activity
+  end
+
+  def update
+    activity = Activity.update_activity(params)
+    render json: activity, status: :accepted
   end
 
   def destroy

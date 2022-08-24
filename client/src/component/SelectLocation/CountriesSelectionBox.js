@@ -15,33 +15,37 @@ function CountriesSelectionBox({country, setCountry, city, setCity}) {
   }, [cityList]);
 
   useEffect(() => {
-    if (country) {
-      const searchCountry = country === "United States of America" ? "United States" : country
-      fetch("https://countriesnow.space/api/v0.1/countries/cities", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          "country": searchCountry
+    const id = setTimeout(() => {
+      if (country) {
+        const searchCountry = country === "United States of America" ? "United States" : country
+        fetch("https://countriesnow.space/api/v0.1/countries/cities", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            "country": searchCountry
+          })
         })
-      })
-        .then(res => res.json())
-        .then(data => {
-          if(data.data) {
-            setCityList(data.data)
-          } else {
+          .then(res => res.json())
+          .then(data => {
+            if(data.data) {
+              setCityList(data.data)
+            } else {
+              setCityList([country])
+            }
+          })
+          .catch(error => {
+            console.error(error)
             setCityList([country])
-          }
-        })
-        .catch(error => {
-          console.error(error)
-          setCityList([country])
-        })
-    } else {
-      setCityList([])
-      setCity("")
-    }
+          })
+      } else {
+        setCityList([])
+        setCity("")
+      }
+    }, 100)
+
+    return (() => clearInterval(id))
   }, [country]);
 
   return (

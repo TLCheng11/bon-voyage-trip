@@ -65,4 +65,70 @@ class Activity < ApplicationRecord
     
     activity
   end
+
+  def self.update_activity(params)
+    activity = Activity.find(params[:id])
+    activity.update!(start_time: params[:start_time], end_time: params[:end_time], city: params[:city], city_lat: params[:city_lat], city_lng:params[:city_lng], description: params[:description])
+    
+    case params[:type]
+      when "sight_spot"
+        sight_spot = activity.sight_spot
+        sight_spot.update!(name: params[:name], location: params[:location], lat: params[:lat], lng: params[:lng], image_url: params[:image_url], rating:params[:rating])
+      when "restaurant"
+        restaurant = activity.restaurant
+        restaurant.update!(name: params[:name], location: params[:location], lat: params[:lat], lng: params[:lng], image_url: params[:image_url], rating:params[:rating])
+      when "transportation_plan"
+        country = params[:departure_country]
+        city = params[:departure_city]
+        lat = params[:departure_lat]
+        lng = params[:departure_lng]
+
+        daily_plan = DailyPlan.find(params[:daily_plan_id])
+        tran = daily_plan.transportation_plans.order(:arrival_time).last
+        
+        # if new adding tran departure later then the last tran arrival time, set departure location to last destination
+        if tran
+          if params[:departure_time] > tran[:arrival_time]
+            country = tran[:destination_country]
+            city = tran[:destination_city]
+            lat = tran[:destination_lat]
+            lng = tran[:destination_lng]
+          end
+        end
+
+        tran_plan = activity.transportation_plan
+        tran_plan.update!(transportation_type: params[:transportation_type], company: params[:company], departure_country: country, destination_country: params[:destination_country], departure_city: city, destination_city: params[:destination_city], departure_location: params[:departure_location], destination_location: params[:destination_location], departure_lat: lat, departure_lng: lng, destination_lat: params[:destination_lat], destination_lng: params[:destination_lng], departure_time: params[:departure_time], arrival_time: params[:arrival_time], ticket_price: params[:ticket_price])
+        
+        # to update all the days location after today to the new destination
+        daily_plan = DailyPlan.find(params[:daily_plan_id])
+        tran = daily_plan.transportation_plans.order(:arrival_time).last
+
+        original_country = daily_plan.country
+        original_city = daily_plan.city
+        country = tran[:destination_country]
+        city = tran[:destination_city]
+        lat = tran[:destination_lat]
+        lng = tran[:destination_lng]
+
+        trip = daily_plan.trip
+        stop_change = false
+        
+        trip.daily_plans.each do |plan|
+          if plan.day_index >= daily_plan.day_index && !stop_change
+            if plan.country == original_country && plan.city === original_city
+              plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
+            else
+              stop_change = true
+            end
+          end
+        end
+
+      when "hotel_booking"
+        hotel = activity.hotel_booking
+        hotel.update!(activity:activity, name: params[:name], location: params[:location], lat: params[:lat], lng: params[:lng], image_url: params[:image_url], rating:params[:rating], price: params[:price])
+      else
+      end
+    
+    activity
+  end
 end

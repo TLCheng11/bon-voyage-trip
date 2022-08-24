@@ -19,6 +19,10 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
   const [company, setCompany] = useState("")
   const [country, setCountry] = useState(dailyPlan.country)
   const [city, setCity] = useState(dailyPlan.city)
+  const [departureCountry, setDepartureCountry] = useState(dailyPlan.country)
+  const [departureCity, setDepartureCity] = useState(dailyPlan.city)
+  const [departureLat, setDepartureLat] = useState(dailyPlan.city_lat)
+  const [departureLng, setDepartureLng] = useState(dailyPlan.city_lng)
   const [departureStation, setDepartureStation] = useState("")
   const [destinationStation, setDestinationStation] = useState("")
   // states for hotels and restaurants
@@ -47,7 +51,51 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
       setLat(info.geometry.location.lat)
       setLng(info.geometry.location.lng)
     }
-  }, []);
+
+    if (info.type && action === "edit") {
+      setType(info.type)
+      setStartTime(moment(info.start_time).format("HH:mm"))
+      setEndTime(moment(info.end_time).format("HH:mm"))
+      setDescription(info.description)
+
+      if (info.sight_spot) {
+        setName(info.sight_spot.name)
+        setLocation(info.sight_spot.location)
+        setRating(info.sight_spot.rating ? info.sight_spot.rating : 0)
+        setLat(info.sight_spot.lat ? info.sight_spot.lat : 0)
+        setLng(info.sight_spot.lng ? info.sight_spot.lng : 0)
+      } else if (info.restaurant) {
+        setName(info.restaurant.name)
+        setLocation(info.restaurant.location)
+        setRating(info.restaurant.rating ? info.restaurant.rating : 0)
+        setLat(info.restaurant.lat ? info.restaurant.lat : 0)
+        setLng(info.restaurant.lng ? info.restaurant.lng : 0)
+      } else if (info.hotel_booking) {
+        setName(info.hotel_booking.name)
+        setLocation(info.hotel_booking.location)
+        setRating(info.hotel_booking.rating ? info.hotel_booking.rating : 0)
+        setLat(info.hotel_booking.lat ? info.hotel_booking.lat : 0)
+        setLng(info.hotel_booking.lng ? info.hotel_booking.lng : 0)
+        setPrice(info.hotel_booking.price ? info.hotel_booking.price : 0)
+      } else if (info.transportation_plan) {
+        setTransportationType(info.transportation_plan.transportation_type)
+        setCompany(info.transportation_plan.company)
+        setDepartureCountry(info.transportation_plan.departure_country)
+        setDepartureCity(info.transportation_plan.departure_city)
+        setDepartureLat(info.transportation_plan.departure_lat)
+        setDepartureLng(info.transportation_plan.departure_lng)
+        setCountry(info.transportation_plan.destination_country)
+        setCity(info.transportation_plan.destination_city)
+        setDepartureStation(info.transportation_plan.departure_location)
+        setDestinationStation(info.transportation_plan.destination_location)
+        setLat(info.transportation_plan.destination_lat)
+        setLng(info.transportation_plan.departure_lng)
+        setPrice(info.transportation_plan.ticket_price ? info.transportation_plan.ticket_price : 0)
+      }
+    }
+
+    console.log(info)
+  }, [info]);
 
   let showForm
   switch (type) {
@@ -190,14 +238,14 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
           child = {
             transportation_type: transportationType,
             company,
-            departure_country: dailyPlan.country,
+            departure_country: departureCountry,
             destination_country: country,
-            departure_city: dailyPlan.city,
+            departure_city: departureCity,
             destination_city: city,
             departure_location: departureStation,
             destination_location: destinationStation,
-            departure_lat: dailyPlan.city_lat,
-            departure_lng: dailyPlan.city_lng,
+            departure_lat: departureLat,
+            departure_lng: departureLng,
             destination_lat: lat,
             destination_lng: lng,
             departure_time: moment(moment(dailyPlan.start_date).format("MM-DD-YYYY") + " " + startTime),
@@ -218,25 +266,29 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
           break;
         default:
           break;
-      }
-      
+        }
+        
+      const url = action === "edit" ? `/activities/${info.id}` : "/activities"
+      const method = action === "edit" ? "PATCH" : "POST"
+
       if (type === "transportation_plan" && city) {
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${country.split(" ").join("+")}+${city.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
             .then(res => res.json())
             .then(data => {
-              console.log(data)
+              // console.log(data)
               child.destination_lat = data.results[0].geometry.location.lat
               child.destination_lng = data.results[0].geometry.location.lng
               console.log(child)
               postActivity()
             })
-      } else (
+      } else {
         postActivity()
-      )
+      }
+
       
       function postActivity() {
-        return fetch(`/activities`, {
-          method: "POST",
+        return fetch(url, {
+          method: method,
           headers: {
             "Content-Type" : "application/json"
           },
@@ -254,7 +306,6 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
         })
           .then(res => res.json())
           .then(data => {
-            console.log("posting")
             setAddingActivity(false)
             setAction("new")
             setActivities(activities => [...activities, data])
@@ -295,7 +346,7 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
           {showForm}
         </div>
         <div className="flex justify-center">
-          <button onClick={handleConfirmation}>COMFIRM PLAN</button>
+          <button onClick={handleConfirmation}>{action === "edit" ? "EDIT" : "COMFIRM PLAN"}</button>
         </div>
       </div>
     </div>
