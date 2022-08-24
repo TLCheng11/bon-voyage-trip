@@ -2,7 +2,7 @@
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import { useCallback, useState } from 'react';
 
-function Map({mapRef, coordinates, nearby}) {
+function Map({mapRef, coordinates, nearby, setInfo, setAddingActivity, setAction}) {
   // saving the map with a ref so we can have access without re-rendering
   const onMapLoad = useCallback(map => {
     mapRef.current = map
@@ -91,6 +91,15 @@ function Map({mapRef, coordinates, nearby}) {
                     <p>Rating: {selectedMarker.rating}</p>
                     ) : (null)
                 }
+                <button 
+                  onClick={() => {
+                    setInfo({...selectedMarker, type: nearby.type})
+                    setAddingActivity(true)
+                    setAction("fromMap")
+                  }}
+                >
+                  Add Activity
+                </button>
                 {/* {
                   selectedMarker.photos ? (
                     <a href={selectedMarker.photos[0].html_attributions[0].match(/"(.*)"/g)[0].replaceAll('"', "")} target="_blank">view on google map</a>

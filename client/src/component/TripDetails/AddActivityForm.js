@@ -1,14 +1,14 @@
 
 import { Data } from '@react-google-maps/api';
 import moment from 'moment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import HotelForm from './HotelForm';
 import RestaurantForm from './RestaurantForm';
 import SightSeeingForm from './SightSeeingForm';
 import TransportationForm from './TransportationForm';
 
-function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
+function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity, setActivities}) {
   const params = useParams()
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("10:00")
@@ -25,9 +25,29 @@ function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
   const [name, setName] = useState("")
   const [location, setLocation] = useState("")
   // states for hotels only
-  const [price, setPrice] = useState("")
+  const [price, setPrice] = useState(0)
 
-  console.log(city)
+  // for info from map
+  const [rating, setRating] = useState(0)
+  const [lat, setLat] = useState(0)
+  const [lng, setLng] = useState(0)
+
+  useEffect(() => {
+    if (info.type && action === "fromMap") {
+      const types = {
+        lodging: "hotel_booking",
+        restaurant: "restaurant",
+        tourist_attraction: "sight_spot",
+        museum: "sight_spot"
+      }
+      setType(types[info.type])
+      setName(info.name)
+      setLocation(info.vicinity)
+      setRating(info.rating)
+      setLat(info.geometry.location.lat)
+      setLng(info.geometry.location.lng)
+    }
+  }, []);
 
   let showForm
   switch (type) {
@@ -150,20 +170,20 @@ function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
           child = {
             name,
             location,
-            lat: 0,
-            lng: 0,
+            lat,
+            lng,
             image_url: "",
-            rating: 0
+            rating
           }
           break;
         case "restaurant":
           child = {
             name,
             location,
-            lat: 0,
-            lng: 0,
+            lat,
+            lng,
             image_url: "",
-            rating: 0
+            rating
           }
           break;
         case "transportation_plan":
@@ -178,21 +198,21 @@ function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
             destination_location: destinationStation,
             departure_lat: dailyPlan.city_lat,
             departure_lng: dailyPlan.city_lng,
-            destination_lat: 0,
-            destination_lng: 0,
+            destination_lat: lat,
+            destination_lng: lng,
             departure_time: moment(moment(dailyPlan.start_date).format("MM-DD-YYYY") + " " + startTime),
             arrival_time: moment(moment(dailyPlan.end_date).format("MM-DD-YYYY") + " " + endTime),
-            ticket_price: 0
+            ticket_price: price
           }
           break;
         case "hotel_booking":
           child = {
             name,
             location,
-            lat: 0,
-            lng: 0,
+            lat,
+            lng,
             image_url: "",
-            rating: 0,
+            rating,
             price
           }
           break;
@@ -236,6 +256,7 @@ function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
           .then(data => {
             console.log("posting")
             setAddingActivity(false)
+            setAction("new")
             setActivities(activities => [...activities, data])
           })
       }
@@ -248,20 +269,29 @@ function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
       <div className="min-h-96 w-96 border rounded-xl bg-white">
         {/* for close button */}
         <div className="flex items-baseline justify-between">
-          <p className="ml-2">Add activity:</p>
-          <button className="px-2 py-1 text-red-700 hover:text-red-400" onClick={() => setAddingActivity(false)}>X</button>
+          <p className="ml-2">{action === "new" || action === "fromMap" ? "Add" : "Edit"} activity:</p>
+          <button className="px-2 py-1 text-red-700 hover:text-red-400" onClick={() => 
+            {
+              setAddingActivity(false)
+              setAction("new")
+            }
+          }>X</button>
         </div>
         {/* for edit form */}
         <div className="p-2">
-          <div className="flex mx-3 my-2">
-            <p>Type:</p>
-            <select value={type} onChange={e => setType(e.target.value)}>
-              <option value="sight_spot">Sight Seeing</option>
-              <option value="restaurant">Restaurant</option>
-              <option value="transportation_plan">Travel</option>
-              <option value="hotel_booking">Lodging</option>
-            </select>
-          </div>
+          {
+            action === "new" ? (
+              <div className="flex mx-3 my-2">
+                <p>Type:</p>
+                <select value={type} onChange={e => setType(e.target.value)}>
+                  <option value="sight_spot">Sight Seeing</option>
+                  <option value="restaurant">Restaurant</option>
+                  <option value="transportation_plan">Travel</option>
+                  <option value="hotel_booking">Lodging</option>
+                </select>
+              </div>
+            ) : (null)
+          }
           {showForm}
         </div>
         <div className="flex justify-center">

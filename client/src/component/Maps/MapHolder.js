@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Map from "./Map";
 
-function MapHolder({coordinates}) {
+function MapHolder({coordinates, setInfo, setAddingActivity, setAction}) {
   const mapRef = useRef()
   const [loadMap, setLoadMap] = useState(false)
   const [nearby, setNearby] = useState({});
@@ -69,7 +69,7 @@ function MapHolder({coordinates}) {
       </div>
       {
         loadMap ? (
-          <Map mapRef={mapRef} coordinates={coordinates} nearby={nearby}/>
+          <Map mapRef={mapRef} coordinates={coordinates} nearby={nearby} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction}/>
         ) : (
           null
         )

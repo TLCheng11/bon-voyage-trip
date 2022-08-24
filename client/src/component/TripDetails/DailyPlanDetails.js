@@ -11,8 +11,12 @@ function DailyPlanDetails() {
   const [dailyPlan, setDailyPlan] = useState({activities: []})
   const [activities, setActivities] = useState([])
   const [addingActivity, setAddingActivity] = useState(false)
+  // for info window add link
+  const [info, setInfo] = useState({})
+  const [action, setAction] = useState("new")
   
-  console.log(dailyPlan)
+  // console.log(dailyPlan)
+  console.log(info)
 
   useEffect(() => {
     fetch(`/daily_plans/${params.daily_plan_id}`)
@@ -39,7 +43,7 @@ function DailyPlanDetails() {
     <div className="flex">
       {/* to show the add activity form */}
       {
-        addingActivity ? <AddActivityForm dailyPlan={dailyPlan} setAddingActivity={setAddingActivity} setActivities={setActivities} /> : null
+        addingActivity ? <AddActivityForm action={action} setAction={setAction} info={info} dailyPlan={dailyPlan} setAddingActivity={setAddingActivity} setActivities={setActivities} /> : null
       }
       {/* for data */}
       <div className="h-full w-1/3">
@@ -65,7 +69,7 @@ function DailyPlanDetails() {
       <div className="h-full w-2/3">
         {
           dailyPlan.id ? (
-            <MapHolder coordinates={{lat: dailyPlan.city_lat, lng: dailyPlan.city_lng}} />
+            <MapHolder coordinates={{lat: dailyPlan.city_lat, lng: dailyPlan.city_lng}} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction} />
           ) : (null)
         }
       </div>
