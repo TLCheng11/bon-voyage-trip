@@ -1,13 +1,13 @@
 import TimePicker from 'react-time-picker';
 import CountriesSelectionBox from '../SelectLocation/CountriesSelectionBox'
 
-function TranspotationForm({
+function TransportationForm({
   startTime,
   setStartTime,
   endTime,
   setEndTime,
-  transpotationType, 
-  setTranspotationType,
+  transportationType, 
+  setTransportationType,
   company,
   setCompany,
   country, 
@@ -34,7 +34,7 @@ function TranspotationForm({
             <TimePicker value={endTime} onChange={setEndTime}/>
           </div>
         </div>
-        <select value={transpotationType} onChange={e => setTranspotationType(e.target.value)}>
+        <select value={transportationType} onChange={e => setTransportationType(e.target.value)}>
           <option value="air">Air</option>
           <option value="train">Train</option>
           <option value="bus">Bus</option>
@@ -42,7 +42,7 @@ function TranspotationForm({
           <option value="foot">On foot</option>
         </select>
         {
-          transpotationType !== "foot" ? <input placeholder="Provider Company" value={company} onChange={e => setCompany(e.target.value)} /> : null
+          transportationType !== "foot" ? <input placeholder="Provider Company" value={company} onChange={e => setCompany(e.target.value)} /> : null
         }
       </div>
       <div>
@@ -52,7 +52,7 @@ function TranspotationForm({
         </div>
       </div>
         {
-          transpotationType === "air" ? (
+          transportationType === "air" ? (
             <div>
               <p>Airport: </p>
               <p>
@@ -67,7 +67,7 @@ function TranspotationForm({
           ) : (null)
         }
         {
-          transpotationType === "train" || transpotationType === "bus" ? (
+          transportationType === "train" || transportationType === "bus" ? (
             <div>
               <p>Station: </p>
               <p>
@@ -82,7 +82,7 @@ function TranspotationForm({
           ) : (null)
         }
         {
-          transpotationType === "ship" ? (
+          transportationType === "ship" ? (
             <div>
               <p>Seaport: </p>
               <p>
@@ -97,7 +97,7 @@ function TranspotationForm({
           ) : (null)
         }
         {
-          transpotationType === "foot" ? (
+          transportationType === "foot" ? (
             <div>
               Address:
               <p>
@@ -119,4 +119,4 @@ function TranspotationForm({
   );
 }
 
-export default TranspotationForm;
+export default TransportationForm;

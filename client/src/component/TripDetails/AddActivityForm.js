@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import HotelForm from './HotelForm';
 import RestaurantForm from './RestaurantForm';
 import SightSeeingForm from './SightSeeingForm';
-import TranspotationForm from './TranspotationForm';
+import TransportationForm from './TransportationForm';
 
 function AddActivityForm({dailyPlan, setAddingActivity}) {
   const params = useParams()
@@ -13,8 +13,8 @@ function AddActivityForm({dailyPlan, setAddingActivity}) {
   const [endTime, setEndTime] = useState("10:00")
   const [type, setType] = useState("sight_spot")
   const [description, setDescription] = useState("")
-  // states for transpotation
-  const [transpotationType, setTranspotationType] = useState("air")
+  // states for transportation
+  const [transportationType, setTransportationType] = useState("air")
   const [company, setCompany] = useState("")
   const [country, setCountry] = useState(dailyPlan.country)
   const [city, setCity] = useState(dailyPlan.city)
@@ -57,13 +57,13 @@ function AddActivityForm({dailyPlan, setAddingActivity}) {
                 />
       break;
     case "transportation_plan":
-      showForm = <TranspotationForm
+      showForm = <TransportationForm
                   startTime={startTime}
                   setStartTime={setStartTime}
                   endTime={endTime}
                   setEndTime={setEndTime}
-                  transpotationType={transpotationType} 
-                  setTranspotationType={setTranspotationType}
+                  transportationType={transportationType} 
+                  setTransportationType={setTransportationType}
                   company={company}
                   setCompany={setCompany}
                   country={country} 
@@ -165,7 +165,7 @@ function AddActivityForm({dailyPlan, setAddingActivity}) {
           break;
         case "transportation_plan":
           child = {
-            transpotation_type: transpotationType,
+            transportation_type: transportationType,
             company,
             departure_city: dailyPlan.city,
             destination_city: city,

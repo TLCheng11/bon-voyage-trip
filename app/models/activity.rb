@@ -14,8 +14,7 @@ class Activity < ApplicationRecord
       when "restaurant"
         Restaurant.create!(activity: activity, name: params[:name], location: params[:location], lat: params[:lat], lng: params[:lng], image_url: params[:image_url], rating:params[:rating])
       when "transportation_plan"
-        t1 = TransportationPlan.create!(activity: activity, transpotation_type: params[:transpotation_type], company: params[:company], departure_city: params[:departure_city], destination_city: params[:destination_city], departure_location: params[:departure_location], destination_location: params[:destination_location], departure_lat: params[:departure_lat], departure_lng: params[:departure_lng], destination_lat: params[:destination_lat], destination_lng: params[:destination_lng], departure_time: params[:departure_time], arrival_time: params[:arrival_time], ticket_price: params[:ticket_price])
-        byebug
+        t1 = TransportationPlan.create!(activity: activity, transportation_type: params[:transportation_type], company: params[:company], departure_city: params[:departure_city], destination_city: params[:destination_city], departure_location: params[:departure_location], destination_location: params[:destination_location], departure_lat: params[:departure_lat], departure_lng: params[:departure_lng], destination_lat: params[:destination_lat], destination_lng: params[:destination_lng], departure_time: params[:departure_time], arrival_time: params[:arrival_time], ticket_price: params[:ticket_price])
       when "hotel_booking"
         HotelBooking.create!(activity:activity, name: params[:name], location: params[:location], lat: params[:lat], lng: params[:lng], image_url: params[:image_url], rating:params[:rating], price: params[:price])
       else
