@@ -22,6 +22,7 @@ class Activity < ApplicationRecord
         daily_plan = DailyPlan.find(params[:daily_plan_id])
         tran = daily_plan.transportation_plans.order(:arrival_time).last
         
+        # if new adding tran departure later then the last tran arrival time, set departure location to last destination
         if tran
           if params[:departure_time] > tran[:arrival_time]
             country = tran[:destination_country]
@@ -32,6 +33,33 @@ class Activity < ApplicationRecord
         end
 
         TransportationPlan.create!(activity: activity, transportation_type: params[:transportation_type], company: params[:company], departure_country: country, destination_country: params[:destination_country], departure_city: city, destination_city: params[:destination_city], departure_location: params[:departure_location], destination_location: params[:destination_location], departure_lat: lat, departure_lng: lng, destination_lat: params[:destination_lat], destination_lng: params[:destination_lng], departure_time: params[:departure_time], arrival_time: params[:arrival_time], ticket_price: params[:ticket_price])
+
+        # to update all the days location after today to the new destination
+        daily_plan = DailyPlan.find(params[:daily_plan_id])
+        tran = daily_plan.transportation_plans.order(:arrival_time).last
+
+        original_country = daily_plan.country
+        original_city = daily_plan.city
+        country = tran[:destination_country]
+        city = tran[:destination_city]
+        lat = tran[:destination_lat]
+        lng = tran[:destination_lng]
+
+        trip = daily_plan.trip
+        stop_change = false
+
+        byebug
+        trip.daily_plans.each do |plan|
+          if plan.day_index >= daily_plan.day_index && !stop_change
+            byebug
+            if plan.country == original_country && plan.city === original_city
+              plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
+            else
+              stop_change = true
+            end
+          end
+        end
+
       when "hotel_booking"
         HotelBooking.create!(activity:activity, name: params[:name], location: params[:location], lat: params[:lat], lng: params[:lng], image_url: params[:image_url], rating:params[:rating], price: params[:price])
       else

@@ -27,6 +27,8 @@ function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
   // states for hotels only
   const [price, setPrice] = useState("")
 
+  console.log(city)
+
   let showForm
   switch (type) {
     case "sight_spot":
@@ -123,10 +125,10 @@ function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
           }
           break;
         case "transportation_plan":
-          if(destinationStation) {
+          if(city) {
             okToProcess = true
           } else {
-            alert("please enter a destination address")
+            alert("please enter a destination")
           }
           break;
         case "hotel_booking":

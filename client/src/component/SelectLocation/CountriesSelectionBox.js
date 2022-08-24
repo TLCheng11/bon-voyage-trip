@@ -11,6 +11,7 @@ function CountriesSelectionBox({country, setCountry, city, setCity}) {
   useEffect(() => {
     const options = cityList.sort().map(city => <option key={city} value={city}>{city}</option>)
     setCityOptions(options)
+    setCity("")
   }, [cityList]);
 
   useEffect(() => {
