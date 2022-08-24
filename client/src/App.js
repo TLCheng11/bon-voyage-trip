@@ -20,7 +20,7 @@ function App() {
   const [newTrip, setNewTrip] = useState({
     id: 0,
     title: "My Next Trip",
-    start: "",
+    start: new Date(),
     end: ""
   })
 

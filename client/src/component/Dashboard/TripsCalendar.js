@@ -75,7 +75,7 @@ function TripsCalender({dashboardProps}) {
               setNewTrip({
                 id: 0,
                 title: "My Next Trip",
-                start: "",
+                start: new Date(),
                 end: ""
               })
             })

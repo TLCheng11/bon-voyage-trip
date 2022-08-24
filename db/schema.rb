@@ -30,6 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_030629) do
   create_table "daily_plans", force: :cascade do |t|
     t.bigint "trip_id", null: false
     t.datetime "day"
+    t.integer "day_index"
     t.string "country"
     t.string "city"
     t.float "city_lat"
