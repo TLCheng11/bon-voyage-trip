@@ -15,6 +15,7 @@ function AddActivityForm({dailyPlan, setAddingActivity}) {
   const [description, setDescription] = useState("")
   // states for transpotation
   const [transpotationType, setTranspotationType] = useState("air")
+  const [company, setCompany] = useState("")
   const [country, setCountry] = useState(dailyPlan.country)
   const [city, setCity] = useState(dailyPlan.city)
   const [departureStation, setDepartureStation] = useState("")
@@ -55,14 +56,16 @@ function AddActivityForm({dailyPlan, setAddingActivity}) {
                   setDescription={setDescription}
                 />
       break;
-    case "transpotation_plan":
+    case "transportation_plan":
       showForm = <TranspotationForm
                   startTime={startTime}
                   setStartTime={setStartTime}
                   endTime={endTime}
                   setEndTime={setEndTime}
                   transpotationType={transpotationType} 
-                  setTranspotationType={setTranspotationType} 
+                  setTranspotationType={setTranspotationType}
+                  company={company}
+                  setCompany={setCompany}
                   country={country} 
                   setCountry={setCountry} 
                   city={city} 
@@ -96,9 +99,48 @@ function AddActivityForm({dailyPlan, setAddingActivity}) {
   }
 
   function handleConfirmation() {
-    if (!moment(startTime, "h:mma").isBefore(moment(endTime, "h:mma"))) {
-      alert("Start time cannot be later then the end time!")
+    let okToProcess = false
+
+    // check if time input is valid
+    if (!startTime || !endTime || !moment(startTime, "h:mma").isBefore(moment(endTime, "h:mma"))) {
+      alert("Please enter a valid time period!")
     } else {
+      // check if required input exist
+      switch (type) {
+        case "sight_spot":
+          if(name && location) {
+            okToProcess = true
+          } else {
+            alert("please enter name and location")
+          }
+          break;
+        case "restaurant":
+          if(name && location) {
+            okToProcess = true
+          } else {
+            alert("please enter name and location")
+          }
+          break;
+        case "transportation_plan":
+          if(destinationStation) {
+            okToProcess = true
+          } else {
+            alert("please enter a destination address")
+          }
+          break;
+        case "hotel_booking":
+          if(name && location) {
+            okToProcess = true
+          } else {
+            alert("please enter name and location")
+          }
+          break;
+        default:
+          break;
+      }
+    }
+
+    if (okToProcess) {
       let child
       switch (type) {
         case "sight_spot":
@@ -111,7 +153,44 @@ function AddActivityForm({dailyPlan, setAddingActivity}) {
             rating: 0
           }
           break;
-      
+        case "restaurant":
+          child = {
+            name,
+            location,
+            lat: 0,
+            lng: 0,
+            image_url: "",
+            rating: 0
+          }
+          break;
+        case "transportation_plan":
+          child = {
+            method: transpotationType,
+            company,
+            departure_city: dailyPlan.city,
+            destination_city: city,
+            departure_location: departureStation,
+            destination_location: destinationStation,
+            departure_lat: 0,
+            departure_lng: 0,
+            destination_lat: 0,
+            destination_lng: 0,
+            departure_time: moment(moment(dailyPlan.start_date).format("MM-DD-YYYY") + " " + startTime),
+            arrival_time: moment(moment(dailyPlan.end_date).format("MM-DD-YYYY") + " " + endTime),
+            ticket_price: 0
+          }
+          break;
+        case "hotel_booking":
+          child = {
+            name,
+            location,
+            lat: 0,
+            lng: 0,
+            image_url: "",
+            rating: 0,
+            price
+          }
+          break;
         default:
           break;
       }
@@ -153,7 +232,7 @@ function AddActivityForm({dailyPlan, setAddingActivity}) {
             <select value={type} onChange={e => setType(e.target.value)}>
               <option value="sight_spot">Sight Seeing</option>
               <option value="restaurant">Restaurant</option>
-              <option value="transpotation_plan">Travel</option>
+              <option value="transportation_plan">Travel</option>
               <option value="hotel_booking">Lodging</option>
             </select>
           </div>

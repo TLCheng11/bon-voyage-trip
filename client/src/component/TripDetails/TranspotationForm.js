@@ -7,7 +7,9 @@ function TranspotationForm({
   endTime,
   setEndTime,
   transpotationType, 
-  setTranspotationType, 
+  setTranspotationType,
+  company,
+  setCompany,
   country, 
   setCountry, 
   city, 
@@ -40,7 +42,7 @@ function TranspotationForm({
           <option value="foot">On foot</option>
         </select>
         {
-          transpotationType !== "foot" ? <input placeholder="Provider Company" /> : null
+          transpotationType !== "foot" ? <input placeholder="Provider Company" value={company} onChange={e => setCompany(e.target.value)} /> : null
         }
       </div>
       <div>
@@ -55,11 +57,11 @@ function TranspotationForm({
               <p>Airport: </p>
               <p>
                 From: 
-                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)}/>
+                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
               </p>
               <p>
                 To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)}/>
+                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address required"/>
               </p>
             </div>
           ) : (null)
@@ -70,11 +72,11 @@ function TranspotationForm({
               <p>Station: </p>
               <p>
                 From: 
-                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)}/>
+                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
               </p>
               <p>
                 To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)}/>
+                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address required"/>
               </p>
             </div>
           ) : (null)
@@ -85,18 +87,33 @@ function TranspotationForm({
               <p>Seaport: </p>
               <p>
                 From: 
-                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)}/>
+                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
               </p>
               <p>
                 To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)}/>
+                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address required"/>
+              </p>
+            </div>
+          ) : (null)
+        }
+        {
+          transpotationType === "foot" ? (
+            <div>
+              Address:
+              <p>
+                From: 
+                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
+              </p>
+              <p>
+                To:
+                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address required"/>
               </p>
             </div>
           ) : (null)
         }
         <div>
           <p>Additional Info:</p>
-          <textarea className="w-full" value={description} onChange={e => setDescription(e.target.value)}/>
+          <textarea className="w-full" value={description} onChange={e => setDescription(e.target.value)} placeholder="optional" maxLength="250"/>
         </div>
     </div>
   );
