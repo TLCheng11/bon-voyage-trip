@@ -17,8 +17,8 @@ class Trip < ApplicationRecord
     days = diff.to_i + 1
 
     day = Date.parse(params[:start_date])
-    days.times do 
-      DailyPlan.create!(trip_id: trip.id, day: day, country: params[:country], city: params[:city], city_lat: params[:city_lat], city_lng: params[:city_lng])
+    days.times do |i|
+      DailyPlan.create!(trip_id: trip.id, day: day, day_index: i + 1, country: params[:country], city: params[:city], city_lat: params[:city_lat], city_lng: params[:city_lng])
       day += 1
     end 
 

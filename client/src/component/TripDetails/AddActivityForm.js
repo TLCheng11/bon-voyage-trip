@@ -1,19 +1,24 @@
 
+import { Data } from '@react-google-maps/api';
+import moment from 'moment';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import HotelForm from './HotelForm';
 import RestaurantForm from './RestaurantForm';
 import SightSeeingForm from './SightSeeingForm';
-import TranspotationForm from './TranspotationForm';
+import TransportationForm from './TransportationForm';
 
-function AddActivityForm({setAddingActivity}) {
+function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
+  const params = useParams()
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("10:00")
   const [type, setType] = useState("sight_spot")
   const [description, setDescription] = useState("")
-  // states for transpotation
-  const [transpotationType, setTranspotationType] = useState("air")
-  const [country, setCountry] = useState("")
-  const [city, setCity] = useState("")
+  // states for transportation
+  const [transportationType, setTransportationType] = useState("Air")
+  const [company, setCompany] = useState("")
+  const [country, setCountry] = useState(dailyPlan.country)
+  const [city, setCity] = useState(dailyPlan.city)
   const [departureStation, setDepartureStation] = useState("")
   const [destinationStation, setDestinationStation] = useState("")
   // states for hotels and restaurants
@@ -52,14 +57,16 @@ function AddActivityForm({setAddingActivity}) {
                   setDescription={setDescription}
                 />
       break;
-    case "transpotation_plan":
-      showForm = <TranspotationForm
+    case "transportation_plan":
+      showForm = <TransportationForm
                   startTime={startTime}
                   setStartTime={setStartTime}
                   endTime={endTime}
                   setEndTime={setEndTime}
-                  transpotationType={transpotationType} 
-                  setTranspotationType={setTranspotationType} 
+                  transportationType={transportationType} 
+                  setTransportationType={setTransportationType}
+                  company={company}
+                  setCompany={setCompany}
                   country={country} 
                   setCountry={setCountry} 
                   city={city} 
@@ -91,6 +98,130 @@ function AddActivityForm({setAddingActivity}) {
     default:
       break;
   }
+
+  function handleConfirmation() {
+    let okToProcess = false
+
+    // check if time input is valid
+    if (!startTime || !endTime || !moment(startTime, "h:mma").isBefore(moment(endTime, "h:mma"))) {
+      alert("Please enter a valid time period!")
+    } else {
+      // check if required input exist
+      switch (type) {
+        case "sight_spot":
+          if(name && location) {
+            okToProcess = true
+          } else {
+            alert("please enter name and location")
+          }
+          break;
+        case "restaurant":
+          if(name && location) {
+            okToProcess = true
+          } else {
+            alert("please enter name and location")
+          }
+          break;
+        case "transportation_plan":
+          if(destinationStation) {
+            okToProcess = true
+          } else {
+            alert("please enter a destination address")
+          }
+          break;
+        case "hotel_booking":
+          if(name && location) {
+            okToProcess = true
+          } else {
+            alert("please enter name and location")
+          }
+          break;
+        default:
+          break;
+      }
+    }
+
+    if (okToProcess) {
+      let child
+      switch (type) {
+        case "sight_spot":
+          child = {
+            name,
+            location,
+            lat: 0,
+            lng: 0,
+            image_url: "",
+            rating: 0
+          }
+          break;
+        case "restaurant":
+          child = {
+            name,
+            location,
+            lat: 0,
+            lng: 0,
+            image_url: "",
+            rating: 0
+          }
+          break;
+        case "transportation_plan":
+          child = {
+            transportation_type: transportationType,
+            company,
+            departure_country: dailyPlan.country,
+            destination_country: country,
+            departure_city: dailyPlan.city,
+            destination_city: city,
+            departure_location: departureStation,
+            destination_location: destinationStation,
+            departure_lat: 0,
+            departure_lng: 0,
+            destination_lat: 0,
+            destination_lng: 0,
+            departure_time: moment(moment(dailyPlan.start_date).format("MM-DD-YYYY") + " " + startTime),
+            arrival_time: moment(moment(dailyPlan.end_date).format("MM-DD-YYYY") + " " + endTime),
+            ticket_price: 0
+          }
+          break;
+        case "hotel_booking":
+          child = {
+            name,
+            location,
+            lat: 0,
+            lng: 0,
+            image_url: "",
+            rating: 0,
+            price
+          }
+          break;
+        default:
+          break;
+      }
+  
+      fetch(`/activities`, {
+        method: "POST",
+        headers: {
+          "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+          type: type,
+          daily_plan_id: params.daily_plan_id,
+          start_time: moment(moment(dailyPlan.start_date).format("MM-DD-YYYY") + " " + startTime),
+          end_time: moment(moment(dailyPlan.end_date).format("MM-DD-YYYY") + " " + endTime),
+          city: city,
+          city_lat: dailyPlan.city_lat,
+          city_lng: dailyPlan.city_lng,
+          description: description,
+          ...child
+        })
+      })
+        .then(res => res.json())
+        .then(data => {
+          setAddingActivity(false)
+          setActivities(activities => [...activities, data])
+        })
+    }
+  }
   
   return (
     <div className="fixed h-full w-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
@@ -107,14 +238,14 @@ function AddActivityForm({setAddingActivity}) {
             <select value={type} onChange={e => setType(e.target.value)}>
               <option value="sight_spot">Sight Seeing</option>
               <option value="restaurant">Restaurant</option>
-              <option value="transpotation_plan">Travel</option>
+              <option value="transportation_plan">Travel</option>
               <option value="hotel_booking">Lodging</option>
             </select>
           </div>
           {showForm}
         </div>
         <div className="flex justify-center">
-          <button>COMFIRM PLAN</button>
+          <button onClick={handleConfirmation}>COMFIRM PLAN</button>
         </div>
       </div>
     </div>

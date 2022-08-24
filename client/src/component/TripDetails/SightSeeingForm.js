@@ -38,7 +38,7 @@ function SightSeeingForm({
         </div>
         <div>
           <p>Additional Info:</p>
-          <textarea className="w-full" value={description} onChange={e => setDescription(e.target.value)}/>
+          <textarea className="w-full" value={description} onChange={e => setDescription(e.target.value)} placeholder="optional" maxLength="250"/>
         </div>
       </div>
     </div>

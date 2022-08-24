@@ -1,8 +1,10 @@
 class CreateTransportationPlans < ActiveRecord::Migration[7.0]
   def change
     create_table :transportation_plans do |t|
-      t.string :method
+      t.string :transportation_type
       t.string :company
+      t.string :departure_country
+      t.string :destination_country
       t.string :departure_city
       t.string :destination_city
       t.string :departure_location

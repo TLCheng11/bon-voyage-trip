@@ -3,25 +3,43 @@ import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import MapHolder from "../Maps/MapHolder";
 import AddActivityForm from "./AddActivityForm";
+import Activity from "./Activity";
 
 function DailyPlanDetails() {
   let navigate = useNavigate()
   const params = useParams()
-  const [dailyPlan, setDailyPlan] = useState({})
+  const [dailyPlan, setDailyPlan] = useState({activities: []})
+  const [activities, setActivities] = useState([])
   const [addingActivity, setAddingActivity] = useState(false)
   
+  console.log(dailyPlan)
+
   useEffect(() => {
     fetch(`/daily_plans/${params.daily_plan_id}`)
     .then(res => res.json())
-    .then(setDailyPlan)
+    .then(data => {
+      setDailyPlan(data)
+      setActivities(data.activities)
+    })
     .catch(console.error)
   }, []);
+
+  const showActivities = activities.sort((a, b) => {
+    console.log(a.start_time)
+    if (a.start_time > b.start_time) {
+      return 1
+    } else if (b.start_time > a.start_time) {
+      return -1
+    } else {
+      return 0
+    }
+  }).map(activity => <Activity key={activity.id} activity={activity} setActivities={setActivities} />)
 
   return (
     <div className="flex">
       {/* to show the add activity form */}
       {
-        addingActivity ? <AddActivityForm setAddingActivity={setAddingActivity} /> : null
+        addingActivity ? <AddActivityForm dailyPlan={dailyPlan} setAddingActivity={setAddingActivity} setActivities={setActivities} /> : null
       }
       {/* for data */}
       <div className="h-full w-1/3">
@@ -32,10 +50,13 @@ function DailyPlanDetails() {
             <h2>{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
           </div>
         </div>
-        <div className="h-96 w-full p-5 overflow-x-hidden overflow-y-auto">
-          <div className="h-full w-full p-2 border rounded-xl">
+        <div className="h-96 w-full p-5">
+          <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto">
             <div>
               <button onClick={() => setAddingActivity(true)}>Add Activity</button>
+            </div>
+            <div>
+              {showActivities}
             </div>
           </div>
         </div>
