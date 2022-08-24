@@ -1,4 +1,5 @@
 
+import { Data } from '@react-google-maps/api';
 import moment from 'moment';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -7,14 +8,14 @@ import RestaurantForm from './RestaurantForm';
 import SightSeeingForm from './SightSeeingForm';
 import TransportationForm from './TransportationForm';
 
-function AddActivityForm({dailyPlan, setAddingActivity}) {
+function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
   const params = useParams()
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("10:00")
   const [type, setType] = useState("sight_spot")
   const [description, setDescription] = useState("")
   // states for transportation
-  const [transportationType, setTransportationType] = useState("air")
+  const [transportationType, setTransportationType] = useState("Air")
   const [company, setCompany] = useState("")
   const [country, setCountry] = useState(dailyPlan.country)
   const [city, setCity] = useState(dailyPlan.city)
@@ -213,7 +214,10 @@ function AddActivityForm({dailyPlan, setAddingActivity}) {
         })
       })
         .then(res => res.json())
-        .then(console.log)
+        .then(data => {
+          setAddingActivity(false)
+          setActivities(activities => [...activities, data])
+        })
     }
   }
   

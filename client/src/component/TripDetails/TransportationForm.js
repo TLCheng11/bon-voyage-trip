@@ -35,14 +35,14 @@ function TransportationForm({
           </div>
         </div>
         <select value={transportationType} onChange={e => setTransportationType(e.target.value)}>
-          <option value="air">Air</option>
-          <option value="train">Train</option>
-          <option value="bus">Bus</option>
-          <option value="ship">Ship</option>
-          <option value="foot">On foot</option>
+          <option value="Air">Air</option>
+          <option value="Train">Train</option>
+          <option value="Bus">Bus</option>
+          <option value="Ship">Ship</option>
+          <option value="Walking">On foot</option>
         </select>
         {
-          transportationType !== "foot" ? <input placeholder="Provider Company" value={company} onChange={e => setCompany(e.target.value)} /> : null
+          transportationType !== "Walking" ? <input placeholder="Provider Company" value={company} onChange={e => setCompany(e.target.value)} /> : null
         }
       </div>
       <div>
@@ -52,7 +52,7 @@ function TransportationForm({
         </div>
       </div>
         {
-          transportationType === "air" ? (
+          transportationType === "Air" ? (
             <div>
               <p>Airport: </p>
               <p>
@@ -67,7 +67,7 @@ function TransportationForm({
           ) : (null)
         }
         {
-          transportationType === "train" || transportationType === "bus" ? (
+          transportationType === "Train" || transportationType === "Bus" ? (
             <div>
               <p>Station: </p>
               <p>
@@ -82,7 +82,7 @@ function TransportationForm({
           ) : (null)
         }
         {
-          transportationType === "ship" ? (
+          transportationType === "Ship" ? (
             <div>
               <p>Seaport: </p>
               <p>
@@ -97,7 +97,7 @@ function TransportationForm({
           ) : (null)
         }
         {
-          transportationType === "foot" ? (
+          transportationType === "Walking" ? (
             <div>
               Address:
               <p>
