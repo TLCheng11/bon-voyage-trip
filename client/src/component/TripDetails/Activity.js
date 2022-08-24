@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 
 function Activity({activity, setActivities}) {
-  const [icon, setIcon] = useState("")
+  const [type, setType] = useState("")
 
   const iconUrl = {
     sight_spot: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
@@ -13,13 +13,13 @@ function Activity({activity, setActivities}) {
 
   useEffect(() => {
     if (activity.sight_spot) {
-      setIcon(iconUrl.sight_spot)
+      setType("sight_spot")
     } else if (activity.restaurant) {
-      setIcon(iconUrl.restaurant)
+      setType("restaurant")
     } else if (activity.transportation_plan) {
-      setIcon(iconUrl.transportation_plan)
+      setType("transportation_plan")
     } else if (activity.hotel_booking) {
-      setIcon(iconUrl.hotel_booking)
+      setType("hotel_booking")
     }
   }, []);
 
@@ -36,12 +36,12 @@ function Activity({activity, setActivities}) {
   return (
     <div className="flex border rounded-lg m-1 p-1">
       <div className="flex items-center h-20 w-20">
-        <img className="h-15 w-15" src={icon}/>
+        <img className="h-15 w-15" src={iconUrl[type]}/>
       </div>
       <div className="flex w-full mx-2 justify-between">
         <div>
           {
-            activity.sight_spot ? (
+            type === "sight_spot" ? (
               <div>
                 <p>{moment(activity.start_time).format("hh:mm A")} - {moment(activity.end_time).format("hh:mm A")}</p>
                 <p>{activity.sight_spot.name}</p>
@@ -51,7 +51,7 @@ function Activity({activity, setActivities}) {
             ) : (null)
           }
           {
-            activity.restaurant ? (
+            type === "restaurant" ? (
               <div>
                 <p>{moment(activity.start_time).format("hh:mm A")} - {moment(activity.end_time).format("hh:mm A")}</p>
                 <p>{activity.restaurant.name}</p>
@@ -61,7 +61,7 @@ function Activity({activity, setActivities}) {
             ) : (null)
           }
           {
-            activity.transportation_plan ? (
+            type === "transportation_plan" ? (
               <div>
                 <p>Departing: {moment(activity.start_time).format("hh:mm A")}</p>
                 <p>Arriving: {moment(activity.end_time).format("hh:mm A")}</p>
@@ -71,12 +71,14 @@ function Activity({activity, setActivities}) {
             ) : (null)
           }
           {
-            activity.hotel_booking ? (
+            type === "hotel_booking" ? (
               <div>
-                <p>Departing: {moment(activity.start_time).format("hh:mm A")}</p>
-                <p>Arriving: {moment(activity.end_time).format("hh:mm A")}</p>
-                <p>{activity.hotel_booking.transportation_type}</p>
-                <p>{activity.hotel_booking.destination_city} ({activity.hotel_booking.destination_country})</p>
+                <p>Check-in: {moment(activity.start_time).format("hh:mm A")}</p>
+                <p>Check-out: {moment(activity.end_time).format("hh:mm A")}</p>
+                <p>{activity.hotel_booking.name}</p>
+                <p>{activity.hotel_booking.location}</p>
+                {activity.hotel_booking.rating > 0 ? <p>Rating: {activity.hotel_booking.rating}</p> : null}
+                {activity.hotel_booking.price > 0 ? <p>Price: ${activity.hotel_booking.price} USD</p> : null}
               </div>
             ) : (null)
           }
