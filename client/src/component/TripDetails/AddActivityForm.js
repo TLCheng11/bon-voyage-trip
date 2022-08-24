@@ -176,8 +176,8 @@ function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
             destination_city: city,
             departure_location: departureStation,
             destination_location: destinationStation,
-            departure_lat: 0,
-            departure_lng: 0,
+            departure_lat: dailyPlan.city_lat,
+            departure_lng: dailyPlan.city_lng,
             destination_lat: 0,
             destination_lng: 0,
             departure_time: moment(moment(dailyPlan.start_date).format("MM-DD-YYYY") + " " + startTime),
@@ -199,29 +199,47 @@ function AddActivityForm({dailyPlan, setAddingActivity, setActivities}) {
         default:
           break;
       }
-  
-      fetch(`/activities`, {
-        method: "POST",
-        headers: {
-          "Content-Type" : "application/json"
-        },
-        body: JSON.stringify({
-          type: type,
-          daily_plan_id: params.daily_plan_id,
-          start_time: moment(moment(dailyPlan.start_date).format("MM-DD-YYYY") + " " + startTime),
-          end_time: moment(moment(dailyPlan.end_date).format("MM-DD-YYYY") + " " + endTime),
-          city: city,
-          city_lat: dailyPlan.city_lat,
-          city_lng: dailyPlan.city_lng,
-          description: description,
-          ...child
+      
+      if (type === "transportation_plan" && city) {
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${country.split(" ").join("+")}+${city.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+            .then(res => res.json())
+            .then(data => {
+              console.log(data)
+              child.destination_lat = data.results[0].geometry.location.lat
+              child.destination_lng = data.results[0].geometry.location.lng
+              console.log(child)
+              postActivity()
+            })
+      } else (
+        postActivity()
+      )
+      
+      function postActivity() {
+        return fetch(`/activities`, {
+          method: "POST",
+          headers: {
+            "Content-Type" : "application/json"
+          },
+          body: JSON.stringify({
+            type: type,
+            daily_plan_id: params.daily_plan_id,
+            start_time: moment(moment(dailyPlan.start_date).format("MM-DD-YYYY") + " " + startTime),
+            end_time: moment(moment(dailyPlan.end_date).format("MM-DD-YYYY") + " " + endTime),
+            city: city,
+            city_lat: dailyPlan.city_lat,
+            city_lng: dailyPlan.city_lng,
+            description: description,
+            ...child
+          })
         })
-      })
-        .then(res => res.json())
-        .then(data => {
-          setAddingActivity(false)
-          setActivities(activities => [...activities, data])
-        })
+          .then(res => res.json())
+          .then(data => {
+            console.log("posting")
+            setAddingActivity(false)
+            setActivities(activities => [...activities, data])
+          })
+      }
+
     }
   }
   

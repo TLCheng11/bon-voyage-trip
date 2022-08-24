@@ -48,10 +48,8 @@ class Activity < ApplicationRecord
         trip = daily_plan.trip
         stop_change = false
 
-        byebug
         trip.daily_plans.each do |plan|
           if plan.day_index >= daily_plan.day_index && !stop_change
-            byebug
             if plan.country == original_country && plan.city === original_city
               plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
             else

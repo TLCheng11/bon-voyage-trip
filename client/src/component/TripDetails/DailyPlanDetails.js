@@ -22,7 +22,7 @@ function DailyPlanDetails() {
       setActivities(data.activities)
     })
     .catch(console.error)
-  }, []);
+  }, [addingActivity]);
 
   const showActivities = activities.sort((a, b) => {
     console.log(a.start_time)

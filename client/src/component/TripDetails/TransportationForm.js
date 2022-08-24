@@ -61,7 +61,7 @@ function TransportationForm({
               </p>
               <p>
                 To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address required"/>
+                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
               </p>
             </div>
           ) : (null)
@@ -76,7 +76,7 @@ function TransportationForm({
               </p>
               <p>
                 To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address required"/>
+                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
               </p>
             </div>
           ) : (null)
@@ -91,7 +91,7 @@ function TransportationForm({
               </p>
               <p>
                 To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address required"/>
+                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
               </p>
             </div>
           ) : (null)
@@ -106,7 +106,7 @@ function TransportationForm({
               </p>
               <p>
                 To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address required"/>
+                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
               </p>
             </div>
           ) : (null)
