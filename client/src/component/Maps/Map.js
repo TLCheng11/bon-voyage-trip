@@ -26,10 +26,10 @@ function Map({mapHolderRef, coordinates, setCoordinates, nearby, point, setInfo,
   // constants for showing marker info
   const [selectedMarker, setselectedMarker] = useState(null);
   const iconUrl = {
-    lodging: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
-    restaurant: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
-    tourist_attraction: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
-    museum: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/museum-71.png",
+    lodging: "https://img.icons8.com/external-linector-lineal-color-linector/64/000000/external-hotel-hotel-service-linector-lineal-color-linector.png",
+    restaurant: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-restaurant-wayfinding-flaticons-flat-flat-icons.png",
+    tourist_attraction: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-vacation-vacation-planning-diving-tour-flaticons-lineal-color-flat-icons-2.png",
+    museum: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-musem-prehistoric-flaticons-flat-flat-icons.png",
   }
   const [pointSelected, setPointSelected] = useState(null);
 
