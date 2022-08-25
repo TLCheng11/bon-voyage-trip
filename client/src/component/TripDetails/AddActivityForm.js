@@ -94,7 +94,7 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
       }
     }
 
-    console.log(info)
+    // console.log(info)
   }, [info]);
 
   let showForm

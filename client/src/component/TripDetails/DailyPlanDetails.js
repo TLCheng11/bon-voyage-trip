@@ -18,7 +18,7 @@ function DailyPlanDetails() {
   const [action, setAction] = useState("new")
   const [coordinates, setCoordinates] = useState({lat: 0, lng: 0})
   
-  // console.log(dailyPlan)
+  console.log(dailyPlan)
   // console.log(info)
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function DailyPlanDetails() {
     .catch(console.error)
   }, [addingActivity, deleteActivity]);
 
-  const showActivities = activities.sort((a, b) => {
+  const sortActivities = activities.sort((a, b) => {
     if (a.start_time > b.start_time) {
       return 1
     } else if (b.start_time > a.start_time) {
@@ -42,7 +42,13 @@ function DailyPlanDetails() {
     } else {
       return 0
     }
-  }).map(activity => <Activity key={activity.id} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity}/>)
+  })
+
+  const showActivities = sortActivities.filter(activity => !activity.hotel_booking)
+  .map(activity => <Activity key={activity.id} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates}/>)
+
+  const showHotels = sortActivities.filter(activity => activity.hotel_booking)
+  .map(activity => <Activity key={activity.id} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates}/>)
 
   return (
     <div className="flex">
@@ -59,7 +65,7 @@ function DailyPlanDetails() {
           <div className="h-full w-full p-2 border rounded-xl font-bold bg-stone-300">
             <h1>Day {params.day}</h1>
             <h2>{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
-            <h2>{dailyPlan.city} ({dailyPlan.country})</h2>
+            <h2 className="cursor-pointer" onClick={() => setCoordinates({lat: dailyPlan.city_lat, lng: dailyPlan.city_lng})}>{dailyPlan.city} ({dailyPlan.country})</h2>
           </div>
         </div>
         <div className="h-96 w-full p-5">
@@ -72,6 +78,14 @@ function DailyPlanDetails() {
             <div>
               {showActivities}
             </div>
+          </div>
+        </div>
+        <div className="px-5">
+          <div>Hotels:</div>
+        </div>
+        <div className="h-48 w-full px-5">
+          <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto bg-stone-300 flex flex-col space-y-4 ">
+            {showHotels}
           </div>
         </div>
       </div>

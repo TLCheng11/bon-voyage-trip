@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 
-function Activity({activity, setActivities, setAction, setInfo, setAddingActivity, setDeletActivity}) {
+function Activity({activity, setActivities, setAction, setInfo, setAddingActivity, setDeletActivity, setCoordinates}) {
+  const [lat, setLat] = useState(0)
+  const [lng, setLng] = useState(0)
   const [type, setType] = useState("")
 
   const iconUrl = {
@@ -11,17 +13,33 @@ function Activity({activity, setActivities, setAction, setInfo, setAddingActivit
     hotel_booking: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
   }
 
-  // console.log(activity)
+  console.log(activity)
 
   useEffect(() => {
     if (activity.sight_spot) {
       setType("sight_spot")
+      if (activity.sight_spot.lat !== 0 || activity.sight_spot.lng !== 0) {
+        setLat(activity.sight_spot.lat)
+        setLng(activity.sight_spot.lng)
+      }
     } else if (activity.restaurant) {
       setType("restaurant")
+      if (activity.restaurant.lat !== 0 || activity.restaurant.lng !== 0) {
+        setLat(activity.restaurant.lat)
+        setLng(activity.restaurant.lng)
+      }
     } else if (activity.transportation_plan) {
       setType("transportation_plan")
+      if (activity.transportation_plan.destination_lat !== 0 || activity.transportation_plan.destination_lng !== 0) {
+        setLat(activity.transportation_plan.destination_lat)
+        setLng(activity.transportation_plan.destination_lng)
+      }
     } else if (activity.hotel_booking) {
       setType("hotel_booking")
+      if (activity.hotel_booking.lat !== 0 || activity.hotel_booking.lng !== 0) {
+        setLat(activity.hotel_booking.lat)
+        setLng(activity.hotel_booking.lng)
+      }
     }
   }, []);
 
@@ -88,6 +106,15 @@ function Activity({activity, setActivities, setAction, setInfo, setAddingActivit
           }
         </div>
         <div>
+          {
+            lat !== 0 || lng !== 0 ? (
+              <img className="h-7 w-7 cursor-pointer"
+                src="https://img.icons8.com/external-soft-fill-juicy-fish/60/FAB005/external-location-essentials-soft-fill-soft-fill-juicy-fish.png" 
+                alt="locate" 
+                onClick={() => setCoordinates({lat, lng})}
+              />
+            ) : (null)
+          }
           <img className="h-7 w-7 cursor-pointer" src="https://img.icons8.com/ios-filled/100/000000/edit-calendar.png" alt="edit"
             onClick={() => {
               setAction("edit")

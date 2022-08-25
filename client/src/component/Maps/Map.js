@@ -1,6 +1,6 @@
 
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 function Map({mapHolderRef, coordinates, setCoordinates, nearby, setInfo, setAddingActivity, setAction}) {
   const mapRef = useRef()
@@ -47,6 +47,11 @@ function Map({mapHolderRef, coordinates, setCoordinates, nearby, setInfo, setAdd
     />
     )) : null
 
+  useEffect(() => {
+    if (mapRef.current) {
+      mapRef.current.zoom = 15
+    }
+  }, [coordinates]);
     
   // const [userMarkers, setUserMarker] = useState([])
   // const onMapClick = useCallback(e => {
