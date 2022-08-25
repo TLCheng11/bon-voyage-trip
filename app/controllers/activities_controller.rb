@@ -19,6 +19,9 @@ class ActivitiesController < ApplicationController
   end
 
   def destroy
+    if @activity.transportation_plan
+      @activity.reverse_daily_plan_destination()
+    end
     @activity.destroy
     render json: {deleted_activity_id: @activity.id}, status: :accepted
   end

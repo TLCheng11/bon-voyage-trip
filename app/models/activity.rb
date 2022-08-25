@@ -49,8 +49,11 @@ class Activity < ApplicationRecord
         stop_change = false
 
         trip.daily_plans.each do |plan|
-          if plan.day_index >= daily_plan.day_index && !stop_change
-            if plan.country == original_country && plan.city === original_city
+          if plan.day_index == daily_plan.day_index
+            plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
+          end
+          if plan.day_index > daily_plan.day_index && !stop_change
+            if plan.transportation_plans.count == 0
               plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
             else
               stop_change = true
@@ -114,8 +117,11 @@ class Activity < ApplicationRecord
         stop_change = false
         
         trip.daily_plans.each do |plan|
-          if plan.day_index >= daily_plan.day_index && !stop_change
-            if plan.country == original_country && plan.city === original_city
+          if plan.day_index == daily_plan.day_index
+            plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
+          end
+          if plan.day_index > daily_plan.day_index && !stop_change
+            if plan.transportation_plans.count == 0
               plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
             else
               stop_change = true
@@ -131,4 +137,73 @@ class Activity < ApplicationRecord
     
     activity
   end
+
+  def reverse_daily_plan_destination()
+    country = self.transportation_plan[:departure_country]
+    city = self.transportation_plan[:departure_city]
+    lat = self.transportation_plan[:departure_lat]
+    lng = self.transportation_plan[:departure_lng]
+
+    if self.daily_plan.transportation_plans.count == 1
+      if self.daily_plan.day_index == 1
+        user = User.find(self.daily_plan.trip.created_by)
+        country = user[:home_country]
+        city = user[:home_city]
+        lat = user[:home_city_lat]
+        lng = user[:home_city_lng]
+      else
+        index = self.daily_plan.day_index - 1
+        daily_plan = self.daily_plan.trip.daily_plans.where(day_index: index).first
+        country = daily_plan[:country]
+        city = daily_plan[:city]
+        lat = daily_plan[:city_lat]
+        lng = daily_plan[:city_lng]
+      end
+
+      trip = self.daily_plan.trip
+      stop_change = false
+      
+      trip.daily_plans.each do |plan|
+        if plan.day_index == self.daily_plan.day_index
+          plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
+        end
+        if plan.day_index > self.daily_plan.day_index && !stop_change
+          if plan.transportation_plans.count == 0
+            plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
+          else
+            stop_change = true
+          end
+        end
+      end
+      return true
+    end
+
+    tran = self.daily_plan.transportation_plans.order(:arrival_time).last
+    tran_sec = self.daily_plan.transportation_plans.order("arrival_time DESC").second
+
+    if self.transportation_plan.id == tran.id
+      country = tran_sec[:destination_country]
+      city = tran_sec[:destination_city]
+      lat = tran_sec[:destination_lat]
+      lng = tran_sec[:destination_lng]
+
+      trip = daily_plan.trip
+      stop_change = false
+      
+      trip.daily_plans.each do |plan|
+        if plan.day_index == self.daily_plan.day_index
+          byebug
+          plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
+        end
+        if plan.day_index > self.daily_plan.day_index && !stop_change
+          if plan.transportation_plans.count == 0
+            plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
+          else
+            stop_change = true
+          end
+        end
+      end
+    end
+  end
+
 end
