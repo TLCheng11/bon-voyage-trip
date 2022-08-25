@@ -308,7 +308,7 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
           .then(data => {
             setAddingActivity(false)
             setAction("new")
-            setActivities(activities => [...activities, data])
+            // setActivities(activities => [...activities, data])
           })
       }
 

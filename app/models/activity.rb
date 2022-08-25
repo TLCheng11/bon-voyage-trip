@@ -48,7 +48,7 @@ class Activity < ApplicationRecord
         trip = daily_plan.trip
         stop_change = false
 
-        trip.daily_plans.each do |plan|
+        trip.daily_plans.sort{|a, b| a.day_index <=> b.day_index}.each do |plan|
           if plan.day_index == daily_plan.day_index
             plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
           end
@@ -116,7 +116,7 @@ class Activity < ApplicationRecord
         trip = daily_plan.trip
         stop_change = false
         
-        trip.daily_plans.each do |plan|
+        trip.daily_plans.sort{|a, b| a.day_index <=> b.day_index}.each do |plan|
           if plan.day_index == daily_plan.day_index
             plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
           end
@@ -163,7 +163,7 @@ class Activity < ApplicationRecord
       trip = self.daily_plan.trip
       stop_change = false
       
-      trip.daily_plans.each do |plan|
+      trip.daily_plans.sort{|a, b| a.day_index <=> b.day_index}.each do |plan|
         if plan.day_index == self.daily_plan.day_index
           plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
         end
@@ -187,12 +187,11 @@ class Activity < ApplicationRecord
       lat = tran_sec[:destination_lat]
       lng = tran_sec[:destination_lng]
 
-      trip = daily_plan.trip
+      trip = self.daily_plan.trip
       stop_change = false
       
-      trip.daily_plans.each do |plan|
+      trip.daily_plans.sort{|a, b| a.day_index <=> b.day_index}.each do |plan|
         if plan.day_index == self.daily_plan.day_index
-          byebug
           plan.update!(country: country, city: city, city_lat: lat, city_lng: lng)
         end
         if plan.day_index > self.daily_plan.day_index && !stop_change

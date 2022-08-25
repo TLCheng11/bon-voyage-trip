@@ -11,6 +11,7 @@ function DailyPlanDetails() {
   const [dailyPlan, setDailyPlan] = useState({activities: []})
   const [activities, setActivities] = useState([])
   const [addingActivity, setAddingActivity] = useState(false)
+  const [deleteActivity, setDeletActivity] = useState(false)
   // for info window add link
   const [info, setInfo] = useState({})
   const [action, setAction] = useState("new")
@@ -26,7 +27,7 @@ function DailyPlanDetails() {
       setActivities(data.activities)
     })
     .catch(console.error)
-  }, [addingActivity]);
+  }, [addingActivity, deleteActivity]);
 
   const showActivities = activities.sort((a, b) => {
     if (a.start_time > b.start_time) {
@@ -36,7 +37,7 @@ function DailyPlanDetails() {
     } else {
       return 0
     }
-  }).map(activity => <Activity key={activity.id} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} />)
+  }).map(activity => <Activity key={activity.id} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity}/>)
 
   return (
     <div className="flex">
@@ -51,6 +52,7 @@ function DailyPlanDetails() {
           <div className="h-full w-full p-2 border rounded-xl">
             <h1>Day {params.day}</h1>
             <h2>{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
+            <h2>{dailyPlan.city} ({dailyPlan.country})</h2>
           </div>
         </div>
         <div className="h-96 w-full p-5">
