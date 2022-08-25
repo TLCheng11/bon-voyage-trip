@@ -50,11 +50,29 @@ function TripDetails() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        end_date: moment(trip.end_date).add(1, "days")
+        end_date: moment(trip.end_date).add(1, "days"),
+        type: "add"
       })
     })
     .then(res => res.json())
     .then(() => setUpdating(state => !state))
+  }
+
+  function deleteDay() {
+    if (moment(trip.start_date) < moment(trip.end_date)) {
+      fetch(`/trips/${trip.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          end_date: moment(trip.end_date).subtract(1, "days"),
+          type: "delete"
+        })
+      })
+      .then(res => res.json())
+      .then(() => setUpdating(state => !state))
+    }
   }
 
   const showDailyPlans = trip.daily_plans.sort((a,b) => a.day_index - b.day_index).map(plan => {
@@ -67,7 +85,8 @@ function TripDetails() {
       <div>{moment(trip.start_date).format("MM-DD-YYYY")} - {moment(trip.end_date).format("MM-DD-YYYY")}</div>
       <button onClick={deleteTrip}>Delete Trip</button>
       <button onClick={addDay}>Add Day</button>
-      <div className="grid grid-cols-4 gap-4 overflow-auto">
+      <button onClick={deleteDay}>Delete Day</button>
+      <div className="grid grid-cols-4 gap-4 overflow-y-auto">
         {showDailyPlans}
       </div>
     </div>

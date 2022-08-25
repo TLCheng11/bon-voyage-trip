@@ -14,7 +14,11 @@ class TripsController < ApplicationController
   end
 
   def update
-    @trip.update_trip(params)
+    if params[:type] == "add"
+      @trip.update_trip_add(params)
+    else
+      @trip.update_trip_delete(params)
+    end
     render json: @trip, status: :accepted, serializer: TripShowSerializer
   end
 
