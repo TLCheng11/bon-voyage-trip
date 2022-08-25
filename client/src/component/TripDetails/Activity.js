@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 
-function Activity({activity, setActivities, setAction, setInfo, setAddingActivity, setDeletActivity, setCoordinates}) {
+function Activity({mapHolderRef, activity, setActivities, setAction, setInfo, setAddingActivity, setDeletActivity, setCoordinates}) {
   const [lat, setLat] = useState(0)
   const [lng, setLng] = useState(0)
   const [type, setType] = useState("")
@@ -13,7 +13,7 @@ function Activity({activity, setActivities, setAction, setInfo, setAddingActivit
     hotel_booking: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
   }
 
-  console.log(activity)
+  // console.log(activity)
 
   useEffect(() => {
     if (activity.sight_spot) {
@@ -111,7 +111,10 @@ function Activity({activity, setActivities, setAction, setInfo, setAddingActivit
               <img className="h-7 w-7 cursor-pointer"
                 src="https://img.icons8.com/external-soft-fill-juicy-fish/60/FAB005/external-location-essentials-soft-fill-soft-fill-juicy-fish.png" 
                 alt="locate" 
-                onClick={() => setCoordinates({lat, lng})}
+                onClick={() => {
+                  setCoordinates({lat, lng})
+                  mapHolderRef.current.zoom = 17
+                }}
               />
             ) : (null)
           }

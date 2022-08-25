@@ -47,11 +47,11 @@ function Map({mapHolderRef, coordinates, setCoordinates, nearby, setInfo, setAdd
     />
     )) : null
 
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.zoom = 15
-    }
-  }, [coordinates]);
+  // useEffect(() => {
+  //   if (mapRef.current) {
+  //     mapRef.current.zoom = 15
+  //   }
+  // }, [coordinates]);
     
   // const [userMarkers, setUserMarker] = useState([])
   // const onMapClick = useCallback(e => {

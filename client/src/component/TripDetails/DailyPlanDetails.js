@@ -45,10 +45,10 @@ function DailyPlanDetails() {
   })
 
   const showActivities = sortActivities.filter(activity => !activity.hotel_booking)
-  .map(activity => <Activity key={activity.id} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates}/>)
+  .map(activity => <Activity key={activity.id} mapHolderRef={mapHolderRef} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates}/>)
 
   const showHotels = sortActivities.filter(activity => activity.hotel_booking)
-  .map(activity => <Activity key={activity.id} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates}/>)
+  .map(activity => <Activity key={activity.id} mapHolderRef={mapHolderRef} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates}/>)
 
   return (
     <div className="Activitypage flex bg-black h-full">
@@ -65,7 +65,11 @@ function DailyPlanDetails() {
           <div className="h-full w-2/3 p-2 border rounded-xl font-bold bg-stone-300 content-center">
             <h1>Day {params.day}</h1>
             <h2>{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
-            <h2 className="cursor-pointer" onClick={() => setCoordinates({lat: dailyPlan.city_lat, lng: dailyPlan.city_lng})}>{dailyPlan.city} ({dailyPlan.country})</h2>
+            <h2 className="cursor-pointer" onClick={() => {
+              setCoordinates({lat: dailyPlan.city_lat, lng: dailyPlan.city_lng})
+              mapHolderRef.current.zoom = 15
+            }}
+            >{dailyPlan.city} ({dailyPlan.country})</h2>
           </div>
         </div>
         <div>Activities:</div>
