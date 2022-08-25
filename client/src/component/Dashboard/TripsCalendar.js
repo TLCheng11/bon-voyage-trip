@@ -114,7 +114,7 @@ function TripsCalender({dashboardProps}) {
             onChange={end => setNewTrip({...newTrip, end})}
           />
         </div>
-        <div className='flex mx-10'>
+        <div className='rounded flex mx-10'>
           <NavLink to="select-location">
             <button
                 type="button"

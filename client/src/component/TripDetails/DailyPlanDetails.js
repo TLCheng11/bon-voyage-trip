@@ -47,16 +47,20 @@ function DailyPlanDetails() {
       {/* for data */}
       <div className="h-full w-1/3">
         <div className="h-1/3 w-full p-5">
-          <button onClick={() => navigate(`/trip-details/${params.trip_id}`)}>Back</button>
-          <div className="h-full w-full p-2 border rounded-xl">
+          <button 
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          onClick={() => navigate(`/trip-details/${params.trip_id}`)}>Back</button>
+          <div className="h-full w-full p-2 border rounded-xl font-bold bg-stone-300">
             <h1>Day {params.day}</h1>
             <h2>{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
           </div>
         </div>
         <div className="h-96 w-full p-5">
-          <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto">
+          <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto bg-stone-300 flex flex-col space-y-4 ">
             <div>
-              <button onClick={() => setAddingActivity(true)}>Add Activity</button>
+              <button className=
+              "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              onClick={() => setAddingActivity(true)}>Add Activity</button>
             </div>
             <div>
               {showActivities}

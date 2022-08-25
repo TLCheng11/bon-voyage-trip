@@ -1,8 +1,7 @@
 
 .Dashboardbg {
     background: url('https://images.wallpaperscraft.com/image/single/waves_ocean_aerial_view_148218_2780x2780.jpg'); 
-    height: 100%;
-    background-size: 100vh;
+    background-size: cover;
     background-repeat: repeat;
     -webkit-animation: backgroundScroll 10s linear infinite;
     animation: backgroundScroll 10s linear infinite;

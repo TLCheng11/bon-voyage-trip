@@ -36,7 +36,8 @@ function Activity({activity, setActivities, setAction, setInfo, setAddingActivit
   }
 
   return (
-    <div className="flex border rounded-lg m-1 p-1">
+    <div className="bg-[#38bdf8] rounded-lg font-bold text-white">
+    <div className="flex border rounded-lg ">
       <div className="flex items-center h-20 w-20">
         <img className="h-15 w-15" src={iconUrl[type]}/>
       </div>
@@ -99,6 +100,7 @@ function Activity({activity, setActivities, setAction, setInfo, setAddingActivit
           />
         </div>
       </div>
+    </div>
     </div>
   );
 }

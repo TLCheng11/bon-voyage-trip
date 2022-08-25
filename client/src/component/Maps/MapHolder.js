@@ -44,27 +44,33 @@ function MapHolder({coordinates, setInfo, setAddingActivity, setAction}) {
 
   return (
     <div>
-      <div>
+      <div className="flex flex-col space-y-3">
         <div>
-          <button onClick={() => setLoadMap(true)}>LoadMap</button>
+          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
+          onClick={() => setLoadMap(true)}>Map</button>
         </div>
         {/* <div>
           <button onClick={() => console.log(mapRef.current.center.lat(), mapRef.current.center.lng())}>Map center</button>
         </div> */}
         <div>
-          <button onClick={() => searchNearby("lodging")}>Nearby Hotel</button>
+          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"          
+          onClick={() => searchNearby("lodging")}>Nearby Hotel</button>
         </div>
         <div>
-          <button onClick={() => searchNearby("restaurant")}>Nearby Restaurants</button>
+          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
+          onClick={() => searchNearby("restaurant")}>Nearby Restaurants</button>
         </div>
         <div>
-          <button onClick={() => searchNearby("tourist_attraction")}>Nearby Sigth Spot</button>
+          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
+          onClick={() => searchNearby("tourist_attraction")}>Nearby Attraction</button>
         </div>
         <div>
-          <button onClick={() => searchNearby("museum")}>Nearby Museum</button>
+          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
+          onClick={() => searchNearby("museum")}>Nearby Museum</button>
         </div>
         <div>
-          <button onClick={() => setNearby({})}>Clear</button>
+          <button className= "bg-white hover:bg-gray-100 text-red font-semibold py-2 px-4 border border-gray-400 rounded shadow p-[5px]"
+          onClick={() => setNearby({})}>Clear</button>
         </div>
       </div>
       {

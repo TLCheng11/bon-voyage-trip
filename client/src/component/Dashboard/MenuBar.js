@@ -13,7 +13,7 @@ function MenuBar({setCurrentUser}) {
   }
 
   return (
-    <div className="Dashboardbg1 shadow-md flex space-x-2 justify-center"
+    <div className="Dashboardbg1 absolute w-full pb-3 shadow-md flex space-x-2 justify-center -top-11 transition-all delay-900 ease-in hover:top-0"
     >
       <button 
       type="button"

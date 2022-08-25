@@ -9,5 +9,10 @@
     "clean": "rm -rf public",
     "deploy": "cp -a client/build/. public/",
     "heroku-postbuild": "npm run clean && npm run build && npm run deploy"
+  },
+  "dependencies": {
+    "@sefailyasoz/react-carousel": "^1.1.1",
+    "swiper": "^8.3.2",
+    "tw-elements": "^1.0.0-alpha12"
   }
 }
