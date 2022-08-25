@@ -56,7 +56,7 @@ function SelectLocation({selectLocationProps}) {
           onClick={handleConfirmDestination}>Confirm</button>
         </div>
       </div>
-      <div className='fixed top-0 -z-20'>
+      <div className='fixed top-0 -z-10'>
         <World country={country} setCountry={setCountry} city={city} setCity={setCity}/>
       </div>
     </div>
