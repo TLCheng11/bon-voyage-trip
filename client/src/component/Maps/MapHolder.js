@@ -52,23 +52,23 @@ function MapHolder({mapHolderRef, coordinates, setCoordinates, point, setPoint, 
           <button onClick={() => console.log(mapHolderRef.current.center.lat(), mapHolderRef.current.center.lng())}>Map center</button>
         </div> */}
         <div>
-          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"          
+          <button className="bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-white rounded flex flex-wrap"          
           onClick={() => searchNearby("lodging")}>Nearby Hotels</button>
         </div>
         <div>
-          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
+          <button className="bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-white rounded flex flex-wrap" 
           onClick={() => searchNearby("restaurant")}>Nearby Restaurants</button>
         </div>
         <div>
-          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
+          <button className="bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-white rounded flex flex-wrap" 
           onClick={() => searchNearby("tourist_attraction")}>Nearby Attractions</button>
         </div>
         <div>
-          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
+          <button className="bg-white hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-white rounded flex flex-wrap" 
           onClick={() => searchNearby("museum")}>Nearby Museums</button>
         </div>
         <div>
-          <button className= "bg-white hover:bg-gray-100 text-red font-semibold py-2 px-4 border border-gray-400 rounded shadow p-[5px]"
+          <button className= "bg-white hover:bg-gray-100 text-red font-semibold py-2 px-4 border border-gray-400 rounded flex flex-wrap shadow p-[5px]"
             onClick={() => {
             setNearby({})
             setPoint({})

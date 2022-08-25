@@ -59,23 +59,23 @@ function DailyPlanDetails() {
       }
       {/* for data */}
       <div className="h-1/6 w-1/3">
-        <div className="h-full w-full p-5">
+        <div className="h-full w-full p-5 flex-col space-y-4">
           <button 
           className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
           onClick={() => navigate(`/trip-details/${params.trip_id}`)}>Back</button>
-          <div className="h-full w-2/3 p-2 border rounded-xl font-bold bg-stone-300 content-center">
+          <div className="h-2/3 w-full p-2 border rounded-xl font-bold bg-stone-300 content-center flex space-y-5 flex space-x-12">
             <h1>Day {params.day}</h1>
             <h2>{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
-            <h2 className="cursor-pointer" onClick={() => {
+            <h2 className="cursor-pointer hover:underline" onClick={() => {
               setCoordinates({lat: dailyPlan.city_lat, lng: dailyPlan.city_lng})
               mapHolderRef.current.zoom = 15
             }}
             >{dailyPlan.city} ({dailyPlan.country})</h2>
           </div>
         </div>
-        <div>Activities:</div>
+        <div className="bg-transparent text-white font-semibold  py-2  rounded uppercase w-full"><div className="text-center">Activities:</div></div>
         <div className="h-96 w-full p-5">
-          <div className="h-full w-2/3 p-2 border rounded-xl overflow-x-hidden overflow-y-auto bg-stone-300 flex flex-col space-y-4 ">
+          <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto bg-stone-300 flex flex-col space-y-4 ">
             <div>
               <button className=
               "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
@@ -86,8 +86,8 @@ function DailyPlanDetails() {
             </div>
           </div>
         </div>
-        <div className="px-5">
-          <div>Hotels:</div>
+        <div className="bg-transparent text-white font-semibold  pb-5  rounded uppercase w-full">
+          <div className="text-center">Hotels:</div>
         </div>
         <div className="h-48 w-full px-5">
           <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto bg-stone-300 flex flex-col space-y-4 ">

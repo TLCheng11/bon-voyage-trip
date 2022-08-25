@@ -55,10 +55,10 @@ function Activity({mapHolderRef, activity, setActivities, setAction, setInfo, se
   }
 
   return (
-    <div className="bg-[#38bdf8] rounded-lg font-bold text-white">
-    <div className="flex border rounded-lg ">
+    <div className="bg-[#fecdd3] rounded-xl font-bold text-stone-700">
+    <div className="flex border rounded-lg px-2 py-2">
       <div className="flex items-center h-20 w-20">
-        <img className="h-15 w-15" src={iconUrl[type]}/>
+        <img className="h-15 w-15 bg-white pl-1 bg-transparent" src={iconUrl[type]}/>
       </div>
       <div className="flex w-full mx-2 justify-between">
         <div>
