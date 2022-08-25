@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "/search", to: "google_maps#search"
   
   resources :users, only: [:create]
-  resources :trips, only: [:index, :create, :show, :destroy]
+  resources :trips, only: [:index, :create, :show, :update, :destroy]
   resources :daily_plans, only: [:show]
   resources :activities, only: [:index, :show, :create, :update, :destroy]
   # resources :transportation_plans

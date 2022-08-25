@@ -24,4 +24,13 @@ class Trip < ApplicationRecord
 
     trip
   end
+
+  def update_trip(params)
+    trip = self.update!(end_date: params[:end_date])
+
+    daily_plan = self.daily_plans.sort{|a, b| a.day_index <=> b.day_index}.last
+    DailyPlan.create!(trip_id: self.id, day: params[:end_date], day_index: daily_plan.day_index + 1, country: daily_plan.country, city: daily_plan.city, city_lat: daily_plan.city_lat, city_lng: daily_plan.city_lng)
+
+    trip
+  end
 end

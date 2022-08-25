@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :find_trip, only: [:show, :destroy]
+  before_action :find_trip, only: [:show, :update, :destroy]
   def index
     render json: Trip.all
   end
@@ -11,6 +11,11 @@ class TripsController < ApplicationController
 
   def show
     render json: @trip, serializer: TripShowSerializer
+  end
+
+  def update
+    @trip.update_trip(params)
+    render json: @trip, status: :accepted, serializer: TripShowSerializer
   end
 
   def destroy
