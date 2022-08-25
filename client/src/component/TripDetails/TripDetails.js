@@ -10,7 +10,7 @@ function TripDetails() {
   const [firstTravel, setFirstTravel] = useState(true)
   const [updating, setUpdating] = useState(true)
 
-  console.log(trip)
+  // console.log(trip)
 
   useEffect(() => {
     fetch(`/trips/${params.trip_id}`)
@@ -19,14 +19,16 @@ function TripDetails() {
       .catch(console.error)
   }, [updating]);
 
-  useEffect(() => {
-    if (trip.daily_plans.length > 0 && firstTravel) {
-      if (!(trip.daily_plans.sort((a,b) => (a.day_index - b.day_index)))[0].transportation_plan) {
-          alert("Please set up your first travel plan for Day 1")
-          setFirstTravel(false)
-      }
-    }
-  }, [trip]);
+  
+  // useEffect(() => {
+  //   if (trip.daily_plans.length > 0 && firstTravel) {
+  //     console.log((trip.daily_plans.sort((a,b) => (a.day_index - b.day_index)))[0])
+  //     if (!(trip.daily_plans.sort((a,b) => (a.day_index - b.day_index)))[0].transportation_plans) {
+  //         alert("Please set up your first travel plan for Day 1")
+  //         setFirstTravel(false)
+  //     }
+  //   }
+  // }, [trip]);
 
 
   function deleteTrip() {
