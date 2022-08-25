@@ -1,8 +1,11 @@
 
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
-function Map({mapRef, coordinates, nearby, setInfo, setAddingActivity, setAction}) {
+function Map({mapHolderRef, coordinates, setCoordinates, nearby, setInfo, setAddingActivity, setAction}) {
+  const mapRef = useRef()
+  mapHolderRef.current = mapRef.current
+
   // saving the map with a ref so we can have access without re-rendering
   const onMapLoad = useCallback(map => {
     mapRef.current = map
