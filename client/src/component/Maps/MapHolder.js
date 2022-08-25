@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import Map from "./Map";
 
-function MapHolder({coordinates, setInfo, setAddingActivity, setAction}) {
-  const mapRef = useRef()
-  const [loadMap, setLoadMap] = useState(false)
+function MapHolder({mapHolderRef, coordinates, setCoordinates, setInfo, setAddingActivity, setAction}) {
+  // const [loadMap, setLoadMap] = useState(true)
   const [nearby, setNearby] = useState({});
 
   // console.log(nearby)
 
   function searchNearby(type) {
-    if(mapRef.current) {
-      fetch(`/search?lat=${mapRef.current.center.lat()}&lng=${mapRef.current.center.lng()}&radius=1500&type=${type}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+    if(mapHolderRef.current) {
+      fetch(`/search?lat=${mapHolderRef.current.center.lat()}&lng=${mapHolderRef.current.center.lng()}&radius=1500&type=${type}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
       .then(res => res.json())
       .then(data => {
         if (data.status === "OK") {
@@ -44,17 +43,16 @@ function MapHolder({coordinates, setInfo, setAddingActivity, setAction}) {
 
   return (
     <div>
-      <div className="flex flex-col space-y-3">
-        <div>
-          <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
-          onClick={() => setLoadMap(true)}>Map</button>
-        </div>
+      <div className="flex space-y-3">
         {/* <div>
-          <button onClick={() => console.log(mapRef.current.center.lat(), mapRef.current.center.lng())}>Map center</button>
+          <button onClick={() => setLoadMap(true)}>LoadMap</button>
+        </div> */}
+        {/* <div>
+          <button onClick={() => console.log(mapHolderRef.current.center.lat(), mapHolderRef.current.center.lng())}>Map center</button>
         </div> */}
         <div>
           <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"          
-          onClick={() => searchNearby("lodging")}>Nearby Hotel</button>
+          onClick={() => searchNearby("lodging")}>Nearby Hotels</button>
         </div>
         <div>
           <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
@@ -62,24 +60,25 @@ function MapHolder({coordinates, setInfo, setAddingActivity, setAction}) {
         </div>
         <div>
           <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
-          onClick={() => searchNearby("tourist_attraction")}>Nearby Attraction</button>
+          onClick={() => searchNearby("tourist_attraction")}>Nearby Attractions</button>
         </div>
         <div>
           <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" 
-          onClick={() => searchNearby("museum")}>Nearby Museum</button>
+          onClick={() => searchNearby("museum")}>Nearby Museums</button>
         </div>
         <div>
           <button className= "bg-white hover:bg-gray-100 text-red font-semibold py-2 px-4 border border-gray-400 rounded shadow p-[5px]"
           onClick={() => setNearby({})}>Clear</button>
         </div>
       </div>
-      {
+      <Map mapHolderRef={mapHolderRef} coordinates={coordinates} setCoordinates={setCoordinates} nearby={nearby} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction}/>
+      {/* {
         loadMap ? (
-          <Map mapRef={mapRef} coordinates={coordinates} nearby={nearby} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction}/>
+          <Map mapHolderRef={mapHolderRef} coordinates={coordinates} nearby={nearby} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction}/>
         ) : (
           null
         )
-      }
+      } */}
     </div>
   );
 }

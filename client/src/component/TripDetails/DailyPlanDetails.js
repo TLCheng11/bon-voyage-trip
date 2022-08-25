@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
 import MapHolder from "../Maps/MapHolder";
@@ -8,6 +8,7 @@ import Activity from "./Activity";
 function DailyPlanDetails() {
   let navigate = useNavigate()
   const params = useParams()
+  const mapHolderRef = useRef()
   const [dailyPlan, setDailyPlan] = useState({activities: []})
   const [activities, setActivities] = useState([])
   const [addingActivity, setAddingActivity] = useState(false)
@@ -15,6 +16,7 @@ function DailyPlanDetails() {
   // for info window add link
   const [info, setInfo] = useState({})
   const [action, setAction] = useState("new")
+  const [coordinates, setCoordinates] = useState({lat: 0, lng: 0})
   
   // console.log(dailyPlan)
   // console.log(info)
@@ -25,6 +27,9 @@ function DailyPlanDetails() {
     .then(data => {
       setDailyPlan(data)
       setActivities(data.activities)
+      if (coordinates.lat === 0 && coordinates.lng === 0) {
+        setCoordinates({lat: data.city_lat, lng: data.city_lng})
+      }
     })
     .catch(console.error)
   }, [addingActivity, deleteActivity]);
@@ -74,7 +79,7 @@ function DailyPlanDetails() {
       <div className="h-full w-2/3">
         {
           dailyPlan.id ? (
-            <MapHolder coordinates={{lat: dailyPlan.city_lat, lng: dailyPlan.city_lng}} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction} />
+            <MapHolder mapHolderRef={mapHolderRef} coordinates={coordinates} setCoordinates={setCoordinates} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction} />
           ) : (null)
         }
       </div>
