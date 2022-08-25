@@ -42,8 +42,8 @@ function MapHolder({mapHolderRef, coordinates, setCoordinates, setInfo, setAddin
   }
 
   return (
-    <div>
-      <div className="flex space-y-3">
+    <div className="activityPage">
+      <div className="flex space-y-0 flex space-x-20 content-center">
         {/* <div>
           <button onClick={() => setLoadMap(true)}>LoadMap</button>
         </div> */}

@@ -66,4 +66,8 @@
     background: url('https://www.eoas.ubc.ca/courses/atsc113/flying/met_concepts/01-met_concepts/01c-cloud_coverage/images-01c/g6b.jpg');
 }
 
-
+.Activitypage {
+    background: url('https://wallpapercave.com/wp/wp4191523.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
