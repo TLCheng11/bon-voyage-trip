@@ -51,7 +51,7 @@ function TripsCalender({dashboardProps}) {
               },
               body: JSON.stringify({
                 user_id: currentUser.id,
-                title: `${newTrip.title}: ${nextCity} (${nextCountry})`,
+                title: newTrip.title,
                 start_date: newTrip.start,
                 end_date: newTrip.end,
                 country: nextCountry,

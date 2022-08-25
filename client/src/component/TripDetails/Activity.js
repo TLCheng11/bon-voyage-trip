@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 
-function Activity({activity, setActivities, setAction, setInfo, setAddingActivity}) {
+function Activity({activity, setActivities, setAction, setInfo, setAddingActivity, setDeletActivity}) {
   const [type, setType] = useState("")
 
   const iconUrl = {
@@ -31,7 +31,8 @@ function Activity({activity, setActivities, setAction, setInfo, setAddingActivit
     })
       .then(res => res.json())
       .then(() => {
-        setActivities(activities => activities.filter(act => act.id != activity.id))
+        // setActivities(activities => activities.filter(act => act.id != activity.id))
+        setDeletActivity(state => !state)
       })
   }
 
