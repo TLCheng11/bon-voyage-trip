@@ -2,7 +2,7 @@
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-function Map({mapHolderRef, coordinates, setCoordinates, nearby, setInfo, setAddingActivity, setAction}) {
+function Map({mapHolderRef, coordinates, setCoordinates, nearby, point, setInfo, setAddingActivity, setAction}) {
   const mapRef = useRef()
   mapHolderRef.current = mapRef.current
 
@@ -31,6 +31,21 @@ function Map({mapHolderRef, coordinates, setCoordinates, nearby, setInfo, setAdd
     tourist_attraction: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
     museum: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/museum-71.png",
   }
+  const [pointSelected, setPointSelected] = useState(null);
+
+  const showPoint = point.data ? (
+    <Marker 
+      position={point.type === "transportation_plan" ? {lat: point.data.destination_lat, lng: point.data.destination_lng} : {lat: point.data.lat, lng: point.data.lng}}
+      icon={{
+        url: point.iconUrl,
+        scaledSize: new window.google.maps.Size(40, 40),
+        origin: new window.google.maps.Point(0, 0),
+        anchor: new window.google.maps.Point(20, 20),
+      }}
+      animation={window.google.maps.Animation.DROP}
+      onClick={() => setPointSelected(point)}
+    />
+  ) : null
 
   const showMarkers = nearby.data ? nearby.data.map(marker => (
     <Marker 
@@ -79,6 +94,7 @@ function Map({mapHolderRef, coordinates, setCoordinates, nearby, setInfo, setAdd
         // onClick={onMapClick}
       > 
         {showMarkers}
+        {showPoint}
         {
           selectedMarker ? (
             <InfoWindow 
@@ -116,6 +132,37 @@ function Map({mapHolderRef, coordinates, setCoordinates, nearby, setInfo, setAdd
               </div>
             </InfoWindow>
           ) : (null)
+        }
+        {
+          pointSelected ? (
+            pointSelected.type === "transportation_plan" ? (
+              <InfoWindow 
+                position={{lat: pointSelected.data.destination_lat, lng: pointSelected.data.destination_lng}} 
+                onCloseClick={() => setPointSelected(null)} 
+                onUnmount={() => setPointSelected(null)}
+              >
+                <div>
+                  <p>{pointSelected.data.destination_city} ({pointSelected.data.destination_country})</p>
+                </div>
+              </InfoWindow>
+            ) : (
+              <InfoWindow 
+              position={{lat: pointSelected.data.lat, lng: pointSelected.data.lng}} 
+              onCloseClick={() => setPointSelected(null)} 
+              onUnmount={() => setPointSelected(null)}
+            >
+              <div>
+                <p>{pointSelected.data.name}</p>
+                <p>{pointSelected.data.location}</p>
+                {
+                  pointSelected.rating ? (
+                    <p>Rating: {pointSelected.rating}</p>
+                    ) : (null)
+                }
+              </div>
+            </InfoWindow>
+            )
+          ) :(null)
         }
       </GoogleMap>
     </div>

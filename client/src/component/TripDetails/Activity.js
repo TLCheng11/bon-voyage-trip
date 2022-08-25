@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 
-function Activity({mapHolderRef, activity, setActivities, setAction, setInfo, setAddingActivity, setDeletActivity, setCoordinates}) {
+function Activity({mapHolderRef, activity, setActivities, setAction, setInfo, setAddingActivity, setDeletActivity, setCoordinates, setPoint}) {
   const [lat, setLat] = useState(0)
   const [lng, setLng] = useState(0)
   const [type, setType] = useState("")
 
   const iconUrl = {
-    sight_spot: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
-    restaurant: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+    sight_spot: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-vacation-vacation-planning-diving-tour-flaticons-lineal-color-flat-icons-2.png",
+    restaurant: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-restaurant-wayfinding-flaticons-flat-flat-icons.png",
     transportation_plan: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-transportation-vacation-planning-resort-flaticons-flat-flat-icons-2.png",
-    hotel_booking: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+    hotel_booking: "https://img.icons8.com/external-linector-lineal-color-linector/64/000000/external-hotel-hotel-service-linector-lineal-color-linector.png",
   }
 
-  // console.log(activity)
+  console.log(activity[type])
 
   useEffect(() => {
     if (activity.sight_spot) {
@@ -112,6 +112,7 @@ function Activity({mapHolderRef, activity, setActivities, setAction, setInfo, se
                 src="https://img.icons8.com/external-soft-fill-juicy-fish/60/FAB005/external-location-essentials-soft-fill-soft-fill-juicy-fish.png" 
                 alt="locate" 
                 onClick={() => {
+                  setPoint({type, data: activity[type], iconUrl: iconUrl[type]})
                   setCoordinates({lat, lng})
                   mapHolderRef.current.zoom = 17
                 }}

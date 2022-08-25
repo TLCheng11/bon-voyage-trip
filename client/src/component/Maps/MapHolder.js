@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import Map from "./Map";
 
-function MapHolder({mapHolderRef, coordinates, setCoordinates, setInfo, setAddingActivity, setAction}) {
+function MapHolder({mapHolderRef, coordinates, setCoordinates, point, setPoint, setInfo, setAddingActivity, setAction}) {
   // const [loadMap, setLoadMap] = useState(true)
   const [nearby, setNearby] = useState({});
 
   // console.log(nearby)
+  console.log(point)
 
   function searchNearby(type) {
     if(mapHolderRef.current) {
@@ -68,10 +69,15 @@ function MapHolder({mapHolderRef, coordinates, setCoordinates, setInfo, setAddin
         </div>
         <div>
           <button className= "bg-white hover:bg-gray-100 text-red font-semibold py-2 px-4 border border-gray-400 rounded shadow p-[5px]"
-          onClick={() => setNearby({})}>Clear</button>
+            onClick={() => {
+            setNearby({})
+            setPoint({})
+          }}>
+            Clear
+          </button>
         </div>
       </div>
-      <Map mapHolderRef={mapHolderRef} coordinates={coordinates} setCoordinates={setCoordinates} nearby={nearby} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction}/>
+      <Map mapHolderRef={mapHolderRef} coordinates={coordinates} setCoordinates={setCoordinates} nearby={nearby} point={point} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction}/>
       {/* {
         loadMap ? (
           <Map mapHolderRef={mapHolderRef} coordinates={coordinates} nearby={nearby} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction}/>

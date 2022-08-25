@@ -13,12 +13,13 @@ function DailyPlanDetails() {
   const [activities, setActivities] = useState([])
   const [addingActivity, setAddingActivity] = useState(false)
   const [deleteActivity, setDeletActivity] = useState(false)
+  const [point, setPoint] = useState({});
   // for info window add link
   const [info, setInfo] = useState({})
   const [action, setAction] = useState("new")
   const [coordinates, setCoordinates] = useState({lat: 0, lng: 0})
   
-  console.log(dailyPlan)
+  // console.log(dailyPlan)
   // console.log(info)
 
   useEffect(() => {
@@ -45,10 +46,10 @@ function DailyPlanDetails() {
   })
 
   const showActivities = sortActivities.filter(activity => !activity.hotel_booking)
-  .map(activity => <Activity key={activity.id} mapHolderRef={mapHolderRef} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates}/>)
+  .map(activity => <Activity key={activity.id} mapHolderRef={mapHolderRef} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates} setPoint={setPoint}/>)
 
   const showHotels = sortActivities.filter(activity => activity.hotel_booking)
-  .map(activity => <Activity key={activity.id} mapHolderRef={mapHolderRef} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates}/>)
+  .map(activity => <Activity key={activity.id} mapHolderRef={mapHolderRef} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates} setPoint={setPoint}/>)
 
   return (
     <div className="Activitypage flex bg-black h-full">
@@ -98,7 +99,7 @@ function DailyPlanDetails() {
       <div className="h-full w-2/3">
         {
           dailyPlan.id ? (
-            <MapHolder mapHolderRef={mapHolderRef} coordinates={coordinates} setCoordinates={setCoordinates} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction} />
+            <MapHolder mapHolderRef={mapHolderRef} coordinates={coordinates} setCoordinates={setCoordinates} point={point} setPoint={setPoint} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction} />
           ) : (null)
         }
       </div>
