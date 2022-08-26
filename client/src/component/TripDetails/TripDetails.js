@@ -95,22 +95,24 @@ function TripDetails() {
   })
 
   return (
-    <div className="Banner h-screen">
-      <h1 className="flex rounded-t-md px-4 flex text-[0F042A] font-bold text-[30px] pt-5">
-        <h1 className="border border-solid border border-[#243c5a] font-['Times'] hover:text-[50px] bg-white rounded-lg p-4">{trip.title}</h1></h1>
-      <div className="px-4 flex text-[0F042A] font-bold text-[30px] font-['Pythagoras']">{moment(trip.start_date).format("MM-DD-YYYY")} - {moment(trip.end_date).format("MM-DD-YYYY")}</div>
-      <div className="flex rounded-b-md">
-      <div className="flex flex-col space-y-2 pl-5 pt-2">
-      <button className=
-              "flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={deleteTrip}>Delete Trip</button>
-      <button className=
-              "flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={addDay}>Add Day</button>
-      <button className=
-              "flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={deleteDay}>Delete Day</button>
-      </div>
-      </div>
-      <div className="grid grid-cols-4 gap-4 overflow-y-auto bg font-bold font-['Mono']">
-        {showDailyPlans}
+    <div className="Banner h-screen overflow-hidden">
+      <div className="h-full overflow-auto">
+        <h1 className="flex rounded-t-md px-4 text-[0F042A] font-bold text-[30px] pt-5">
+          <h1 className="border border-solid border-[#243c5a] font-['Times'] hover:text-[50px] bg-white rounded-lg p-4">{trip.title}</h1></h1>
+        <div className="px-4 flex text-[0F042A] font-bold text-[30px] font-['Pythagoras']">{moment(trip.start_date).format("MM-DD-YYYY")} - {moment(trip.end_date).format("MM-DD-YYYY")}</div>
+        <div className="flex rounded-b-md">
+        <div className="flex flex-col space-y-2 pl-5 pt-2">
+        <button className=
+                "flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={deleteTrip}>Delete Trip</button>
+        <button className=
+                "flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={addDay}>Add Day</button>
+        <button className=
+                "flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={deleteDay}>Delete Day</button>
+        </div>
+        </div>
+        <div className="grid grid-cols-4 gap-4 bg font-bold font-['Mono']">
+          {showDailyPlans}
+        </div>
       </div>
     </div>
   );

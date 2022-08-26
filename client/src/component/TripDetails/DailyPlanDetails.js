@@ -58,62 +58,64 @@ function DailyPlanDetails() {
 
   return (
     <div className="Activitypage flex bg-black h-screen w-screen">
-      {/* to show the add activity form */}
-      {
-        addingActivity ? <AddActivityForm action={action} setAction={setAction} info={info} dailyPlan={dailyPlan} setAddingActivity={setAddingActivity} setActivities={setActivities} /> : null
-      }
-      {/* for data */}
-      <div className="h-1/6 w-1/3">
-        <div className="h-full w-full p-5 flex-col space-y-4">
-          <button 
-          className="bg-white hover:bg-gray-100 ext-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-          onClick={() => navigate(`/trip-details/${params.trip_id}`)}>Back</button>
-          <div className="h-2/3 w-full p-2 border rounded-xl font-bold bg-stone-300 content-center flex space-y-5 space-x-12">
-            <h1>Day {params.day}</h1>
-            <h2 className="overflow-x-hidden overflow-y-auto">{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
-            <h2 className="cursor-pointer hover:underline overflow-x-hidden overflow-y-auto" onClick={() => {
-              setCoordinates({lat: dailyPlan.city_lat, lng: dailyPlan.city_lng})
-              mapHolderRef.current.zoom = 15
-            }}
-            >{dailyPlan.city} ({dailyPlan.country})</h2>
-          </div>
-        </div>
-        <div className="bg-transparent text-white font-semibold  py-2  rounded uppercase w-full"><div className="text-center">Activities:</div></div>
-        <div className="h-96 w-full p-5">
-          <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto bg-stone-300 flex flex-col space-y-4 ">
-            <div>
-              <button className=
-              "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-              onClick={() => setAddingActivity(true)}>Add Activity / Travel Plan</button>
-            </div>
-            <div>
-              {showActivities}
-            </div>
-          </div>
-        </div>
-        <div className="bg-transparent text-white font-semibold  pb-5  rounded uppercase w-full">
-          <div className="text-center">Hotels:</div>
-        </div>
-        <div className="h-48 w-full px-5">
-          <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto bg-stone-300 flex flex-col space-y-4 ">
-            <button 
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-              onClick={() => {
-                setAddingActivity(true)
-                setAction("hotel")
-              }}
-            >Add Hotel</button>
-            {showHotels}
-          </div>
-        </div>
-      </div>
-      {/* for map */}
-      <div className="h-full w-2/3">
+      <div className="flex overflow-auto">
+        {/* to show the add activity form */}
         {
-          dailyPlan.id ? (
-            <MapHolder mapHolderRef={mapHolderRef} coordinates={coordinates} setCoordinates={setCoordinates} point={point} setPoint={setPoint} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction} />
-          ) : (null)
+          addingActivity ? <AddActivityForm action={action} setAction={setAction} info={info} dailyPlan={dailyPlan} setAddingActivity={setAddingActivity} setActivities={setActivities} /> : null
         }
+        {/* for data */}
+        <div className="h-fit w-1/3">
+          <div className="h-full w-full p-5 flex-col space-y-4">
+            <button 
+            className="bg-white hover:bg-gray-100 ext-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+            onClick={() => navigate(`/trip-details/${params.trip_id}`)}>Back</button>
+            <div className="h-2/3 w-full p-2 border rounded-xl font-bold bg-stone-300 content-center flex space-y-5 space-x-12">
+              <h1>Day {params.day}</h1>
+              <h2 className="overflow-x-hidden overflow-y-auto">{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
+              <h2 className="cursor-pointer hover:underline overflow-x-hidden overflow-y-auto" onClick={() => {
+                setCoordinates({lat: dailyPlan.city_lat, lng: dailyPlan.city_lng})
+                mapHolderRef.current.zoom = 15
+              }}
+              >{dailyPlan.city} ({dailyPlan.country})</h2>
+            </div>
+          </div>
+          <div className="bg-transparent text-white font-semibold  py-2  rounded uppercase w-full"><div className="text-center">Activities:</div></div>
+          <div className="h-96 w-full p-5">
+            <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto bg-stone-300 flex flex-col space-y-4 ">
+              <div>
+                <button className=
+                "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                onClick={() => setAddingActivity(true)}>Add Activity / Travel Plan</button>
+              </div>
+              <div>
+                {showActivities}
+              </div>
+            </div>
+          </div>
+          <div className="bg-transparent text-white font-semibold  pb-5  rounded uppercase w-full">
+            <div className="text-center">Hotels:</div>
+          </div>
+          <div className="h-48 w-full px-5">
+            <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto bg-stone-300 flex flex-col space-y-4 ">
+              <button 
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                onClick={() => {
+                  setAddingActivity(true)
+                  setAction("hotel")
+                }}
+              >Add Hotel</button>
+              {showHotels}
+            </div>
+          </div>
+        </div>
+        {/* for map */}
+        <div className="h-full w-2/3">
+          {
+            dailyPlan.id ? (
+              <MapHolder mapHolderRef={mapHolderRef} coordinates={coordinates} setCoordinates={setCoordinates} point={point} setPoint={setPoint} setInfo={setInfo} setAddingActivity={setAddingActivity} setAction={setAction} />
+            ) : (null)
+          }
+        </div>
       </div>
     </div>
   );

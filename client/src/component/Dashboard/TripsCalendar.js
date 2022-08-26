@@ -107,7 +107,7 @@ function TripsCalender({dashboardProps}) {
   return (
     <div className=''>
       <div className= "dboardtext2">Add a new trip:</div>
-      <div className='flex p-2 justify-center'>
+      <div className='flex p-2 justify-center items-center'>
         <input type="text"
           placeholder=""
           required
@@ -116,6 +116,7 @@ function TripsCalender({dashboardProps}) {
         />
         <div className='flex'>
           <DatePicker
+            className='mx-2'
             placeholderText="Start Date"
             selected={newTrip.start}
             onChange={start => setNewTrip({...newTrip, start})}
