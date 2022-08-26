@@ -12,7 +12,7 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
   const params = useParams()
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("10:00")
-  const [type, setType] = useState("sight_spot")
+  const [type, setType] = useState("transportation_plan")
   const [description, setDescription] = useState("")
   // states for transportation
   const [transportationType, setTransportationType] = useState("Air")
@@ -353,9 +353,9 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
               <div className="flex mx-3 my-2">
                 <p>Type:</p>
                 <select value={type} onChange={e => setType(e.target.value)}>
+                  <option value="transportation_plan">Travel</option>
                   <option value="sight_spot">Sight Seeing</option>
                   <option value="restaurant">Restaurant</option>
-                  <option value="transportation_plan">Travel</option>
                   <option value="hotel_booking">Lodging</option>
                 </select>
               </div>
