@@ -96,6 +96,13 @@ function DailyPlanDetails() {
         </div>
         <div className="h-48 w-full px-5">
           <div className="h-full w-full p-2 border rounded-xl overflow-x-hidden overflow-y-auto bg-stone-300 flex flex-col space-y-4 ">
+            <button 
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              onClick={() => {
+                setAddingActivity(true)
+                setAction("hotel")
+              }}
+            >Add Hotel</button>
             {showHotels}
           </div>
         </div>

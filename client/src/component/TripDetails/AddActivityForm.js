@@ -37,6 +37,10 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
   const [lng, setLng] = useState(0)
 
   useEffect(() => {
+    if (action === "hotel") {
+      setType("hotel_booking")
+    }
+
     if (info.type && action === "fromMap") {
       const types = {
         lodging: "hotel_booking",
