@@ -282,7 +282,7 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
               // console.log(data)
               child.destination_lat = data.results[0].geometry.location.lat
               child.destination_lng = data.results[0].geometry.location.lng
-              console.log(child)
+              // console.log(child)
               postActivity()
             })
       } else if (location && lat === 0 && lng === 0) {

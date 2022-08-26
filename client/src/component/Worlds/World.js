@@ -38,7 +38,7 @@ function World({country, setCountry, city, setCity}) {
         .then(res => {
           if (res.ok) {
             res.json().then(data => {
-              console.log(data.results[0].geometry.location)
+              // console.log(data.results[0].geometry.location)
               setPlace([{
                 name: city,
                 lat: data.results[0].geometry.location.lat,
