@@ -292,10 +292,14 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
             if (res.ok) {
             res.json().then(data => {
               // console.log(data)
-              child.lat = data.results[0].geometry.location.lat
-              child.lng = data.results[0].geometry.location.lng
-              console.log(child)
-              postActivity()
+              if (data.status === "OK") {
+                // console.log(child)
+                child.lat = data.results[0].geometry.location.lat
+                child.lng = data.results[0].geometry.location.lng
+                postActivity()
+              } else {
+                alert("Location address not found")
+              }
             })
           } else {
             alert("Location address not found")
@@ -339,7 +343,7 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
       <div className="min-h-96 w-96 border rounded-xl bg-white">
         {/* for close button */}
         <div className="flex items-baseline justify-between">
-          <p className="ml-2">{action === "new" || action === "fromMap" ? "Add" : "Edit"} activity:</p>
+          <p className="ml-2">{action === "new" || action === "fromMap" || action === "hotel" ? "Add" : "Edit"} activity:</p>
           <button className="px-2 py-1 text-red-700 hover:text-red-400" onClick={() => 
             {
               setAddingActivity(false)

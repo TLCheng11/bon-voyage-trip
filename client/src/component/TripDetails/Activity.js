@@ -10,7 +10,7 @@ function Activity({mapHolderRef, activity, setActivities, setAction, setInfo, se
     sight_spot: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-vacation-vacation-planning-diving-tour-flaticons-lineal-color-flat-icons-2.png",
     restaurant: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-restaurant-wayfinding-flaticons-flat-flat-icons.png",
     transportation_plan: "https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-transportation-vacation-planning-resort-flaticons-flat-flat-icons-2.png",
-    hotel_booking: "https://img.icons8.com/external-linector-lineal-color-linector/64/000000/external-hotel-hotel-service-linector-lineal-color-linector.png",
+    hotel_booking: "https://img.icons8.com/clouds/100/000000/4-star-hotel.png",
   }
 
   // console.log(activity[type])

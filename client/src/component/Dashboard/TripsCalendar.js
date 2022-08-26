@@ -11,7 +11,7 @@ function TripsCalender({dashboardProps}) {
   const {currentUser, nextCountry, setNextCountry, nextCity, setNextCity, newTrip, setNewTrip} = dashboardProps
   const [trips, setTrips] = useState([])
 
-  // for test data
+  // for geting trips data
   useEffect(() => {
     fetch("/trips")
       .then(res => res.json())
