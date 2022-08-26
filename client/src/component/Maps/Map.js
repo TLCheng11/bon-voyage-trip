@@ -1,6 +1,6 @@
 
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow } from '@react-google-maps/api';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 function Map({mapHolderRef, coordinates, setCoordinates, nearby, point, setInfo, setAddingActivity, setAction}) {
   const mapRef = useRef()

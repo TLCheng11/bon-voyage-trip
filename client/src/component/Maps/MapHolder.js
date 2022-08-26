@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Map from "./Map";
 
 function MapHolder({mapHolderRef, coordinates, setCoordinates, point, setPoint, setInfo, setAddingActivity, setAction}) {
