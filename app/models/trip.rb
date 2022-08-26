@@ -14,13 +14,8 @@ class Trip < ApplicationRecord
     TripPlan.create!(user_id: params[:user_id], trip_id: trip.id)
 
     # get the number of days in the trip
-    diff = Date.parse(params[:end_date]) - Date.parse(params[:start_date])
-    days = diff.to_i + 1
-
-    day = Date.parse(params[:start_date]) + 1
-    days.times do |i|
-      DailyPlan.create!(trip_id: trip.id, day: day, day_index: i + 1, country: params[:country], city: params[:city], city_lat: params[:city_lat], city_lng: params[:city_lng])
-      day += 1
+    params[:day_count].times do |i|
+      DailyPlan.create!(trip_id: trip.id, day: params[:day_range][i], day_index: i + 1, country: params[:country], city: params[:city], city_lat: params[:city_lat], city_lng: params[:city_lng])
     end 
 
     trip
