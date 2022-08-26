@@ -340,7 +340,7 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
   
   return (
     <div className="fixed h-full w-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
-      <div className="min-h-96 w-96 border rounded-xl bg-white">
+      <div className="min-h-96 w-96 border border-solid rounded-xl bg-white ">
         {/* for close button */}
         <div className="flex items-baseline justify-between">
           <p className="ml-2">{action === "new" || action === "fromMap" || action === "hotel" ? "Add" : "Edit"} activity:</p>
