@@ -53,7 +53,7 @@ function TripsCalender({dashboardProps}) {
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${nextCountry.split(" ").join("+")}+${nextCity.split(" ").join("+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
           .then(res => res.json())
           .then(data => {
-            console.log(data)
+            // console.log(data)
             fetch("/trips", {
               method: "POST",
               headers: {
@@ -74,7 +74,7 @@ function TripsCalender({dashboardProps}) {
             })
             .then(res => res.json())
             .then(data => {
-              console.log(data)
+              // console.log(data)
               const returnTrip = {
                 id: data.id,
                 title: data.title,
