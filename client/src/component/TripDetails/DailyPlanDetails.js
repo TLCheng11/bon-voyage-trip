@@ -51,6 +51,8 @@ function DailyPlanDetails() {
   const showHotels = sortActivities.filter(activity => activity.hotel_booking)
   .map(activity => <Activity key={activity.id} mapHolderRef={mapHolderRef} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates} setPoint={setPoint}/>)
 
+  if (!dailyPlan.id) navigate("/")
+
   return (
     <div className="Activitypage flex bg-black h-full">
       {/* to show the add activity form */}

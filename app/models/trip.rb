@@ -4,6 +4,7 @@ class Trip < ApplicationRecord
   has_many :daily_plans, dependent: :destroy
   has_many :trip_plans, dependent: :destroy
   has_many :users, through: :trip_plans
+  has_many :transportation_plans, through: :daily_plans
 
   def self.new_trip(params)
     # create trip

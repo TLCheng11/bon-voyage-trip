@@ -10,7 +10,7 @@ function TripDetails() {
   const [firstTravel, setFirstTravel] = useState(true)
   const [updating, setUpdating] = useState(true)
 
-  // console.log(trip)
+  console.log(trip)
 
   useEffect(() => {
     fetch(`/trips/${params.trip_id}`)
@@ -20,15 +20,23 @@ function TripDetails() {
   }, [updating]);
 
   
-  // useEffect(() => {
-  //   if (trip.daily_plans.length > 0 && firstTravel) {
-  //     console.log((trip.daily_plans.sort((a,b) => (a.day_index - b.day_index)))[0])
-  //     if (!(trip.daily_plans.sort((a,b) => (a.day_index - b.day_index)))[0].transportation_plans) {
-  //         alert("Please set up your first travel plan for Day 1")
-  //         setFirstTravel(false)
-  //     }
-  //   }
-  // }, [trip]);
+  useEffect(() => {
+    if (trip.daily_plans.length > 0 && firstTravel) {
+      const activities = (trip.daily_plans.sort((a,b) => (a.day_index - b.day_index)))[0].activities || []
+      let hasPlan = false
+
+      activities.forEach(activity => {
+        if (activity.transportation_plan && !hasPlan) {
+          hasPlan = true
+        }
+      })
+
+      if (!hasPlan) {
+          alert("Please set up your first travel plan for Day 1")
+          setFirstTravel(false)
+      }
+    }
+  }, [trip]);
 
 
   function deleteTrip() {
@@ -80,6 +88,8 @@ function TripDetails() {
   const showDailyPlans = trip.daily_plans.sort((a,b) => a.day_index - b.day_index).map(plan => {
     return <DailyPlans key={plan.id} dailyPlan={plan} index={plan.day_index}/>
   })
+
+  if (!trip.id) navigate("/")
 
   return (
     <div>
