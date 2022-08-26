@@ -10,6 +10,7 @@ function MenuBar({setCurrentUser}) {
       .then(res => res.json())
       .then(console.log)
     setCurrentUser({})
+    navigate("/")
   }
 
   return (

@@ -1,7 +1,8 @@
 class TripsController < ApplicationController
   before_action :find_trip, only: [:show, :update, :destroy]
   def index
-    render json: Trip.all
+    user = User.find(session[:user_id])
+    render json: user.trips
   end
 
   def create
