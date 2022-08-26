@@ -91,6 +91,7 @@ function Map({mapHolderRef, coordinates, setCoordinates, nearby, point, setInfo,
         center={coordinates} 
         mapContainerClassName="h-192 w-full"
         options={options}
+        onClick={console.log}
         // onClick={onMapClick}
       > 
         {showMarkers}

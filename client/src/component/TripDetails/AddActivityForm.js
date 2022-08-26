@@ -281,10 +281,24 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
               console.log(child)
               postActivity()
             })
+      } else if (location) {
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.replaceAll(/[\s,.]+/g, "+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+          .then(res => {
+            if (res.ok) {
+            res.json().then(data => {
+              // console.log(data)
+              child.lat = data.results[0].geometry.location.lat
+              child.lng = data.results[0].geometry.location.lng
+              console.log(child)
+              postActivity()
+            })
+          } else {
+            alert("Location address not found")
+          }
+        })
       } else {
         postActivity()
       }
-
       
       function postActivity() {
         return fetch(url, {

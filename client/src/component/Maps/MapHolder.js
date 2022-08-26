@@ -6,7 +6,7 @@ function MapHolder({mapHolderRef, coordinates, setCoordinates, point, setPoint, 
   const [nearby, setNearby] = useState({});
 
   // console.log(nearby)
-  console.log(point)
+  // console.log(point)
 
   function searchNearby(type) {
     if(mapHolderRef.current) {

@@ -10,7 +10,7 @@ function TripDetails() {
   const [firstTravel, setFirstTravel] = useState(true)
   const [updating, setUpdating] = useState(true)
 
-  console.log(trip)
+  // console.log(trip)
 
   useEffect(() => {
     fetch(`/trips/${params.trip_id}`)

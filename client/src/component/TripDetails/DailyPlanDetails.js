@@ -65,7 +65,7 @@ function DailyPlanDetails() {
           <button 
           className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
           onClick={() => navigate(`/trip-details/${params.trip_id}`)}>Back</button>
-          <div className="h-2/3 w-full p-2 border rounded-xl font-bold bg-stone-300 content-center flex space-y-5 flex space-x-12">
+          <div className="h-2/3 w-full p-2 border rounded-xl font-bold bg-stone-300 content-center flex space-y-5 space-x-12">
             <h1>Day {params.day}</h1>
             <h2>{moment(dailyPlan.day).format("MM-DD-YYYY dddd")}</h2>
             <h2 className="cursor-pointer hover:underline" onClick={() => {
