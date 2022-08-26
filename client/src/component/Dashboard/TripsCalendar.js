@@ -120,7 +120,7 @@ function TripsCalender({dashboardProps}) {
                 type="button"
                 data-mdb-ripple="true"
                 data-mdb-ripple-color="light"
-                class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             >{nextCity ? `Destination: ${nextCity} (${nextCountry})` : "Select Destination"}</button>
           </NavLink>
         </div>
@@ -128,17 +128,17 @@ function TripsCalender({dashboardProps}) {
         type="button"
         data-mdb-ripple="true"
         data-mdb-ripple-color="light"
-        class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+        className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
         onClick={addTrip}>Add Trip</button>
       </div>
-      <Calendar
-        style={{ height: 600, margin: 25, padding: 10, opacity: 0.7, background: "linear-gradient(to right, #ddd6f3, #faaca8)"}}
-        localizer={localizer}
-        events={trips}
-        startAccessor="start"
-        endAccessor="end"
-        onSelectEvent={onSelectEvent}
-      />
+        <Calendar
+          style={{ height: 600, margin: 25, padding: 10, opacity: 0.85, background: "linear-gradient(to right, #ddd6f3, #faaca8)"}}
+          localizer={localizer}
+          events={trips}
+          startAccessor="start"
+          endAccessor="end"
+          onSelectEvent={onSelectEvent}
+        />
     </div>
   );
 }

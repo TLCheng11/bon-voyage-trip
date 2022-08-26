@@ -10,7 +10,7 @@ class TripsController < ApplicationController
   end
 
   def show
-    render json: @trip, serializer: TripShowSerializer
+    render json: @trip, serializer: TripShowSerializer, include: ["daily_plans", "daily_plans.activities.transportation_plan"]
   end
 
   def update

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Map from "./Map";
 
 function MapHolder({mapHolderRef, coordinates, setCoordinates, point, setPoint, setInfo, setAddingActivity, setAction}) {
@@ -6,7 +6,7 @@ function MapHolder({mapHolderRef, coordinates, setCoordinates, point, setPoint, 
   const [nearby, setNearby] = useState({});
 
   // console.log(nearby)
-  console.log(point)
+  // console.log(point)
 
   function searchNearby(type) {
     if(mapHolderRef.current) {

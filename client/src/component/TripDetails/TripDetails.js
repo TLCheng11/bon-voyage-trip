@@ -14,21 +14,34 @@ function TripDetails() {
 
   useEffect(() => {
     fetch(`/trips/${params.trip_id}`)
-      .then(res => res.json())
-      .then(data => setTrip(data))
-      .catch(console.error)
+      .then(res => {
+        if (res.ok) {
+          res.json().then(data => setTrip(data))
+        } else {
+          navigate("/")
+        }
+      }) 
+      .catch(console.log)
   }, [updating]);
 
   
-  // useEffect(() => {
-  //   if (trip.daily_plans.length > 0 && firstTravel) {
-  //     console.log((trip.daily_plans.sort((a,b) => (a.day_index - b.day_index)))[0])
-  //     if (!(trip.daily_plans.sort((a,b) => (a.day_index - b.day_index)))[0].transportation_plans) {
-  //         alert("Please set up your first travel plan for Day 1")
-  //         setFirstTravel(false)
-  //     }
-  //   }
-  // }, [trip]);
+  useEffect(() => {
+    if (trip.daily_plans.length > 0 && firstTravel) {
+      const activities = (trip.daily_plans.sort((a,b) => (a.day_index - b.day_index)))[0].activities || []
+      let hasPlan = false
+
+      activities.forEach(activity => {
+        if (activity.transportation_plan && !hasPlan) {
+          hasPlan = true
+        }
+      })
+
+      if (!hasPlan) {
+          alert("Please set up your first travel plan for Day 1")
+          setFirstTravel(false)
+      }
+    }
+  }, [trip]);
 
 
   function deleteTrip() {

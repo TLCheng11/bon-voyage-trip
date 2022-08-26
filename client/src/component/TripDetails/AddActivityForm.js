@@ -12,7 +12,7 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
   const params = useParams()
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("10:00")
-  const [type, setType] = useState("sight_spot")
+  const [type, setType] = useState("transportation_plan")
   const [description, setDescription] = useState("")
   // states for transportation
   const [transportationType, setTransportationType] = useState("Air")
@@ -37,6 +37,10 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
   const [lng, setLng] = useState(0)
 
   useEffect(() => {
+    if (action === "hotel") {
+      setType("hotel_booking")
+    }
+
     if (info.type && action === "fromMap") {
       const types = {
         lodging: "hotel_booking",
@@ -281,10 +285,25 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
               console.log(child)
               postActivity()
             })
+      } else if (location && lat === 0 && lng === 0) {
+        // console.log("getting location")
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.replaceAll(/[\s,.]+/g, "+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
+          .then(res => {
+            if (res.ok) {
+            res.json().then(data => {
+              // console.log(data)
+              child.lat = data.results[0].geometry.location.lat
+              child.lng = data.results[0].geometry.location.lng
+              console.log(child)
+              postActivity()
+            })
+          } else {
+            alert("Location address not found")
+          }
+        })
       } else {
         postActivity()
       }
-
       
       function postActivity() {
         return fetch(url, {
@@ -335,9 +354,9 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
               <div className="flex mx-3 my-2">
                 <p>Type:</p>
                 <select value={type} onChange={e => setType(e.target.value)}>
+                  <option value="transportation_plan">Travel</option>
                   <option value="sight_spot">Sight Seeing</option>
                   <option value="restaurant">Restaurant</option>
-                  <option value="transportation_plan">Travel</option>
                   <option value="hotel_booking">Lodging</option>
                 </select>
               </div>

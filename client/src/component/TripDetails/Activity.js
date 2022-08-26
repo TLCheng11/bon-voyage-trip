@@ -13,7 +13,7 @@ function Activity({mapHolderRef, activity, setActivities, setAction, setInfo, se
     hotel_booking: "https://img.icons8.com/external-linector-lineal-color-linector/64/000000/external-hotel-hotel-service-linector-lineal-color-linector.png",
   }
 
-  console.log(activity[type])
+  // console.log(activity[type])
 
   useEffect(() => {
     if (activity.sight_spot) {
@@ -114,7 +114,7 @@ function Activity({mapHolderRef, activity, setActivities, setAction, setInfo, se
                 onClick={() => {
                   setPoint({type, data: activity[type], iconUrl: iconUrl[type]})
                   setCoordinates({lat, lng})
-                  mapHolderRef.current.zoom = 17
+                  mapHolderRef.current.zoom = 16
                 }}
               />
             ) : (null)
@@ -128,7 +128,10 @@ function Activity({mapHolderRef, activity, setActivities, setAction, setInfo, se
           />
           <img className="h-7 w-7 cursor-pointer" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/000000/external-garbage-cleaning-flaticons-lineal-color-flat-icons.png" 
             alt="delete" 
-            onClick={deleteActivity}
+            onClick={() => {
+              deleteActivity()
+              setPoint({})
+            }}
           />
         </div>
       </div>

@@ -1,7 +1,4 @@
 import TripsCalender from "./TripsCalendar";
-import MapHolder from "../Maps/MapHolder";
-import { useState } from "react";
-import logo from "../../images/logo.png"
 
 
 
