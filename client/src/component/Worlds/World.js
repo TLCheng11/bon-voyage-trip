@@ -14,7 +14,7 @@ function World({country, setCountry, city, setCity}) {
   // const countryList = countries.features.map(feat => feat.properties.ADMIN)
   // console.log(countryList.slice(99))
   // console.log(countries)
-  console.log(place)
+  // console.log(place)
 
   useEffect(() => {
     const newList = {}
@@ -35,20 +35,23 @@ function World({country, setCountry, city, setCity}) {
 
     if (country !== city && city) {
       fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${country.split(" ").join("+")}+${city.split(" ").join("+")}&key=${process.env. REACT_APP_GOOGLE_MAP_API_KEY}`)
-        .then(res => res.json())
-        .then(data => {
-          console.log(data.results[0].geometry.location)
-          setPlace([{
-            name: city,
-            lat: data.results[0].geometry.location.lat,
-            lng: data.results[0].geometry.location.lng,
-            alt: 0.1,
-            size: 1.2,
-            radius: 0.5
-          }])
-          const coo = globeEl.current.getCoords(data.results[0].geometry.location.lat, data.results[0].geometry.location.lng, 0.8)
-          globeEl.current.controls().position0 = {x: coo.x, y: coo.y, z: coo.z}
-          globeEl.current.controls().reset()
+        .then(res => {
+          if (res.ok) {
+            res.json().then(data => {
+              console.log(data.results[0].geometry.location)
+              setPlace([{
+                name: city,
+                lat: data.results[0].geometry.location.lat,
+                lng: data.results[0].geometry.location.lng,
+                alt: 0.1,
+                size: 1.2,
+                radius: 0.5
+              }])
+              const coo = globeEl.current.getCoords(data.results[0].geometry.location.lat, data.results[0].geometry.location.lng, 0.8)
+              globeEl.current.controls().position0 = {x: coo.x, y: coo.y, z: coo.z}
+              globeEl.current.controls().reset()
+            })
+          }
         })
     }
   }, [city])
