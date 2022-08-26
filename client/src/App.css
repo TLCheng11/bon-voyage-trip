@@ -68,6 +68,9 @@
 
 .Activitypage {
     background: url('https://wallpapercave.com/wp/wp4191523.jpg');
-    background-repeat: no-repeat;
+    background-size: cover;
+}
+.Banner {
+    background: url('https://i0.wp.com/clickwallpapers.net/wp-content/uploads/2022/08/clickwallpapers-MountFuji-mundo-4k-img3.jpg?fit=3840%2C2160&ssl=1');
     background-size: cover;
 }

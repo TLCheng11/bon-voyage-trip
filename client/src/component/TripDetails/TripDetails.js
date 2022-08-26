@@ -82,13 +82,20 @@ function TripDetails() {
   })
 
   return (
-    <div>
-      <h1>{trip.title}</h1>
-      <div>{moment(trip.start_date).format("MM-DD-YYYY")} - {moment(trip.end_date).format("MM-DD-YYYY")}</div>
-      <button onClick={deleteTrip}>Delete Trip</button>
-      <button onClick={addDay}>Add Day</button>
-      <button onClick={deleteDay}>Delete Day</button>
-      <div className="grid grid-cols-4 gap-4 overflow-y-auto">
+    <div className="Banner h-screen">
+      <h1 className="flex rounded-t-md pr-4">{trip.title}</h1>
+      <div className="flex">{moment(trip.start_date).format("MM-DD-YYYY")} - {moment(trip.end_date).format("MM-DD-YYYY")}</div>
+      <div className="flex rounded-b-md">
+      <div className="flex flex-col space-y-2 pl-5 pt-2">
+      <button className=
+              "flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={deleteTrip}>Delete Trip</button>
+      <button className=
+              "flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={addDay}>Add Day</button>
+      <button className=
+              "flex bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={deleteDay}>Delete Day</button>
+      </div>
+      </div>
+      <div className="grid grid-cols-4 gap-4 overflow-y-auto bg">
         {showDailyPlans}
       </div>
     </div>

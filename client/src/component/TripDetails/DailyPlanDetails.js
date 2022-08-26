@@ -52,7 +52,7 @@ function DailyPlanDetails() {
   .map(activity => <Activity key={activity.id} mapHolderRef={mapHolderRef} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates} setPoint={setPoint}/>)
 
   return (
-    <div className="Activitypage flex bg-black h-full">
+    <div className="Activitypage flex bg-black h-screen w-screen">
       {/* to show the add activity form */}
       {
         addingActivity ? <AddActivityForm action={action} setAction={setAction} info={info} dailyPlan={dailyPlan} setAddingActivity={setAddingActivity} setActivities={setActivities} /> : null
