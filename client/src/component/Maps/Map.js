@@ -38,9 +38,9 @@ function Map({mapHolderRef, coordinates, setCoordinates, nearby, point, setInfo,
       position={point.type === "transportation_plan" ? {lat: point.data.destination_lat, lng: point.data.destination_lng} : {lat: point.data.lat, lng: point.data.lng}}
       icon={{
         url: point.iconUrl,
-        scaledSize: new window.google.maps.Size(40, 40),
+        scaledSize: new window.google.maps.Size(50, 50),
         origin: new window.google.maps.Point(0, 0),
-        anchor: new window.google.maps.Point(20, 20),
+        anchor: new window.google.maps.Point(25, 25),
       }}
       animation={window.google.maps.Animation.DROP}
       onClick={() => setPointSelected(point)}
@@ -53,9 +53,9 @@ function Map({mapHolderRef, coordinates, setCoordinates, nearby, point, setInfo,
       position={{lat: marker.geometry.location.lat, lng: marker.geometry.location.lng}}
       icon={{
         url: iconUrl[nearby.type],
-        scaledSize: new window.google.maps.Size(40, 40),
+        scaledSize: new window.google.maps.Size(50, 50),
         origin: new window.google.maps.Point(0, 0),
-        anchor: new window.google.maps.Point(20, 20),
+        anchor: new window.google.maps.Point(25, 25),
       }}
       animation={window.google.maps.Animation.DROP}
       onClick={() => setselectedMarker(marker)}
