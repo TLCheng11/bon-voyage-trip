@@ -14,9 +14,14 @@ function TripDetails() {
 
   useEffect(() => {
     fetch(`/trips/${params.trip_id}`)
-      .then(res => res.json())
-      .then(data => setTrip(data))
-      .catch(console.error)
+      .then(res => {
+        if (res.ok) {
+          res.json().then(data => setTrip(data))
+        } else {
+          navigate("/")
+        }
+      }) 
+      .catch(console.log)
   }, [updating]);
 
   
@@ -88,8 +93,6 @@ function TripDetails() {
   const showDailyPlans = trip.daily_plans.sort((a,b) => a.day_index - b.day_index).map(plan => {
     return <DailyPlans key={plan.id} dailyPlan={plan} index={plan.day_index}/>
   })
-
-  if (!trip.id) navigate("/")
 
   return (
     <div>

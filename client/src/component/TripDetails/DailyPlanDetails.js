@@ -24,12 +24,17 @@ function DailyPlanDetails() {
 
   useEffect(() => {
     fetch(`/daily_plans/${params.daily_plan_id}`)
-    .then(res => res.json())
-    .then(data => {
-      setDailyPlan(data)
-      setActivities(data.activities)
-      if (coordinates.lat === 0 && coordinates.lng === 0) {
-        setCoordinates({lat: data.city_lat, lng: data.city_lng})
+    .then(res => {
+      if (res.ok) {
+        res.json().then(data => {
+          setDailyPlan(data)
+          setActivities(data.activities)
+          if (coordinates.lat === 0 && coordinates.lng === 0) {
+            setCoordinates({lat: data.city_lat, lng: data.city_lng})
+          }
+        })
+      } else {
+        navigate("/")
       }
     })
     .catch(console.error)
@@ -50,8 +55,6 @@ function DailyPlanDetails() {
 
   const showHotels = sortActivities.filter(activity => activity.hotel_booking)
   .map(activity => <Activity key={activity.id} mapHolderRef={mapHolderRef} activity={activity} setActivities={setActivities} setAction={setAction} setInfo={setInfo} setAddingActivity={setAddingActivity} setDeletActivity={setDeletActivity} setCoordinates={setCoordinates} setPoint={setPoint}/>)
-
-  if (!dailyPlan.id) navigate("/")
 
   return (
     <div className="Activitypage flex bg-black h-full">
