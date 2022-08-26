@@ -84,7 +84,7 @@ function DailyPlanDetails() {
             <div>
               <button className=
               "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-              onClick={() => setAddingActivity(true)}>Add Activity</button>
+              onClick={() => setAddingActivity(true)}>Add Activity / Travel Plan</button>
             </div>
             <div>
               {showActivities}
