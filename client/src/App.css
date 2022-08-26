@@ -2,14 +2,15 @@
 .Dashboardbg {
     background: url('https://images.wallpaperscraft.com/image/single/waves_ocean_aerial_view_148218_2780x2780.jpg'); 
     background-size: cover;
-    background-repeat: repeat;
+    /* background-repeat: repeat; */
     -webkit-animation: backgroundScroll 20s linear infinite;
     animation: backgroundScroll 20s linear infinite;
     }
 .Dashboardbg1 {
     background: url('https://images.wallpaperscraft.com/image/single/waves_ocean_aerial_view_148218_2780x2780.jpg'); 
-    background-repeat: repeat;
-    background-size: 20vh;
+    background-size: cover;
+    /* background-repeat: repeat; */
+    /* background-size: 20vh; */
     -webkit-animation: backgroundScroll 20s linear infinite;
     animation: backgroundScroll 20s linear infinite;;
 }

@@ -116,6 +116,7 @@ function Map({mapHolderRef, coordinates, setCoordinates, nearby, point, setInfo,
                     ) : (null)
                 }
                 <button 
+                  className="text-blue-600 underline"
                   onClick={() => {
                     setInfo({...selectedMarker, type: nearby.type})
                     setAddingActivity(true)
