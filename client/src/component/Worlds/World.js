@@ -9,10 +9,12 @@ function World({country, setCountry, city, setCity}) {
   const [altitude, setAltitude] = useState(0.02);
   const [color, setColor] = useState(() => feat => 'rgba(88, 88, 192, 0.6)')
   const [transitionDuration, setTransitionDuration] = useState(1000);
+  const [place, setPlace] = useState([{name: null, lat: 0, lng: 0, alt: 0, size: 0, radius: 0}]);
 
   // const countryList = countries.features.map(feat => feat.properties.ADMIN)
   // console.log(countryList.slice(99))
   // console.log(countries)
+  console.log(place)
 
   useEffect(() => {
     const newList = {}
@@ -25,6 +27,31 @@ function World({country, setCountry, city, setCity}) {
     })
     setCountryList(newList)
   }, [countries]);
+
+  useEffect(() => {
+    if (!city) {
+      setPlace([{name: null, lat: 0, lng: 0, alt: 0, size: 0, radius: 0}])
+    }
+
+    if (country !== city && city) {
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${country.split(" ").join("+")}+${city.split(" ").join("+")}&key=${process.env. REACT_APP_GOOGLE_MAP_API_KEY}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data.results[0].geometry.location)
+          setPlace([{
+            name: city,
+            lat: data.results[0].geometry.location.lat,
+            lng: data.results[0].geometry.location.lng,
+            alt: 0.1,
+            size: 1.2,
+            radius: 0.5
+          }])
+          const coo = globeEl.current.getCoords(data.results[0].geometry.location.lat, data.results[0].geometry.location.lng, 0.8)
+          globeEl.current.controls().position0 = {x: coo.x, y: coo.y, z: coo.z}
+          globeEl.current.controls().reset()
+        })
+    }
+  }, [city])
 
   useEffect(() => {
     // load data
@@ -79,17 +106,6 @@ function World({country, setCountry, city, setCity}) {
     }
   }, [country]);
 
-  // const [places, setPlaces] = useState([]);
-
-  // useEffect(() => {
-  //   // load data
-  //   fetch('./datasets/ne_110m_populated_places_simple.geojson')
-  //     .then(res => res.json())
-  //     .then(({ features }) => setPlaces(features));
-  // }, []);
-
-  // console.log(places)
-
   return <Globe
     ref={globeEl}
     globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
@@ -114,14 +130,17 @@ function World({country, setCountry, city, setCity}) {
         }
       })
     }}
-    // labelsData={places}
-    // labelLat={d => d.properties.latitude}
-    // labelLng={d => d.properties.longitude}
-    // labelText={d => d.properties.name}
-    // labelSize={d => Math.sqrt(d.properties.pop_max) * 4e-4}
-    // labelDotRadius={d => Math.sqrt(d.properties.pop_max) * 4e-4}
-    // labelColor={() => 'rgba(255, 165, 0, 0.75)'}
-    // labelResolution={2}
+
+    // city label
+    labelsData={place}
+    labelLat={d => d.lat}
+    labelLng={d => d.lng}
+    labelAltitude={d => d.alt}
+    labelText={d => d.name}
+    labelSize={d => d.size}
+    labelDotRadius={d => d.radius}
+    labelColor={() => 'rgba(255, 165, 0, 0.75)'}
+    labelResolution={2}
   />;
 }
 
