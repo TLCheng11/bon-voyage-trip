@@ -34,16 +34,18 @@ function TransportationForm({
             <TimePicker value={endTime} onChange={setEndTime}/>
           </div>
         </div>
-        <select value={transportationType} onChange={e => setTransportationType(e.target.value)}>
-          <option value="Air">Air</option>
-          <option value="Train">Train</option>
-          <option value="Bus">Bus</option>
-          <option value="Ship">Ship</option>
-          <option value="Walking">On foot</option>
-        </select>
-        {
-          transportationType !== "Walking" ? <input placeholder="Provider Company" value={company} onChange={e => setCompany(e.target.value)} /> : null
-        }
+        <div className='m-3'>
+          <select value={transportationType} onChange={e => setTransportationType(e.target.value)}>
+            <option value="Air">Air</option>
+            <option value="Train">Train</option>
+            <option value="Bus">Bus</option>
+            <option value="Ship">Ship</option>
+            <option value="Walking">On foot</option>
+          </select>
+          {
+            transportationType !== "Walking" ? <input className='mx-3 border w-2/3 rounded-md' placeholder="Provider Company" value={company} onChange={e => setCompany(e.target.value)} /> : null
+          }
+        </div>
       </div>
       <div>
         <p>Destination:</p>
@@ -55,14 +57,16 @@ function TransportationForm({
           transportationType === "Air" ? (
             <div>
               <p>Airport: </p>
-              <p>
-                From: 
-                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
-              </p>
-              <p>
-                To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
-              </p>
+              <div className='mx-3'>
+                <p>
+                  From: 
+                  <input className='border w-full rounded-md' value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
+                </p>
+                <p>
+                  To:
+                  <input className='border w-full rounded-md' value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
+                </p>
+              </div>
             </div>
           ) : (null)
         }
@@ -72,11 +76,11 @@ function TransportationForm({
               <p>Station: </p>
               <p>
                 From: 
-                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
+                <input className='border w-full rounded-md' value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
               </p>
               <p>
                 To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
+                <input className='border w-full rounded-md' value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
               </p>
             </div>
           ) : (null)
@@ -87,11 +91,11 @@ function TransportationForm({
               <p>Seaport: </p>
               <p>
                 From: 
-                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
+                <input className='border w-full rounded-md' value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
               </p>
               <p>
                 To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
+                <input className='border w-full rounded-md' value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
               </p>
             </div>
           ) : (null)
@@ -102,18 +106,18 @@ function TransportationForm({
               Address:
               <p>
                 From: 
-                <input value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
+                <input className='border w-full rounded-md' value={departureStation} onChange={e => setDepartureStation(e.target.value)} placeholder="address"/>
               </p>
               <p>
                 To:
-                <input value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
+                <input className='border w-full rounded-md' value={destinationStation} onChange={e => setDestinationStation(e.target.value)} placeholder="address"/>
               </p>
             </div>
           ) : (null)
         }
         <div>
           <p>Additional Info:</p>
-          <textarea className="w-full" value={description} onChange={e => setDescription(e.target.value)} placeholder="optional" maxLength="250"/>
+          <textarea className="mx-3 w-11/12 border" value={description} onChange={e => setDescription(e.target.value)} placeholder="optional" maxLength="250"/>
         </div>
     </div>
   );

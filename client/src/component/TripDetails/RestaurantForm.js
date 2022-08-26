@@ -19,11 +19,11 @@ function RestaurantForm({
         <div>
           <p>
             Restaurant Name:
-            <input value={name} onChange={e => setName(e.target.value)} />
+            <input className='border w-full rounded-md' value={name} onChange={e => setName(e.target.value)} />
           </p>
           <p>
             Address:
-            <input value={location} onChange={e => setLocation(e.target.value)} />
+            <input className='border w-full rounded-md' value={location} onChange={e => setLocation(e.target.value)} />
           </p>
         </div>
         <div className="flex justify-evenly">
@@ -38,7 +38,7 @@ function RestaurantForm({
         </div>
         <div>
           <p>Additional Info:</p>
-          <textarea className="w-full" value={description} onChange={e => setDescription(e.target.value)} placeholder="optional" maxLength="250"/>
+          <textarea className="mx-3 w-11/12 border" value={description} onChange={e => setDescription(e.target.value)} placeholder="optional" maxLength="250"/>
         </div>
       </div>
     </div>
