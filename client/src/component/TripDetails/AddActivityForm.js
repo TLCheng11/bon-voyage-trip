@@ -285,7 +285,8 @@ function AddActivityForm({action, setAction, info, dailyPlan, setAddingActivity,
               console.log(child)
               postActivity()
             })
-      } else if (location) {
+      } else if (location && lat === 0 && lng === 0) {
+        // console.log("getting location")
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.replaceAll(/[\s,.]+/g, "+")}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`)
           .then(res => {
             if (res.ok) {
